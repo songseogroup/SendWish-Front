@@ -1,0 +1,132 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.p-focus {
+  box-shadow: none !important;
+  border-color: #39d2c0 !important;
+}
+.p-dropdown:not(.p-disabled):hover {
+  border-color: #39d2c0 !important;
+}
+.p-accordion-header-link {
+  background-color: transparent !important;
+  width: 40vw !important;
+  border: 0px !important;
+  border-bottom: 2px solid #000000 !important;
+  border-radius: 0px !important;
+}
+.p-accordion-content {
+  width: 40vw !important;
+  font-family: "Montserrat" !important;
+}
+.p-accordion-header-text {
+  font-family: "Montserrat" !important;
+  font-weight: 600 !important;
+  font-size: 32px !important;
+  color: #000000 !important;
+}
+@media (max-width: 1024px) {
+  .p-accordion-header-link {
+    width: 80vw !important;
+  }
+  .p-accordion-content {
+    width: 80vw !important;
+  }
+  .p-accordion-header-text {
+    font-size: 24px !important;
+  }
+}
+@media (max-width: 640px) {
+  .p-accordion-header-text {
+    font-size: 20px !important;
+  }
+}
+.p-timeline {
+  align-items: center !important;
+  margin-top: 100px;
+}
+.p-timeline
+  .p-timeline-event:first-child
+  .p-timeline-event-separator
+  .p-timeline-event-connector {
+  border-top-right-radius: 10px !important;
+  border-top-left-radius: 10px !important;
+}
+.p-timeline .p-timeline-event:nth-child(5) .p-timeline-event-connector {
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+.p-timeline-event {
+  min-height: 200px !important;
+  width: 700px !important;
+}
+.p-timeline-event-connector {
+  width: 12px !important;
+
+  background-color: black !important;
+}
+
+.p-inputtext {
+  width: 100%;
+  border-color: #dcdbdd !important;
+  font-family: "Poppins" !important;
+  border-radius: 12px !important;
+}
+.p-inputnumber-input {
+  border: none !important;
+}
+.p-inputtext:enabled:focus,
+.p-inputnumber-input:enabled:focus {
+  box-shadow: none !important;
+}
+.p-inputtext:enabled:hover,
+.p-inputnumber-input:enabled:hover {
+  border-color: #dcdbdd !important;
+}
+
+.p-float-label:has(input:focus) label,
+.p-float-label:has(input.p-filled) label {
+  top: 0.1rem !important;
+  font-size: 12px;
+  z-index: 5 !important;
+  background-color: white !important;
+}
+
+.p-checkbox.p-highlight .p-checkbox-box {
+  border-color: #39d2c0 !important;
+  background: #39d2c0 !important;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  background: white !important;
+}
+.p-datatable .p-sortable-column .p-column-title {
+  font-family: "Manrope" !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #6b6b6b !important;
+  text-transform: uppercase !important;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+  font-family: "Manrope" !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #6b6b6b !important;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  font-family: "Manrope" !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #6b6b6b !important;
+  text-transform: uppercase !important;
+}

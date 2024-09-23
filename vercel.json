@@ -1,0 +1,39 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/"
+    },
+    {
+      "src": "/signin",
+      "dest": "/"
+    },
+    {
+      "src": "/signup",
+      "dest": "/"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/"
+    },
+
+    {
+      "src": "/create-event",
+      "dest": "/"
+    },
+    {
+      "src": "/my-events",
+      "dest": "/"
+    },
+    {
+      "src": "/events/(.*)",
+      "dest": "/"
+    },
+    { "src": "/create-event/(.*)/(.*)", "dest": "/" },
+    {
+      "src": "/my-gifts",
+      "dest": "/"
+    },
+    { "src": "/signup-verify/(.*)/(.*)", "dest": "/" }
+  ]
+}
