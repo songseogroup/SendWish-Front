@@ -17,7 +17,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-    fetchData();
+    // fetchData();
 
     console.log("moin latif",amountDetails)
   }, [])

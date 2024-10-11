@@ -46,8 +46,8 @@ const UpdatePassword = () => {
       }
     
     } catch (error) {
-        toast.current.show({ severity: "error", detail: `${error.response.data.error}` });
-        console.log(error.response.data.error,"errororororroereoreore")
+        // toast.current.show({ severity: "error", detail: `${error.response.data.error}` });
+        console.log(error,"errororororroereoreore")
       setloader(false);
     }
   };

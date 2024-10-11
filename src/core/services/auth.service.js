@@ -44,8 +44,14 @@ export const UserSignup = async (data) => {
   };
 
   export const UpdatePasswords = async (data) => {
+    const token = localStorage.getItem("Token");
+
     try {
-      let response = await url.post("/auth/update-password", data);
+      let response = await url.post("/auth/update-password", data, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
       let responsebody={
         data:response.data,
         status:response.status

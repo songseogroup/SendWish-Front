@@ -1,8 +1,14 @@
 import url from "../configs/index";
 
 export const CreateEvent = async (data) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.post("/events", data);
+    let response = await url.post("/events", data, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,
@@ -17,8 +23,14 @@ export const CreateEvent = async (data) => {
   }
 };
 export const UpdateEvent = async ({data,id}) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.patch(`/events/${id}`, data);
+    let response = await url.patch(`/events/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,
@@ -33,8 +45,14 @@ export const UpdateEvent = async ({data,id}) => {
   }
 };
 export const GetUserEvent = async () => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.get("/events/myevents");
+    let response = await url.get("/events/myevents", {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,
@@ -49,8 +67,14 @@ export const GetUserEvent = async () => {
   }
 };
 export const GetEventById = async (id) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.get(`/events/${id}`);
+    let response = await url.get(`/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
    
     let responsebody = {
       data: response.data.data,
@@ -65,9 +89,15 @@ export const GetEventById = async (id) => {
     throw responsebody;
   }
 };
-export const DeletEvent = async (id) => {
+export const DeleteEvent = async (id) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.defaults(`/events/${id}`);
+    let response = await url.defaults(`/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,
@@ -82,8 +112,14 @@ export const DeletEvent = async (id) => {
   }
 };
 export const createPaymentIntent = async (id,data) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.put(`/events/createPaymentIntent/${id}`, data);
+    let response = await url.put(`/events/createPaymentIntent/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,
@@ -99,8 +135,14 @@ export const createPaymentIntent = async (id,data) => {
 }
 
 export const PaymentComplete = async (data) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.post("/payment", data);
+    let response = await url.post("/payment", data, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
     let responsebody = {
       data: response.data,
       status: response.status,

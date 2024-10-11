@@ -1,8 +1,13 @@
 import url from "../configs/index";
-export const GetUserAmount = async (token) => {
-  try {
-    let response = await url.get(`/payment/totalRecievedAmount`);
+export const GetUserAmount = async () => {
+  const token = localStorage.getItem("Token");
 
+  try {
+      let response = await url.get(`/payment/totalRecievedAmount`, {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
     let responsebody = {
       data: response.data.data,
       status: response.status,

@@ -1,8 +1,14 @@
 import url from "../configs/index";
 
 export const EventGifts = async (id) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.get(`/events/${id}/list-payments`);
+    let response = await url.get(`/events/${id}/list-payments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
 
     let responsebody = {
       data: response.data.data,
@@ -20,8 +26,14 @@ export const EventGifts = async (id) => {
 
 
 export const GiftDetails = async (id) => {
+  const token = localStorage.getItem("Token");
+
   try {
-    let response = await url.get(`/payment/${id}/event-details`);
+    let response = await url.get(`/payment/${id}/event-details`, {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+      },
+    });
 
     let responsebody = {
       data: response.data.data,
