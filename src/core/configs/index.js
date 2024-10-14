@@ -10,17 +10,22 @@ export const setAuthToken = (accessToken, refreshToken) => {
 
     if (accessToken !== null && accessToken !== undefined) {
       Accesstoken = accessToken;
+      console.log("moin undefined ha")
     } else {
       Accesstoken = localStorage.getItem("Token");
     }
     if (refreshToken !== null && refreshToken !== undefined) {
+      
+      console.log("moin refresh token ha")
       Refreshtoken = refreshToken;
     } else {
       Refreshtoken = localStorage.getItem("RefreshToken");
+      
+      console.log("moin refresh uthaya ha")
     }
 
     if (Accesstoken) {
-      instance.defaults.headers.common["Authorization"] = `${Accesstoken}`;
+      instance.defaults.headers.common["Authorization"] = `Bearer ${Accesstoken}`;
       instance.defaults.headers.common["refresh"] = `${Refreshtoken}`;
     } else {
       delete instance.defaults.headers.common["Authorization"];
