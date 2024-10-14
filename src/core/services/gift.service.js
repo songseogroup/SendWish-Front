@@ -6,7 +6,7 @@ export const EventGifts = async (id) => {
   try {
     let response = await url.get(`/events/${id}/list-payments`, {
       headers: {
-        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+        Authorization: ` ${token}`,  // Sending token as  token
       },
     });
 
@@ -31,7 +31,7 @@ export const GiftDetails = async (id) => {
   try {
     let response = await url.get(`/payment/${id}/event-details`, {
       headers: {
-        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+        Authorization: ` ${token}`,  // Sending token as  token
       },
     });
 
