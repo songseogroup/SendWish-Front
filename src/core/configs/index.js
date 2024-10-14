@@ -5,8 +5,9 @@ const instance = axios.create({
 });
 export const setAuthToken = (accessToken, refreshToken) => {
   try {
-    let Accesstoken = "";
-    let Refreshtoken = "";
+    let Accesstoken = accessToken || localStorage.getItem("Token");
+    let Refreshtoken = refreshToken || localStorage.getItem("RefreshToken");
+
 
     if (accessToken !== null && accessToken !== undefined) {
       Accesstoken = accessToken;
