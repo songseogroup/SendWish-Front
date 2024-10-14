@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 export const AiModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-
+  const [recipient,setReciepent] = useState("")
+  const [relation ,setRelation] = useState("")
+   const [occasion,setOccasion] = useState("")
   return (
     <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
 
@@ -20,6 +22,9 @@ export const AiModal = ({ isOpen, onClose }) => {
           <input
             type="text"
             id="recipientName"
+            onChange={(e) => {
+              setReciepent(e.target.value)
+            }}
             placeholder="Recipient Name"
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
@@ -29,10 +34,10 @@ export const AiModal = ({ isOpen, onClose }) => {
         <div className="mb-4">
           <p className="text-gray-700 font-medium mb-2">The occasion is</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Farewell</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Birthday</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Funeral</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Wedding</button>
+            <button style={{color:"white"}} onClick={()=>{setOccasion("Farewell")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Farewell</button>
+            <button style={{color:"white"}} onClick={()=>{setOccasion("Birthday")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Birthday</button>
+            <button style={{color:"white"}} onClick={()=>{setOccasion("Funeral")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Funeral</button>
+            <button style={{color:"white"}} onClick={()=>{setOccasion("Wedding")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Wedding</button>
           </div>
         </div>
 
@@ -40,10 +45,10 @@ export const AiModal = ({ isOpen, onClose }) => {
         <div className="mb-4">
           <p className="text-gray-700 font-medium mb-2">The recipient is my</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Friend</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Colleague</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Parents</button>
-            <button style={{color:"white"}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Siblings</button>
+            <button style={{color:"white"}} onClick={()=>{setRelation("Friend")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Friend</button>
+            <button style={{color:"white"}} onClick={()=>{setRelation("Colleague")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Colleague</button>
+            <button style={{color:"white"}} onClick={()=>{setRelation("Parent")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Parent</button>
+            <button style={{color:"white"}} onClick={()=>{setRelation("Sibling")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Sibling</button>
           </div>
         </div>
 
