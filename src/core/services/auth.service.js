@@ -62,9 +62,13 @@ export const UserSignup = async (data) => {
     }
   };
 
-  export const UserSignupVerify = async () => {
+  export const UserSignupVerify = async (token) => {
     try {
-      let response = await url.get("/auth/sign-up/confirm");
+      let response = await url.get("/auth/sign-up/confirm", {
+        headers: {
+          Authorization: `${token}`, 
+        },
+      });
       let responsebody={
         data:response.data,
         status:response.status

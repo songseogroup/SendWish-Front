@@ -1,0 +1,12 @@
+.hamburr {
+  display: none;
+}
+
+@media (max-width: 490px) {
+  .bittons {
+    display: none;
+  }
+  .hamburr {
+    display: block;
+  }
+}/*# sourceMappingURL=desktop.css.map */

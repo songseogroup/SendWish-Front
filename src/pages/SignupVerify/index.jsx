@@ -11,7 +11,7 @@ const SignupVerify = () => {
   const [loader, setloader] = useState(false);
   const { accessToken, refreshToken } = useParams();
   const [verified, setverified] = useState("");
-
+ console.log(accessToken,refreshToken,"askasasdasa")
   const toast = useRef();
   const verifySignup = async () => {
     try {
@@ -19,7 +19,7 @@ const SignupVerify = () => {
       setloader(true);
       localStorage.setItem("AccessToken", accessToken);
       localStorage.setItem("RefreshToken", refreshToken);
-      let response = await UserSignupVerify();
+      let response = await UserSignupVerify(accessToken);
       if (response.status === 201 || response.status === 200) {
         setloader(false);
 

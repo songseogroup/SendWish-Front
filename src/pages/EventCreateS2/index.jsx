@@ -12,6 +12,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 import { createPaymentIntent } from "./../../core/services/event.service";
+import { AiModal } from "../../components/Modal/AiModal";
 
 const EventCreateS2 = () => {
   const { event_url, id } = useParams();
@@ -22,6 +23,7 @@ const EventCreateS2 = () => {
   const [paymentIntent, setPaymentIntent] = useState(null);
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
+  const [showModal,setShowModal] = useState(false)
   const userdata = JSON.parse(localStorage.getItem("user"));
   const [eventsData, setEventsData] = useState({
     event_name: "",
@@ -160,6 +162,9 @@ const EventCreateS2 = () => {
                 <img src={eventsData.image} alt="image" />
               </div>
               <div className="flex flex-col gap-10 mt-2">
+               <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
+                   Generate message with LOLA AI
+               </button>
                 <FloatInputTextArea
                   id="Message"
                   label="Gift Message"
@@ -232,6 +237,9 @@ const EventCreateS2 = () => {
               Next
             </button>
           </div>
+          <>
+            <AiModal isOpen={showModal} onClose={()=>{setShowModal(false)}}/>
+          </>
         </div>
       )}
     </>

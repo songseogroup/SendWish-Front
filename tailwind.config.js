@@ -49,6 +49,7 @@ export default {
       'secondary-green':'#109186',
       'dark-green':'#1E8078',
       'light-green':'#9BE8DF',
+      'tel': '39D2C0',
       'orange':'#FF8548',
       'blue':'#4285F4',
       'black':'#202020',

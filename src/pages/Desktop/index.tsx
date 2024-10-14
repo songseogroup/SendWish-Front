@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Image1 from "../../../src/assets/images/desktop-img1.png";
 import Image2 from "../../../src/assets/images/desktop-img4.png";
 import Image3 from "../../../src/assets/images/desktop-img7.png";
@@ -8,6 +8,12 @@ import Image6 from "../../../src/assets/images/desktop-img8.png";
 import Image7 from "../../../src/assets/images/desktop-img3.png";
 import Image8 from "../../../src/assets/images/desktop-img6.png";
 import Logo from "../../../src/assets/images/logo.png";
+import { Menu } from 'primereact/menu';
+import { Button } from 'primereact/button';
+import 'primereact/resources/themes/saga-blue/theme.css';  // Theme
+import 'primereact/resources/primereact.min.css';          // Core CSS
+import 'primeicons/primeicons.css';     
+import "./desktop.css"
 import WorkTimeline from "../../components/screen-components/WorkTimeline";
 import { useNavigate } from "react-router-dom";
 import FaqsPic from "../../../src/assets/images/questions-bro.png";
@@ -27,7 +33,12 @@ const Desktop = () => {
       setShowHeader(false);
     }
   };
-
+  const menu = useRef(null);
+  const items = [
+    { label: 'Login', icon: 'pi pi-sign-in', command: () => navigate('/signin') }, // Navigate to Login page
+    { label: 'Sign Up', icon: 'pi pi-user-plus', command: () => navigate('/signup') } // Navigate to Sign Up page
+ 
+  ];
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -42,10 +53,22 @@ const Desktop = () => {
             showHeader ? "translate-y-0" : "-translate-y-full"
           }`}
         >
-          <h3 className="text-primary font-bold text-[36px] font-poppins">
+          <h3 className="text-primary font-bold text-[22px] md:text-[36px] font-poppins">
             SendWish
           </h3>
-          <div className="flex gap-5">
+          <div className="hamburr">  
+          <Button
+         icon="pi pi-bars"
+         className="p-button-rounded p-button-text"
+         style={{ color: 'black', fontSize: '1.5rem' }} // Black color for the hamburger
+         onClick={(e) => menu.current.toggle(e)}
+      />
+
+      {/* PrimeReact Menu */}
+      {/* <Menu model={items}  show={menuVisible} onHide={() => setMenuVisible(false)} /> */}
+      <Menu model={items} popup ref={menu} />
+          </div>
+          <div className="flex gap-5 bittons">
             <button
               onClick={() => {
                 navigate("/signin");
