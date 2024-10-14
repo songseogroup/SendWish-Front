@@ -58,7 +58,7 @@ export const AiModal = ({ isOpen, onClose }) => {
             type="button"
             style={{color:"white"}} 
             className="bg-primary  text-gray-700 py-2 px-4 rounded hover:bg-light-green"
-            onClick={() => { /* Clear form logic */ }}
+            onClick={() => { setOccasion(''),setReciepent(''),setRelation('') }}
           >
             Clear all
           </button>
@@ -74,7 +74,7 @@ export const AiModal = ({ isOpen, onClose }) => {
 
         {/* Close Button */}
         <button
-          type="button"
+          type="button" 
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
           onClick={onClose}
         >
