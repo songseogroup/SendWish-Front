@@ -26,7 +26,7 @@ export const setAuthToken = (accessToken, refreshToken) => {
     }
 
     if (Accesstoken) {
-      instance.defaults.headers.common["Authorization"] = `Bearer ${Accesstoken}`;
+      instance.defaults.headers.common["Authorization"] = ` ${Accesstoken}`;
       instance.defaults.headers.common["refresh"] = `${Refreshtoken}`;
     } else {
       delete instance.defaults.headers.common["Authorization"];

@@ -49,7 +49,7 @@ export const UserSignup = async (data) => {
     try {
       let response = await url.post("/auth/update-password", data, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: ` ${token}`, 
         },
       });
       let responsebody={

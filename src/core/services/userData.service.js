@@ -5,7 +5,7 @@ export const GetUserAmount = async () => {
   try {
       let response = await url.get(`/payment/totalRecievedAmount`, {
       headers: {
-        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
+        Authorization: ` ${token}`,  // Sending token as Bearer token
       },
     });
     let responsebody = {
