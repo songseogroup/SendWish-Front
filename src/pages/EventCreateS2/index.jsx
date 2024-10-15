@@ -136,6 +136,12 @@ const EventCreateS2 = () => {
   useEffect(() => {
     GetEventsData();
   }, []);
+   const setNewMessage = (message)=>{
+    setEventsData({
+      ...eventsData,
+      giftmessage: message,
+    })
+   }
   return (
     <>
       <Toast ref={toast} />
@@ -238,7 +244,7 @@ const EventCreateS2 = () => {
             </button>
           </div>
           <>
-            <AiModal isOpen={showModal} onClose={()=>{setShowModal(false)}}/>
+            <AiModal isOpen={showModal} onClose={()=>{setShowModal(false)}} setNewMessage={setNewMessage}/>
           </>
         </div>
       )}

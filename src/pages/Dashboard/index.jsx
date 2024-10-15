@@ -9,14 +9,14 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await GetUserAmount();
+        const response = await GetUserAmount();
         setAmountDetails(response.data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    // fetchData();
+    fetchData();
     // fetchData();
 
     // console.log("moin latif",amountDetails)

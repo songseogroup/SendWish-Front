@@ -1,10 +1,29 @@
+import { senderAiMessage } from '../../core/services/userData.service';
 import React, { useState } from 'react';
 
-export const AiModal = ({ isOpen, onClose }) => {
+export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
   if (!isOpen) return null;
   const [recipient,setReciepent] = useState("")
   const [relation ,setRelation] = useState("")
    const [occasion,setOccasion] = useState("")
+
+   const handleSubmit = async ()=>{
+     if (recipient === ""){
+      
+     }else if (relation === ""){
+      
+     }else if (occasion === ""){
+      
+     }else {
+      const response =await senderAiMessage({
+        "recipient":recipient,
+        "occasion":occasion,
+        "relation":relation
+    })
+    console.log("saajna",response?.data?.message)
+     setNewMessage(response?.data?.message)
+     }
+   }
   return (
     <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
 
@@ -66,7 +85,7 @@ export const AiModal = ({ isOpen, onClose }) => {
             type="button"
             style={{color:"white"}} 
             className="bg-primary  text-white py-2 px-4 rounded hover:bg-light-green"
-            onClick={() => { /* Generate message logic */ }}
+            onClick={() => { handleSubmit()}}
           >
             Generate message
           </button>

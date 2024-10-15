@@ -31,9 +31,10 @@ export const  senderAiMessage = async (data) => {
       },
     })
     let responsebody = {
-      data: response.data.data,
+      data: response.data,
       status: response.status,
     };
+    return responsebody
    } catch (error) {
     let responsebody = {
       data: error.response ? error.response.data : null,
