@@ -18,7 +18,8 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
       const response =await senderAiMessage({
         "recipient":recipient,
         "occasion":occasion,
-        "relation":relation
+        "relation":relation,
+        "type":"g-sender"
     })
     console.log("saajna",response?.data?.message)
      setNewMessage(response?.data?.message)
