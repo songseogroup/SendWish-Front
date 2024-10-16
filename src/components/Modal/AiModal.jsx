@@ -6,7 +6,14 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
   const [recipient,setReciepent] = useState("")
   const [relation ,setRelation] = useState("")
    const [occasion,setOccasion] = useState("")
-
+   function formatDateToDDMMYYYY(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = date.getFullYear();
+    
+    return `${year}-${month}-${day}`;
+  }
    const handleSubmit = async ()=>{
      if (recipient === ""){
       
@@ -20,7 +27,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
         "occasion":occasion,
         "relation":relation,
         "type":"g-sender",
-        "date": new Date()
+        "date": formatDateToDDMMYYYY(new Date().toISOString())
     })
     console.log("saajna",response?.data?.message)
      setNewMessage(response?.data?.message)
@@ -56,7 +63,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
         <div className="mb-4">
           <p className="text-gray-700 font-medium mb-2">The occasion is</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Farewell")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Farewell</button>
+{            <button style={{color:"white"}} onClick={()=>{setOccasion("Farewell")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Farewell</button>}
             <button style={{color:"white"}} onClick={()=>{setOccasion("Birthday")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Birthday</button>
             <button style={{color:"white"}} onClick={()=>{setOccasion("Funeral")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Funeral</button>
             <button style={{color:"white"}} onClick={()=>{setOccasion("Wedding")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Wedding</button>

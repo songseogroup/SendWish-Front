@@ -151,3 +151,28 @@ body {
 .google-login-button:hover {
   background-color: #357AE8; /* Darker shade on hover */
 }
+.pay-btn{
+  background: white !important;
+  border-radius:5px;
+  color:black !important;
+}
+
+.pay-btns{
+  border: 2px solid white !important;
+  border-radius:5px;
+}
+.pay-btn:hover{
+  background: transparent !important;
+  border-radius:5px;
+  color:white !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+}
+
+.pay-btns:hover{
+  border: 2px solid white !important;
+  border-radius:5px;
+  background: white !important;
+  color:black !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+
+}

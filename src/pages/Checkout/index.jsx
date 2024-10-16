@@ -211,12 +211,13 @@ const StripeCheckoutForm = ({
             </div>
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <div className="flex justify-between">
-              <PayButton type="button" onClick={() => navigate(-1)}>
+            <div className="flex justify-between gap-3">
+              <PayButton className="pay-btn" type="button" onClick={() => navigate(-1)}>
                 Back
               </PayButton>
               <PayButton
                 type="submit"
+                className="pay-btns"
                 disabled={!stripe || !elements || loading}
               >
                 {loading ? "Processing..." : "Give Gift"}
@@ -226,7 +227,14 @@ const StripeCheckoutForm = ({
             <Dialog
               visible={showDialog}
               style={{ width: "350px" }}
-              onHide={closeDialog}
+              onHide={() => {
+                  setShowDialog(false);
+                  navigate("/dashboard");
+                  closeDialog()
+                  setTimeout(() => {
+                    navigate("/dashboard");
+                  }, 1000);
+                }}
             >
               <p className="mb-5 text-base font-bold text-center font-poppins">
                 Your payment was processed successfully!
