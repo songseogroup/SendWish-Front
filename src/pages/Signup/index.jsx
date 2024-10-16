@@ -65,7 +65,7 @@ const Signup = () => {
            <p className="text-2xl font-medium text-center text-black font-poppins md:text-left">
               Sign up to SendWish
              </p>
-             <div className="flex gap-4 mt-8">
+             {/* <div className="flex gap-4 mt-8">
               <button className="w-full bg-blue rounded-xl h-12 font-poppins text-[white] text-sm text-center flex items-center pl-5">
                  <i className="pi pi-google" style={{ fontSize: "1rem" }}></i>
                  <span className="w-full text-center">Sign in with Google</span>
@@ -81,7 +81,7 @@ const Signup = () => {
                <div className="w-[48%] h-[1px] bg-gray"></div>
                <span className="text-gray-400 font-poppins">or</span>
                <div className="w-[48%] h-[1px] bg-gray"></div>
-            </div>
+            </div> */}
              <div className="flex flex-col gap-7 mt-7">
               <FloatInput
                  value={userdata.email}

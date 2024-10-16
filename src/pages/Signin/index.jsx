@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-
+import { GoogleLogin } from '@react-oauth/google';
 import FloatInput from "../../components/ui/Inputs/FloatInput";
 import PasswordInput from "../../components/ui/Inputs/PasswordInput";
 import { UserSignin } from "../../core/services/auth.service";
@@ -47,6 +47,23 @@ const Signin = () => {
       }
     }
   };
+
+  // const handleSuccess = (response) => {
+  //   // console.log('Google ID Token:', response.credential);
+
+  //   // Send the Google ID token to the backend
+  //   fetch('http://localhost:3000/api/auth/google', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       // 'Authorization':`Bearer ${response.credential}`
+  //     },
+  //     body: JSON.stringify({ token: `${response.credential}` }),
+  //   })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log('Backend response:', data))
+  //   .catch((error) => console.error('Error:', error));
+  // };
   return (
     <div className="flex min-h-screen">
       <div className="hidden lg:flex w-[510px] bg-primary  relative flex-col justify-between min-h-screen">
@@ -76,10 +93,17 @@ const Signin = () => {
             <p className="text-2xl font-medium text-black font-poppins">
               Sign in to SendWish
             </p>
-            <div className="flex gap-4 mt-8">
+            {/* <div className="flex gap-4 mt-8">
               <button className="w-full bg-blue rounded-xl h-12 font-poppins text-[white] text-sm text-center flex items-center pl-5">
                 <i className="pi pi-google" style={{ fontSize: "1.2rem" }}></i>
                 <span className="w-full text-center">Sign in with Google</span>
+                <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+         className="google-login-button"
+      />
               </button>
               <button className="flex items-center justify-center w-12 h-12 border border-gray rounded-xl">
                 <i
@@ -92,7 +116,7 @@ const Signin = () => {
               <div className="w-[48%] h-[1px] bg-gray"></div>
               <span className="text-gray-400 font-poppins">or</span>
               <div className="w-[48%] h-[1px] bg-gray"></div>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-7 mt-7">
               <FloatInput
                 value={userdata.email}
@@ -125,8 +149,8 @@ const Signin = () => {
               </button>
             </div>
           </div>
-          <p className="mt-4 text-xs font-normal text-gray-400 font-poppins">
-            Protected by reCAPTCHA and subject to the{" "}
+          <p className="mt-4 text-xs font-normal text-gray-400 font-poppins text-right">
+            {/* Protected by reCAPTCHA and subject to the{" "} */}
             <span className="text-primary">SendWish Privacy Policy</span> and{" "}
             <span className="text-primary">Terms of Service.</span>
           </p>

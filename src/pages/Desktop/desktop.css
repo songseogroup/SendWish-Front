@@ -2,11 +2,25 @@
   display: none;
 }
 
+.bittonss {
+  display: none;
+}
+
+@media (max-width: 1020px) {
+  .bittonss {
+    display: flex;
+    margin-bottom: 50px;
+  }
+}
 @media (max-width: 490px) {
   .bittons {
     display: none;
   }
   .hamburr {
     display: block;
+  }
+  .bittonss {
+    display: flex;
+    margin-bottom: 50px;
   }
 }/*# sourceMappingURL=desktop.css.map */

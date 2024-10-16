@@ -97,7 +97,24 @@ const Desktop = () => {
                 Gifting Made Easy. <br />
                 Perfect For Gifting For All Occasions.
               </p>
-              <button></button>
+              <div className="flex gap-5 bittonss">
+            <button
+              onClick={() => {
+                navigate("/signin");
+              }}
+              className="px-10 text-[white] font-poppins py-2 rounded-3xl bg-primary"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => {
+                navigate("/signup");
+              }}
+              className="px-10 text-[white] font-poppins py-2 rounded-3xl bg-primary"
+            >
+              Sign Up
+            </button>
+          </div>
             </div>
             <div className="flex order-1 gap-5 lg:order-1">
               <div className="flex flex-col justify-between gap-4">
