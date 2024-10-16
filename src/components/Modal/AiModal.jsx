@@ -19,7 +19,8 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
         "recipient":recipient,
         "occasion":occasion,
         "relation":relation,
-        "type":"g-sender"
+        "type":"g-sender",
+        "date": new Date()
     })
     console.log("saajna",response?.data?.message)
      setNewMessage(response?.data?.message)
