@@ -22,6 +22,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
     })
     console.log("saajna",response?.data?.message)
      setNewMessage(response?.data?.message)
+     onClose()
      }
    }
   return (
