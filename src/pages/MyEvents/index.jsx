@@ -6,6 +6,7 @@ import { CustomMenu } from "../../global.styles";
 import { FrontendUrl } from "../../core/configs";
 import dotImg from "../../assets/icons/dots.svg";
 import { ProgressSpinner } from "primereact/progressspinner";
+import {DeleteEvent} from "../../core/services/event.service"
 import { useNavigate } from "react-router-dom";
 const MyEvents = () => {
   const [products, setproducts] = useState([]);
@@ -34,8 +35,14 @@ const MyEvents = () => {
       setloading(false);
     }
   };
-  const deleteEvent = (id) => {
+  const deleteEvent =async (id) => {
     console.log(id, "id");
+    let response = await DeleteEvent(id);
+    console.log(response)
+    toast.current.show({
+      severity: "error",
+      detail: `${response.data}`,
+    });
   };
   const EditEvent = (id) => {
     navigate(`/events/${id}`);
@@ -78,22 +85,22 @@ const MyEvents = () => {
             );
           },
         },
-        {
-          label: "Delete Event",
+        // {
+        //   label: "Delete Event",
 
-          template: () => {
-            return (
-              <div
-                className="flex gap-1 items-center justify-center  text-[13px] font-[400] text-[#21212]"
-                onClick={() => {
-                  deleteEvent(rowData.eid);
-                }}
-              >
-                Delete
-              </div>
-            );
-          },
-        },
+        //   template: () => {
+        //     return (
+        //       <div
+        //         className="flex gap-1 items-center justify-center  text-[13px] font-[400] text-[#21212]"
+        //         onClick={() => {
+        //           deleteEvent(rowData.eid);
+        //         }}
+        //       >
+        //         Delete
+        //       </div>
+        //     );
+        //   },
+        // },
       ];
 
       return (
@@ -163,11 +170,11 @@ const MyEvents = () => {
               header="URL"
               style={{ minWidth: "10rem" }}
             ></Column>
-            <Column
+            {/* <Column
               field="event_description"
               header="DESCRIPTION"
               style={{ minWidth: "16rem" }}
-            ></Column>
+            ></Column> */}
             <Column
               field="date"
               header="EVENT DATE"

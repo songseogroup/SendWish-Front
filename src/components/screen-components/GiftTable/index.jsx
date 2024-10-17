@@ -68,7 +68,7 @@ const orderDateTemplate = (rowData) => {
                     <Column field="pid" header="Order ID" sortable style={{ minWidth: '12rem' }}></Column>
                     <Column  body={senderTemplate} header="Sender" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="gift_amount" header="Amount" sortable style={{ minWidth: '16rem' }}></Column>
-                    <Column field="gift_message" header="Gift Message" sortable style={{ minWidth: '16rem' }}></Column>
+                    {/* <Column field="gift_message" header="Gift Message" sortable style={{ minWidth: '16rem' }}></Column> */}
                     <Column body={orderDateTemplate} header="Order Date" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column header="Details" body={detailsButtonTemplate} style={{ minWidth: '16rem' }}></Column> 
                    

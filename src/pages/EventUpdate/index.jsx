@@ -35,23 +35,22 @@ const EventUpdate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const eventurl = eventData.URL.replace(" ", "_");
+      const eventurl = eventData.URL.replace(" ", "_");  // Ensure correct URL format
       let body = {
-        date: eventData.Date,
+        // date: eventData.Date,
         event_name: eventData.EventName,
-        image: files[0]?.preview || "",
+        image: files[0]?.preview || "",  // Using file preview
         event_description: eventData.Description,
-        event_url: eventurl,
+        // event_url: eventurl,
       };
-        let response = await UpdateEvent({id,body})
-        if(response.status===200 || response.status===201){
-          toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
-          setTimeout(()=>{
-            navigate('/my-events')
-          },2000)
-        }else{
-          toast.current.show({ severity: "error", detail: `Something Went Wrong` });
-        }
+      console.log(body); // Logging the body to check
+      let response = await UpdateEvent(body,id );  // Make sure id and body are passed correctly
+      if (response.status === 200 || response.status === 201) {
+        console.log(response);
+        toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
+      } else {
+        toast.current.show({ severity: "error", detail: `Something Went Wrong` });
+      }
     } catch (err) {
       toast.current.show({
         severity: "error",
@@ -59,6 +58,7 @@ const EventUpdate = () => {
       });
     }
   };
+  
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const GetEventsData = async () => {
     try {
@@ -163,14 +163,10 @@ const EventUpdate = () => {
                 className="!border-0 !border-primary !border-b !rounded-none mt-3"
               />
               <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
-                We are so excited to celebrate with you! <br /> If you would
-                like to give us a gift, we would be grateful for a contribution
-                to our wishingwell - this will help make our house a home!
-                <br /> We would also love if you could leave a message below in
-                lieu of a card. Can't wait to see you soon!
+                We are so excited to celebrate with you! 
               </p>
               <div className="flex flex-col gap-10 ">
-                <FloatInput
+                <FloatInputTextArea
                   value={eventData.Description}
                   onChange={(e) =>
                     seteventData({ ...eventData, Description: e.target.value })

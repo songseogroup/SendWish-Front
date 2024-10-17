@@ -8,9 +8,11 @@ import { CreateEvent } from "../../core/services/event.service";
 import { FrontendUrl } from "../../core/configs/index";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
+import { AiCreator } from "../../components/Modal/AiCreator";
 const EventCreate = () => {
   const toast = useRef();
   const navigate = useNavigate();
+  const [showModal,setShowModal] = useState(false)
   const [eventData, seteventData] = useState({
     Date: "",
     URL: "",
@@ -18,6 +20,12 @@ const EventCreate = () => {
     Description: "",
   });
   const [files, setFiles] = useState([]);
+  const setNewMessage = (message)=>{
+    seteventData({
+      ...eventData,
+      Description: message,
+    })
+   }
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.map((file) =>
@@ -116,7 +124,7 @@ const EventCreate = () => {
               className="!border-0 !border-primary !border-b !rounded-none text-[14px]"
               type="date"
             />
-            <p className="text-[#202020] font-poppins font-[500] text-[12px] ">
+            <p className="text-[#202020] font-poppins font-[500] text-[10px] ">
               Your gifting page will expire automatically 7 days after your
               event
             </p>
@@ -150,17 +158,20 @@ const EventCreate = () => {
             labelclass="!text-[#84818A] !text-[14px]"
             className="!border-0 !border-primary !border-b !rounded-none mt-3"
           />
-          <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
+
+         
+          <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
+                   Generate message with LOLA AI
+               </button>
+               <p className="text-[#202020] font-poppins font-[500] text-center text-[14px] ">
+               <span className="text-center">or</span>
+<br></br>
             Write Your Message
-            {/* We are so excited to celebrate with you! <br /> If you would like to
-            give us a gift, we would be grateful for a contribution to our
-            wishingwell - this will help make our house a home!
-            <br /> We would also love if you could leave a message below in lieu
-            of a card. Can't wait to see you soon! */}
           </p>
           <div className="flex flex-col gap-10 ">
-            <FloatInput
-              value={eventData.Description}
+    
+                <FloatInputTextArea
+                   value={eventData.Description}
               onChange={(e) =>
                 seteventData({ ...eventData, Description: e.target.value })
               }
@@ -168,7 +179,7 @@ const EventCreate = () => {
               label="Description"
               labelclass="!text-[#84818A] !text-[14px]"
               className="!border-0 !border-primary !border-b !rounded-none "
-            />
+                />
           </div>
         </div>
 
@@ -208,7 +219,13 @@ const EventCreate = () => {
           Save
         </button>
       </div>
+      <>
+      <>
+            <AiCreator isOpen={showModal} onClose={()=>{setShowModal(false)}} setNewMessage={setNewMessage} date={eventData}/>
+          </>
+      </>
     </div>
+
   );
 };
 

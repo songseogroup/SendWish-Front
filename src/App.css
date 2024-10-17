@@ -176,3 +176,20 @@ body {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
 
 }
+@media (max-width: 890px) {
+.singo{
+  display: flex;
+  height:100vh;
+  flex-direction:column
+}
+.singo .sing{
+  height:100% !important;
+  min-height:30% !important;
+}
+.singo .sing h1 {
+  display:none;
+}
+.singss{
+  align-items:center;
+}
+}

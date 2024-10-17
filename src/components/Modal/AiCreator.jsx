@@ -1,12 +1,16 @@
 import { senderAiMessage } from '../../core/services/userData.service';
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
+import { Toast } from "primereact/toast";
 
-export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
+
+export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
   if (!isOpen) return null;
-  const [recipient,setReciepent] = useState("")
-  const [relation ,setRelation] = useState("")
+  const [recipient,setReciepent] = useState("reciepent")
+  const [relation ,setRelation] = useState("relation")
    const [occasion,setOccasion] = useState("")
+   const toast = useRef();
    const [loading, setloading] = useState(false);
+
 
    function formatDateToDDMMYYYY(dateString) {
     const date = new Date(dateString);
@@ -18,19 +22,33 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
   }
    const handleSubmit = async ()=>{
     setloading(true)
-     if (recipient === ""){
-       setloading(false)
-     }else if (relation === ""){
-    setloading(false)
-     }else if (occasion === ""){
+     if (date?.Date === ""){
+      console.log("date")
+      toast.current.show({
+        severity: "error",
+        detail: `Please Select Date`,
+      });
+      setloading(false)
+     }
+    //  else if (relation === ""){
+    //   toast.current.show({
+    //     severity: "error",
+    //     detail: `Please Select Relation`,
+    //   });
+    //  }
+     else if (occasion === ""){
+      toast.current.show({
+        severity: "error",
+        detail: `Please Select Occassion`,
+      });
       setloading(false)
      }else {
       const response =await senderAiMessage({
-        "recipient":recipient,
+        "recipient":"recipient",
         "occasion":occasion,
-        "relation":relation,
-        "type":"g-sender",
-        "date": formatDateToDDMMYYYY(new Date().toISOString())
+        "relation":"relation",
+        "type":"g-creator",
+        "date": date.Date
     })
     console.log("saajna",response?.data?.message)
      setNewMessage(response?.data?.message)
@@ -40,6 +58,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
    }
   return (
     <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
+      <Toast ref={toast} />
 
       <div className="bg-white rounded-lg bg-white	m-1  max-w-lg w-full p-6 sm:p-8 md:p-10 relative bg-white" style={{background:"white"}}>
         <h2 className="text-2xl font-semibold mb-4 text-center">Magic Message Writer</h2>
@@ -48,7 +67,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
         </p>
 
         {/* Recipient Name */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="recipientName" className="block text-gray-700 font-medium mb-2">
             Who is the message for?
           </label>
@@ -61,7 +80,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
             placeholder="Recipient Name"
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
-        </div>
+        </div> */}
 
         {/* Occasions */}
         <div className="mb-4">
@@ -75,7 +94,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
         </div>
 
         {/* Recipient Relationship */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <p className="text-gray-700 font-medium mb-2">The recipient is my</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             <button style={{color:"white"}} onClick={()=>{setRelation("Friend")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Friend</button>
@@ -83,7 +102,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
             <button style={{color:"white"}} onClick={()=>{setRelation("Parent")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Parent</button>
             <button style={{color:"white"}} onClick={()=>{setRelation("Sibling")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Sibling</button>
           </div>
-        </div>
+        </div> */}
 
         {/* Clear and Generate Buttons */}
         <div className="flex justify-between items-center mt-6">
@@ -101,7 +120,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
             className="bg-primary  text-white py-2 px-4 rounded hover:bg-light-green"
             onClick={() => { handleSubmit()}}
           >
-            {loading ?"Generating": "Generate message"}
+        {loading ?"Generating": "Generate message"}
           </button>
         </div>
 

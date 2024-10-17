@@ -142,9 +142,9 @@ const MyEventGifts = () => {
           <button className="bg-[#FAFAFA] text-[#036666] rounded-xl text-[15px] font-[500] w-[110px] h-[50px] font-manrope flex justify-center items-center">
             Search
           </button>
-          <button className="bg-orange w-[163px] h-[50px] rounded-xl text-[white] text-[15px] font-[500] font-manrope flex justify-center items-center">
+          {/* <button className="bg-orange w-[163px] h-[50px] rounded-xl text-[white] text-[15px] font-[500] font-manrope flex justify-center items-center">
             Create Event
-          </button>
+          </button> */}
           </div>
         </div>
         <div className="flex justify-between mx-5 mt-5">
@@ -183,11 +183,11 @@ const MyEventGifts = () => {
             </div> */}
           </div>
           <div>
-            <Button
+            {/* <Button
               label="Filters"
               icon="pi pi-filter"
               className="!bg-[#FAFAFA] !border-[#EBF0ED] font-manrope w-[115px] h-[36px] text-[#6B6B6B]"
-            />
+            /> */}
           </div>
         </div>
 

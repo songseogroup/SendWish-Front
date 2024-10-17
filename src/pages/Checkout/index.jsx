@@ -118,14 +118,14 @@ const StripeCheckoutForm = ({
   return (
     <>
       <Toast ref={toast} />
-      <div className="flex w-full min-h-screen bg-primary gap">
-        <div className="flex flex-col items-center justify-center w-full min-h-screen gap-3 lg:w-1/2">
-          <img src={logocard} alt="img" className="w-[384px] h-[234px]" />
-          <h1 className="text-[white] font-poppins font-medium text-[36px]">
+      <div className="flex w-full min-h-screen bg-primary gap singo">
+        <div className="flex flex-col sing items-center justify-center w-full min-h-screen gap-3 lg:w-1/2">
+          <img src={logocard} alt="img" className="w-[384px] h-[234px] object-contain px-12" />
+          <h1 className="text-[white] font-poppins font-medium text-[26px]">
             Gifting Made Easy
           </h1>
         </div>
-        <div className="flex flex-col items-start justify-center w-full lg:w-1/2">
+        <div className="flex singss flex-col items-start justify-center pb-12 px-12 w-full lg:w-1/2">
           <h1 className="text-[white] font-poppins font-medium text-[24px]">
             Payment Information
           </h1>

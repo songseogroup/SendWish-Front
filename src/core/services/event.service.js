@@ -22,9 +22,9 @@ export const CreateEvent = async (data) => {
     throw responsebody;
   }
 };
-export const UpdateEvent = async ({data,id}) => {
+export const UpdateEvent = async (data,id) => {
   const token = localStorage.getItem("Token");
-
+  console.log("moieeen",data)
   try {
     let response = await url.patch(`/events/${id}`, data, {
       headers: {
@@ -93,7 +93,7 @@ export const DeleteEvent = async (id) => {
   const token = localStorage.getItem("Token");
 
   try {
-    let response = await url.defaults(`/events/${id}`, {
+    let response = await url.delete(`/events/${id}`, {
       headers: {
         Authorization: `${token}`,  // Sending token as  token
       },
@@ -105,8 +105,7 @@ export const DeleteEvent = async (id) => {
     return responsebody;
   } catch (error) {
     let responsebody = {
-      data: error.response.data,
-      status: error.response.status,
+      data: error,
     };
     throw responsebody;
   }
