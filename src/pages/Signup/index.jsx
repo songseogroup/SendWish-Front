@@ -17,7 +17,18 @@ const Signup = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
+
+  if(userdata.email.length == ""){
+      toast.current.show({ severity: "error", detail: `Please Enter Email` });
+    }else if(userdata.password.length == ""){
+      toast.current.show({ severity: "error", detail: `Please Enter Password` });
+    }else if(userdata.username.length == ""){
+      toast.current.show({ severity: "error", detail: `Please Enter Username` });
+    }
+    else if(checked == false){
+      toast.current.show({ severity: "error", detail: `Please Accept Terms nd Conditions` });
+    }
+ else   if (
       userdata.email.length > 0 &&
       userdata.password.length > 0 &&
       userdata.username.length > 0
@@ -111,6 +122,7 @@ const Signup = () => {
              <div className="flex flex-col mt-6">
                <button
                 type="submit"
+                onClick={(e)=>{handleSubmit(e)}}
                  className="w-full h-[48px] bg-primary text-[white] font-poppins text-sm rounded-xl"
               >
                  Sign up

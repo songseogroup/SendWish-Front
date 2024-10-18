@@ -18,7 +18,13 @@ const Signin = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userdata.email.length > 0 && userdata.password.length > 0) {
+    if(userdata.email == "" ){
+      toast.current.show({ severity: "error", detail: `Please Enter Email` });
+    } else if (userdata.password.length == ""){
+      toast.current.show({ severity: "error", detail: `Please Enter Password` });
+
+    }
+ else   if (userdata.email.length > 0 && userdata.password.length > 0) {
       try {
         let response = await UserSignin(userdata);
         if (response.status === 200 || response.status === 201) {
@@ -151,8 +157,8 @@ const Signin = () => {
           </div>
           <p className="mt-4 text-xs font-normal text-gray-400 font-poppins text-right">
             {/* Protected by reCAPTCHA and subject to the{" "} */}
-            <span className="text-primary">SendWish Privacy Policy</span> and{" "}
-            <span className="text-primary">Terms of Service.</span>
+            <span className="text-primary cursor-pointer">SendWish Privacy Policy</span> and{" "}
+            <span className="text-primary cursor-pointer">Terms of Service.</span>
           </p>
         </div>
       </div>
