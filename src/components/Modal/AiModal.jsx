@@ -39,7 +39,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
      }
    }
   return (
-    <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black flex justify-center items-center z-50" onClick={()=>{onClose()}}>
 
       <div className="bg-white rounded-lg bg-white	m-1  max-w-lg w-full p-6 sm:p-8 md:p-10 relative bg-white" style={{background:"white"}}>
         <h2 className="text-2xl font-semibold mb-4 text-center">Magic Message Writer</h2>
