@@ -141,8 +141,8 @@ const Signup = () => {
            </form>
            <p className="text-xs font-normal text-gray-400 font-poppins">
              Protected by reCAPTCHA and subject to the{" "}
-             <span className="text-primary">SendWish Privacy Policy</span> and{" "}
-             <span className="text-primary">Terms of Service.</span>
+             <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>SendWish Privacy Policy</span> and{" "}
+             <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>Terms of Service.</span>
            </p>
          </div>
        </div>

@@ -253,21 +253,17 @@ const Desktop = () => {
             </div>
           </div>
           <div className="flex flex-col gap-5 text-center mt-[95px]">
-            <span className="underline underline-offset-8 font-monto text-[20px] font-semibold">
+            <span className="font-monto text-[20px] font-normal text-black">
               Privacy Policy
             </span>
-            <span className="underline underline-offset-8 font-monto text-[20px] font-semibold">
+            <span className="font-monto text-[20px] font-normal text-black">
               Terms & Conditions
             </span>
-          </div>
-          <div className="flex gap-2 mt-[120px]">
-            <span className="font-monto text-[#000000]  text-[20px]">
-              Contact:
-            </span>
-            <span className="font-monto text-[#000000] font-extrabold text-[20px]">
+            <span className="font-monto text-[20px] font-normal text-black">
               sendwishinfo@gmail.com
             </span>
           </div>
+       
         </div>
         <div className=" items-center flex flex-col lg:hidden justify-center w-full bg-light-green pt-[20px] pb-[40px]">
           <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />

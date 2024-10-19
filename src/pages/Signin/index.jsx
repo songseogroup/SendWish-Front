@@ -157,8 +157,8 @@ const Signin = () => {
           </div>
           <p className="mt-4 text-xs font-normal text-gray-400 font-poppins text-right">
             {/* Protected by reCAPTCHA and subject to the{" "} */}
-            <span className="text-primary cursor-pointer">SendWish Privacy Policy</span> and{" "}
-            <span className="text-primary cursor-pointer">Terms of Service.</span>
+            <span className="text-primary cursor-pointer" onClick={()=>{navigate('/terms-and-conditions')}}>SendWish Privacy Policy</span> and{" "}
+            <span className="text-primary cursor-pointer" onClick={()=>{navigate('/terms-and-conditions')}}>Terms of Service.</span>
           </p>
         </div>
       </div>

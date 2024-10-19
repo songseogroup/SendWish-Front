@@ -25,6 +25,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import MyEventGifts from "./pages/EventGifts/EventGifts";
 import GiftDetail from "./pages/GiftDetail/GiftDetail";
 import UpdatePassword from "./pages/ResetPassword/UpdatePassword";
+import TermsAndConditions from "./pages/Terms/TermsConditions";
 const stripePromise = loadStripe(
   "pk_test_51MppICJeXAKvhuBVhD94Mp2hOae0MfQGmVkPySYE3DEHURo7eIIasiG4PFcmvESnUYcMDmohziWFunzB4uPUchlA00b1WOe5fA"
 );
@@ -181,6 +182,14 @@ function App() {
           element={
             <PublicLayout>
               <ResetPassword />
+            </PublicLayout>
+          }
+        />
+             <Route
+          path="/terms-and-conditions"
+          element={
+            <PublicLayout>
+              <TermsAndConditions />
             </PublicLayout>
           }
         />
