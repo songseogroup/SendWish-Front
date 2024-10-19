@@ -62,6 +62,34 @@ const EventCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (eventData.Date == ""){
+      toast.current.show({
+        severity: "error",
+        detail: `Please Enter Date`,
+      });
+    }else    if (eventData.URL == ""){
+      toast.current.show({
+        severity: "error",
+        detail: `Please Enter URL`,
+      });
+    } else    if (eventData.EventName == ""){
+      toast.current.show({
+        severity: "error",
+        detail: `Please Enter Event Name`,
+      });
+    }else    if (eventData.Description == ""){
+      toast.current.show({
+        severity: "error",
+        detail: `Please Enter Event Message`,
+      });
+    }else if ( files.length ==  0){
+      console.log(files)
+      toast.current.show({
+        severity: "error",
+        detail: `Please Upload Image`,
+      });
+    }else {
+      console.log(files)
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const eventurl = eventData.URL.replace(" ", "_");
@@ -99,7 +127,7 @@ const EventCreate = () => {
         severity: "error",
         detail: `${err?.data?.message}`,
       });
-    }
+    }}
   };
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
@@ -161,7 +189,7 @@ const EventCreate = () => {
 
          
           <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
-                   Generate message with LOLA AI
+                   Generate message
                </button>
                <p className="text-[#202020] font-poppins font-[500] text-center text-[14px] ">
                <span className="text-center">or</span>
@@ -204,7 +232,7 @@ const EventCreate = () => {
             <div className="flex flex-col items-center justify-center w-full gap-3">
               <img src={uploadFileImg} alt="img" />
               <p className="font-poppins text-[13px] font-[500] text-center">
-                Drag and drop your file here <br />
+              Upload Event Image or Banner <br />
               </p>
               {/* <button className="bg-primary !px-[42px] py-[9px] rounded-xl font-poppins text-[white] font-[500]">
           Browse Files

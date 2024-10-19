@@ -34,6 +34,7 @@ const EventUpdate = () => {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
     try {
       const eventurl = eventData.URL.replace(" ", "_");  // Ensure correct URL format
       let body = {
@@ -200,7 +201,7 @@ const EventUpdate = () => {
                 <div className="flex flex-col items-center justify-center w-full gap-3">
                   <img src={uploadFileImg} alt="img" />
                   <p className="font-poppins text-[13px] font-[500] text-center">
-                    Drag and drop your file here <br />
+                    Upload Event Image or Banner <br />
                   </p>
                 </div>
               )}

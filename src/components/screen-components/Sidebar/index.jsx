@@ -58,7 +58,12 @@ const Sidebar = () => {
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [dispatch]);
+  const handleMenuItemClick = () => {
+    if (window.innerWidth <= 1024) {
+      dispatch(SetSideBar(false));  // Close sidebar when a menu item is clicked on mobile
+    }
+  };
   return (
     <div
       className={`w-[320px] z-50 h-[97vh] bg-primary pl-4 flex flex-col  rounded-3xl m-4 fixed transition-all ${
@@ -97,7 +102,7 @@ const Sidebar = () => {
                           <div className="w-[20px]">
                             <img src={listitem?.img} className="w-[20px]" />
                           </div>
-                          <Link to={listitem?.link} onClick={listitem?.action}>
+                          <Link to={listitem?.link} onClick={handleMenuItemClick}>
                             <h3 className="font-manrope font-medium text-lg text-[white]">
                               {listitem?.name}
                             </h3>

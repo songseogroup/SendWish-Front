@@ -7,7 +7,7 @@ const FloatInputTextArea = ({labelclass='',label="",id,...props}) => {
   return (
    
     <FloatLabel >
-    <InputTextarea  id={id} {...props} />
+    <InputTextarea  id={id} {...props} style={{minHeight:"200px"}} />
     <label 
         htmlFor={id} 
         className={twMerge(

@@ -24,7 +24,7 @@ const Header = ({ showheading }) => {
           <img
             src={barsIcon}
             alt="icon"
-            className="w-[21px] cursor-pointer h-[24px]"
+            className="w-[21px] cursor-pointer h-[24px] z-10"
             onClick={() => {
               dispatch(SetSideBar(!SidebarOpen));
             }}

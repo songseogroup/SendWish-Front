@@ -169,7 +169,7 @@ const EventCreateS2 = () => {
               </div>
               <div className="flex flex-col gap-10 mt-2">
                <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
-                   Generate message with LOLA AI
+                   Generate message
                </button>
                 <FloatInputTextArea
                   id="Message"
