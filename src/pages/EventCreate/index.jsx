@@ -9,6 +9,8 @@ import { FrontendUrl } from "../../core/configs/index";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
 import { AiCreator } from "../../components/Modal/AiCreator";
+import imageCompression from 'browser-image-compression'; // Import image compression library
+
 const EventCreate = () => {
   const toast = useRef();
   const navigate = useNavigate();
@@ -26,14 +28,27 @@ const EventCreate = () => {
       Description: message,
     })
    }
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
+
+   const onDrop = useCallback(async (acceptedFiles) => {
+    const compressedFiles = await Promise.all(
+      acceptedFiles.map(async (file) => {
+        const options = {
+          maxSizeMB: 1, // Reduce image size to 1MB
+          maxWidthOrHeight: 1920, // Maintain aspect ratio within these limits
+          useWebWorker: true,
+        };
+        try {
+          const compressedFile = await imageCompression(file, options);
+          return Object.assign(compressedFile, {
+            preview: URL.createObjectURL(compressedFile), // Generate a preview URL for the compressed image
+          });
+        } catch (error) {
+          console.error("Image compression error:", error);
+          return file;
+        }
+      })
     );
+    setFiles(compressedFiles); // Set the compressed files with preview URL
   }, []);
   const objectToFormData = (obj, form, namespace) => {
     let formData = form || new FormData();
@@ -140,7 +155,7 @@ const EventCreate = () => {
         <div className="flex flex-col gap-5 mt-8">
           <div className="flex flex-col gap-2">
             <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
-              When is your event?
+             Event Date *
             </p>
             <FloatInput
               value={eventData.Date}
@@ -160,7 +175,7 @@ const EventCreate = () => {
           <div className="flex flex-col ">
             <p className="text-[#202020] font-poppins font-[500] text-[14px] mb-5">
               {/* What would you like as the url for your gifting image? */}
-              Create Your Own URL
+              Create Your Own URL *
             </p>
             <FloatInput
               value={eventData.URL}
@@ -174,7 +189,7 @@ const EventCreate = () => {
             />
           </div>
           <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
-            Event Name
+            Event Name *
           </p>
           <FloatInput
             value={eventData.EventName}
@@ -194,7 +209,7 @@ const EventCreate = () => {
                <p className="text-[#202020] font-poppins font-[500] text-center text-[14px] ">
                <span className="text-center">or</span>
 <br></br>
-            Write Your Message
+            Write Your Message *
           </p>
           <div className="flex flex-col gap-10 ">
     
@@ -214,19 +229,16 @@ const EventCreate = () => {
         <div {...getRootProps()} className="mt-5">
           <input {...getInputProps()} />
           {files?.length > 0 ? (
-            <div className="flex items-start justify-center mt-4">
-              {files.map((file) => (
-                <div key={file.name} className="my-2">
-                  <img
-                    src={file.preview}
-                    alt={file.name}
-                    className="max-w-xs max-h-40"
-                  />
-                  <p className="text-center font-poppins text-[12px]">
-                    {file.name}
-                  </p>
-                </div>
-              ))}
+              <div className="flex items-center justify-center mt-4">
+                {files.map((file) => (
+                  <div key={file.name} className="my-2">
+                    <img
+                      src={file.preview} // Display the image preview
+                      alt={file.name}
+                      className="max-w-xs max-h-40"
+                    />
+                  </div>
+                ))}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center w-full gap-3">
