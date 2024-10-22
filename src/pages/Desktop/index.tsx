@@ -134,7 +134,7 @@ const Desktop = () => {
             </div>
           </div>
         </div>
-        <div className="relative pb-10 overflow-hidden bg-no-repeat lg:pb-28 lg:bg-gift-size lg:bg-gift-image bg-center-250px">
+        <div id="inspiration" className="relative pb-10 overflow-hidden bg-no-repeat lg:pb-28 lg:bg-gift-size lg:bg-gift-image bg-center-250px">
           <div className="flex justify-between">
             <div className="relative mt-4 lg:mt-[150px] lg:ml-20">
               <div className="hidden lg:block w-[194px] top-0 h-[194px] bg-light-green absolute z-10 rounded-[50%]"></div>
@@ -213,15 +213,15 @@ const Desktop = () => {
             </div>
           </div>
 
-          <div className="w-[465px] h-[465px] hidden lg:block bg-light-green rounded-[50%] !right-[-10rem] absolute z-10 top-[2rem]"></div>
+          <div  className="w-[465px] h-[465px] hidden lg:block bg-light-green rounded-[50%] !right-[-10rem] absolute z-10 top-[2rem]"></div>
         </div>
-        <div className="w-full hidden lg:flex bg-light-green pt-[50px] flex-col items-center justify-center">
+        <div id="how-it-works" className="w-full hidden lg:flex bg-light-green pt-[50px] flex-col items-center justify-center">
           <h1 className="text-center font-abhaya font-extrabold text-[48px] text-extra-green">
             HOW IT WORKS
           </h1>
           <WorkTimeline />
         </div>
-        <div className="flex flex-col items-center justify-center w-full pt-[20px] lg:pt-[100px] pb-[50px] lg:pb-[200px]">
+        <div id="faq" className="flex flex-col items-center justify-center w-full pt-[20px] lg:pt-[100px] pb-[50px] lg:pb-[200px]">
           <h1 className="text-center font-abhaya hidden lg:block font-extrabold underline underline-offset-[10px] text-[48px] text-extra-green">
             FREQUENTLY ASKED QUESTIONS
           </h1>
@@ -237,64 +237,60 @@ const Desktop = () => {
             </div>
           </div>
         </div>
-        <div className=" items-center hidden lg:flex justify-between w-full bg-light-green pt-[20px] pb-[80px]  pr-[80px]">
-          <div className="flex flex-col ml-20">
-            <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
-            <div className="flex flex-col gap-5 mt-5 ml-5">
-              <span className="font-monto text-[20px] font-normal text-black">
-                Inspiration
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                How It Works
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                FAQ
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 text-center mt-[95px]">
-            <span className="font-monto text-[20px] font-normal text-black">
-              Privacy Policy
-            </span>
-            <span className="font-monto text-[20px] font-normal text-black">
-              Terms & Conditions
-            </span>
-            <span className="font-monto text-[20px] font-normal text-black">
-              sendwishinfo@gmail.com
-            </span>
-          </div>
-       
-        </div>
-        <div className=" items-center flex flex-col lg:hidden justify-center w-full bg-light-green pt-[20px] pb-[40px]">
-          <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
-          <div className="flex flex-col gap-5 mt-10 sm:flex-row ">
-            <div className="flex flex-col gap-2 ">
-              <span className="font-monto text-[20px] font-normal text-black">
-                Inspiration
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                How It Works
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                FAQ
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                Privacy Policy
-              </span>
-              <span className="font-monto text-[20px] font-normal text-black">
-                Terms & Conditions
-              </span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-monto text-[#000000]  text-[20px]">
-                Contact:
-              </span>
-              <span className="font-monto text-[#000000] font-extrabold text-[20px]">
-                sendwishinfo@gmail.com
-              </span>
-            </div>
-          </div>
-        </div>
+        <div className="items-center hidden lg:flex justify-between w-full bg-light-green pt-[20px] pb-[80px] pr-[80px]">
+  <div className="flex flex-col ml-20">
+    <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
+    <div className="flex flex-col gap-5 mt-5 ml-5">
+      <a href="#inspiration" className="font-monto text-[20px] font-normal text-black">
+        Inspiration
+      </a>
+      <a href="#how-it-works" className="font-monto text-[20px] font-normal text-black">
+        How It Works
+      </a>
+      <a href="#faq" className="font-monto text-[20px] font-normal text-black">
+        FAQ
+      </a>
+    </div>
+  </div>
+  <div className="flex flex-col gap-5 text-center mt-[95px]">
+    <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
+      Privacy Policy
+    </a>
+    <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
+      Terms & Conditions
+    </a>
+    <a href="mailto:sendwishinfo@gmail.com" className="font-monto text-[20px] font-normal text-black">
+      sendwishinfo@gmail.com
+    </a>
+  </div>
+</div>
+
+<div className="items-center flex flex-col lg:hidden justify-center w-full bg-light-green pt-[20px] pb-[40px]">
+  <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
+  <div className="flex flex-col gap-5 mt-10 sm:flex-row">
+    <div className="flex flex-col gap-2">
+      <a href="#inspiration" className="font-monto text-[20px] font-normal text-black">
+        Inspiration
+      </a>
+      <a href="#how-it-works" className="font-monto text-[20px] font-normal text-black">
+        How It Works
+      </a>
+      <a href="#faq" className="font-monto text-[20px] font-normal text-black">
+        FAQ
+      </a>
+      <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
+        Privacy Policy
+      </a>
+      <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
+        Terms & Conditions
+      </a>
+    </div>
+    <a href="mailto:sendwishinfo@gmail.com" className="font-monto text-[20px] font-normal text-black">
+      sendwishinfo@gmail.com
+    </a>
+  </div>
+</div>
+
       </div>
     </>
   );

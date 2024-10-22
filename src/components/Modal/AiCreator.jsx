@@ -60,7 +60,7 @@ export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
     <div className="fixed inset-0 bg-black flex justify-center items-center z-50" onClick={()=>{onClose()}}>
       <Toast ref={toast} />
 
-      <div className="bg-white rounded-lg bg-white	m-1  max-w-lg w-full p-6 sm:p-8 md:p-10 relative bg-white" style={{background:"white"}}>
+      <div className="bg-white rounded-lg bg-white	m-1  max-w-lg w-full p-6 sm:p-8 md:p-10 relative bg-white"  onClick={(e) => e.stopPropagation()}  style={{background:"white"}}>
         <h2 className="text-2xl font-semibold mb-4 text-center">Magic Message Writer</h2>
         <p className="text-gray-600 bg-white	 text-sm text-center mb-6">
           Answer the prompts and we will help you write the perfect message. You can edit the generated message yourself at any time.

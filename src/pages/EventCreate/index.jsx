@@ -232,7 +232,7 @@ const EventCreate = () => {
             <div className="flex flex-col items-center justify-center w-full gap-3">
               <img src={uploadFileImg} alt="img" />
               <p className="font-poppins text-[13px] font-[500] text-center">
-              Upload Event Image or Banner <br />
+              Upload Event Image *<br />
               </p>
               {/* <button className="bg-primary !px-[42px] py-[9px] rounded-xl font-poppins text-[white] font-[500]">
           Browse Files

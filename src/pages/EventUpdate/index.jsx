@@ -42,7 +42,7 @@ const EventUpdate = () => {
         event_name: eventData.EventName,
         image: files[0]?.preview || "",  // Using file preview
         event_description: eventData.Description,
-        // event_url: eventurl,
+        event_url: eventurl,
       };
       console.log(body); // Logging the body to check
       let response = await UpdateEvent(body,id );  // Make sure id and body are passed correctly
