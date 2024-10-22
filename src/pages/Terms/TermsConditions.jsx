@@ -104,22 +104,22 @@ const TermsAndConditions = () => {
   <div className="flex flex-col ml-20">
     <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
     <div className="flex flex-col gap-5 mt-5 ml-5">
-      <a href="/inspiration" className="font-monto text-[20px] font-normal text-black">
+      <a href="#inspiration" className="font-monto text-[20px] font-normal text-black">
         Inspiration
       </a>
-      <a href="/how-it-works" className="font-monto text-[20px] font-normal text-black">
+      <a href="#how-it-works" className="font-monto text-[20px] font-normal text-black">
         How It Works
       </a>
-      <a href="/faq" className="font-monto text-[20px] font-normal text-black">
+      <a href="#faq" className="font-monto text-[20px] font-normal text-black">
         FAQ
       </a>
     </div>
   </div>
   <div className="flex flex-col gap-5 text-center mt-[95px]">
-    <a href="/privacy-policy" className="font-monto text-[20px] font-normal text-black">
+    <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
       Privacy Policy
     </a>
-    <a href="/terms-conditions" className="font-monto text-[20px] font-normal text-black">
+    <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
       Terms & Conditions
     </a>
     <a href="mailto:sendwishinfo@gmail.com" className="font-monto text-[20px] font-normal text-black">
@@ -132,19 +132,19 @@ const TermsAndConditions = () => {
   <img src={Logo} alt="icon" className="w-[200px] h-[121px]" />
   <div className="flex flex-col gap-5 mt-10 sm:flex-row">
     <div className="flex flex-col gap-2">
-      <a href="/inspiration" className="font-monto text-[20px] font-normal text-black">
+      <a href="#inspiration" className="font-monto text-[20px] font-normal text-black">
         Inspiration
       </a>
-      <a href="/how-it-works" className="font-monto text-[20px] font-normal text-black">
+      <a href="#how-it-works" className="font-monto text-[20px] font-normal text-black">
         How It Works
       </a>
-      <a href="/faq" className="font-monto text-[20px] font-normal text-black">
+      <a href="#faq" className="font-monto text-[20px] font-normal text-black">
         FAQ
       </a>
-      <a href="/privacy-policy" className="font-monto text-[20px] font-normal text-black">
+      <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
         Privacy Policy
       </a>
-      <a href="/terms-conditions" className="font-monto text-[20px] font-normal text-black">
+      <a href="/terms-and-conditions" className="font-monto text-[20px] font-normal text-black">
         Terms & Conditions
       </a>
     </div>
