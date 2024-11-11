@@ -29,6 +29,14 @@
       "src": "/events/(.*)",
       "dest": "/"
     },
+    {
+      "src": "/event/(.*)",
+      "dest": "/"
+    },
+    {
+      "src": "/checkout-page",
+      "dest": "/"
+    },
     { "src": "/create-event/(.*)/(.*)", "dest": "/" },
     {
       "src": "/my-gifts",
