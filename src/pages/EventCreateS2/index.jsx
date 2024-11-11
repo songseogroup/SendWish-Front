@@ -184,7 +184,7 @@ const EventCreateS2 = () => {
                    Generate message
                </button>
                 <FloatInputTextArea
-                  id="Message"
+                  id="Message*"
                   label="Gift Message"
                   labelclass="!text-[#84818A] !text-[14px]"
                   className="!border-0 !border-primary !border-b !rounded-none "
@@ -198,7 +198,9 @@ const EventCreateS2 = () => {
                 />
                 <FloatInputNumber
                   id="Gift"
-                  label="Gift ($)"
+                  label="Gift ($)*"
+                  placeholder="20$"
+                  min="20"
                   labelclass="!text-[#84818A] !text-[14px]"
                   className="!border-0 !border-primary !border-b !rounded-none !w-full"
                   value={eventsData.gift}
@@ -210,7 +212,7 @@ const EventCreateS2 = () => {
                   <FloatInput
                     // disabled={true}
                     id="Email"
-                    label="Email"
+                    label="Email*"
                     labelclass="!text-[#84818A] !text-[14px]"
                     className="!border-0 !border-primary !border-b !rounded-none"
                     value={eventsData.email}
@@ -220,7 +222,7 @@ const EventCreateS2 = () => {
                   />
                   <FloatInput
                     id="From"
-                    label="From"
+                    label="From*"
                     labelclass="!text-[#84818A] !text-[14px]"
                     className="!border-0 !border-primary !border-b !rounded-none "
                     value={eventsData.from}
