@@ -268,7 +268,7 @@ const StripeCheckoutForm = ({
                 Fees:
               </p>
               <p className="text-[white] font-poppins font-medium text-[16px]">
-                ${parseFloat((giftSenderData?.gift)*0.07) + 0.5 || 0}
+                ${parseFloat((parseFloat((giftSenderData?.gift) * 0.07) + 0.5 || 0).toFixed(4))}
               </p>
             </div>
             <div className="flex justify-between w-full">
