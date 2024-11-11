@@ -42,7 +42,8 @@ const Signup = () => {
           });
         }
       } catch (err) {
-        toast.current.show({ severity: "error", detail: `${err}` });
+        console.log(err)
+        toast.current.show({ severity: "error", detail: `${err.response.data.error}` });
       }
     }
   };

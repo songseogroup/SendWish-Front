@@ -70,7 +70,7 @@ const EventCreateS2 = () => {
       const giftData = JSON.parse(localStorage.getItem("eventsData"));
       let response = await createPaymentIntent(id, {
         // userId: user.id,
-        gift_amount: parseInt(giftData.gift),
+        gift_amount: parseFloat(giftData.gift + (giftData.gift *0.07)+ 0.5),
       });
       
       setPaymentIntent(response.data);
@@ -86,6 +86,10 @@ const EventCreateS2 = () => {
       goToProfilePage()
     } catch (err) {
       console.error("Error fetching payment intent:", err);
+      toast.current.show({
+        severity: "error",
+        detail: response.data.message,
+      });
     }
   };
 
@@ -125,26 +129,105 @@ const EventCreateS2 = () => {
       setloading(false);
     }
   };
+  // const handleNext = (e) => {
+  //   e.preventDefault();
+  //   if (
+  //     eventsData?.event_description?.length > 0 &&
+  //     eventsData?.from?.length > 0 &&
+  //     eventsData?.email?.length > 0 &&
+  //     eventsData?.gift > 0 &&
+  //     eventsData?.giftmessage?.length > 0 &&
+  //     eventsData.country !== ""
+  //   ) {
+  //     localStorage.setItem("eventsData", JSON.stringify(eventsData));
+  //     console.log(eventsData, "eventsData");
+  //     GetPaymentIntent();
+  //     // setTimeout(goToProfilePage, 3000);
+  //   } else {
+      // toast.current.show({
+      //   severity: "error",
+      //   detail: `All Fields Are Required`,
+      // });
+  //   }
+  // };
   const handleNext = (e) => {
     e.preventDefault();
-    if (
-      eventsData?.event_description?.length > 0 &&
-      eventsData?.from?.length > 0 &&
-      eventsData?.email?.length > 0 &&
-      eventsData?.gift > 0 &&
-      eventsData?.giftmessage?.length > 0
-    ) {
+    const errors = [];
+    
+    // if (!eventsData?.event_description || eventsData.event_description.length === 0) {
+    //   // errors.push("");
+    //   toast.current.show({
+    //     severity: "error",
+    //     detail: `Please Enter Message`,
+    //   });
+    // }
+      if (!eventsData?.giftmessage || eventsData.giftmessage == "") {
+      // errors.push("Gift message is required");
+      toast.current.show({
+        severity: "error",
+        detail: `Please Enter Message`,
+      });
+      return
+    }else
+    if (!eventsData?.gift || eventsData.gift == 0) {
+      // errors.push("Gift amount should be greater than zero");
+      toast.current.show({
+        severity: "error",
+        detail: `Enter Gift Amount`,
+      });
+      return
+    }else
+    if (!eventsData?.gift || eventsData.gift < 20) {
+      // errors.push("Gift amount should be greater than zero");
+      toast.current.show({
+        severity: "error",
+        detail: `Gift amount should be greater than 20`,
+      });
+      return
+    }else
+    if (!eventsData?.email || eventsData.email.length === 0) {
+      // errors.push("Email is required");
+      toast.current.show({
+        severity: "error",
+        detail: `Enter Your Email`,
+      });
+      return
+    }else
+    if (!eventsData?.from || eventsData.from.length === 0) {
+      // errors.push("Sender name is required");
+      toast.current.show({
+        severity: "error",
+        detail: `Enter Your Name`,
+      });
+      return
+    }else
+  
+  
+  
+    if (!eventsData?.country?.name  || eventsData.country.name === "") {
+      // errors.push("Country is required");
+      toast.current.show({
+        severity: "error",
+        detail: `Country is required`,
+      });
+      return 
+    }
+  
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        toast.current.show({
+          severity: "error",
+          detail: error,
+        });
+      });
+    } else {
       localStorage.setItem("eventsData", JSON.stringify(eventsData));
       console.log(eventsData, "eventsData");
       GetPaymentIntent();
       // setTimeout(goToProfilePage, 3000);
-    } else {
-      toast.current.show({
-        severity: "error",
-        detail: `All Fields Are Required`,
-      });
     }
   };
+  
   useEffect(() => {
     GetEventsData();
   }, []);
@@ -200,7 +283,7 @@ const EventCreateS2 = () => {
                   id="Gift"
                   label="Gift ($)*"
                   placeholder="20$"
-                  min="20"
+                  // min="20"
                   labelclass="!text-[#84818A] !text-[14px]"
                   className="!border-0 !border-primary !border-b !rounded-none !w-full"
                   value={eventsData.gift}
@@ -241,7 +324,7 @@ const EventCreateS2 = () => {
                 }}
                 options={countries}
                 optionLabel="name"
-                placeholder="Select a Country"
+                placeholder="Select a Country*"
                 filter
                 valueTemplate={selectedCountryTemplate}
                 itemTemplate={countryOptionTemplate}
