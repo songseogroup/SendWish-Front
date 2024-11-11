@@ -60,25 +60,36 @@ const EventCreateS2 = () => {
       </div>
     );
   };
+  const goToProfilePage = () => {
+    navigate("/checkout-page");
+  };
   const GetPaymentIntent = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
+      console.log(id,"talha")
       const giftData = JSON.parse(localStorage.getItem("eventsData"));
       let response = await createPaymentIntent(id, {
-        userId: user.id,
+        // userId: user.id,
         gift_amount: parseInt(giftData.gift),
       });
+      
       setPaymentIntent(response.data);
-      console.log("Payment Intent:", response.data);
+      console.log("Payment Intent:", response);
+      if(response.data.status == 400){
+        toast.current.show({
+          severity: "error",
+          detail: response.data.message,
+        });
+        return
+      }
       localStorage.setItem("paymentIntent", JSON.stringify(response.data));
+      goToProfilePage()
     } catch (err) {
       console.error("Error fetching payment intent:", err);
     }
   };
 
-  const goToProfilePage = () => {
-    navigate("/checkout-page");
-  };
+
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.map((file) =>
@@ -95,6 +106,7 @@ const EventCreateS2 = () => {
       let response = await GetEventById(id);
       if (response.status === 200) {
         setloading(false);
+        console.log(response,"stuop")
         const ownerdata = response.data.owner;
 
         if (ownerdata?.email === userdata?.email) {
@@ -125,7 +137,7 @@ const EventCreateS2 = () => {
       localStorage.setItem("eventsData", JSON.stringify(eventsData));
       console.log(eventsData, "eventsData");
       GetPaymentIntent();
-      setTimeout(goToProfilePage, 3000);
+      // setTimeout(goToProfilePage, 3000);
     } else {
       toast.current.show({
         severity: "error",
@@ -196,7 +208,7 @@ const EventCreateS2 = () => {
                 />
                 <div className="flex justify-between ">
                   <FloatInput
-                    disabled={true}
+                    // disabled={true}
                     id="Email"
                     label="Email"
                     labelclass="!text-[#84818A] !text-[14px]"

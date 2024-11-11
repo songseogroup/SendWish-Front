@@ -26,9 +26,9 @@ const GiftTable = ({data}) => {
      console.log("events data loading array",data)
      setproducts(data)
     }, [data])
-    const senderTemplate = (rowData) => {
-      return rowData.sender?.username || ''; // Safely access sender and username
-  };
+  //   const senderTemplate = (rowData) => {
+  //     return rowData.sender?.username || ''; // Safely access sender and username
+  // };
   const detailsButtonTemplate = (rowData) => {
     const handleButtonClick = () => {
         console.log("Product ID:", rowData.pid); 
@@ -66,7 +66,7 @@ const orderDateTemplate = (rowData) => {
                          
                     <Column selectionMode="multiple" exportable={false}></Column>
                     <Column field="pid" header="Order ID" sortable style={{ minWidth: '12rem' }}></Column>
-                    <Column  body={senderTemplate} header="Sender" sortable style={{ minWidth: '16rem' }}></Column>
+                    <Column  field='sender' header="Sender" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="gift_amount" header="Amount" sortable style={{ minWidth: '16rem' }}></Column>
                     {/* <Column field="gift_message" header="Gift Message" sortable style={{ minWidth: '16rem' }}></Column> */}
                     <Column body={orderDateTemplate} header="Order Date" sortable style={{ minWidth: '16rem' }}></Column>

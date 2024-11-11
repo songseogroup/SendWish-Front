@@ -114,13 +114,13 @@ function App() {
           }
         />
         <Route
-          path="/create-event/:event_url/:id"
+          path="/event/:event_url/:id"
           element={
-            <PrivateLayout>
-              <DashboardLayout showheading={false}>
+            <PublicLayout>
+              {/* <DashboardLayout showheading={false}> */}
                 <EventCreateS2 />
-              </DashboardLayout>
-            </PrivateLayout>
+              {/* </DashboardLayout> */}
+            </PublicLayout>
           }
         />
             <Route
@@ -133,7 +133,7 @@ function App() {
             </PrivateLayout>
           }
         />
-        <Route
+        {/* <Route
           path="/create-event/:event_url/:id"
           element={
             <PrivateLayout>
@@ -142,15 +142,15 @@ function App() {
               </DashboardLayout>
             </PrivateLayout>
           }
-        />
+        /> */}
         <Route
           path="/checkout-page"
           element={
-            <PrivateLayout>
+            <PublicLayout>
               <Elements stripe={stripePromise}>
                 <StripeCheckoutForm />
               </Elements>
-            </PrivateLayout>
+            </PublicLayout>
           }
         />
         <Route

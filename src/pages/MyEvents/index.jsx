@@ -29,7 +29,7 @@ const MyEvents = () => {
           let date = item?.date?.split("T")[0];
           return {
             ...item,
-            event_url: `${FrontendUrl}create-event/${item.event_url}/${item.eid}`,
+            event_url: `${FrontendUrl}event/${item.event_url}/${item.eid}`,
             date: `${date}`,
           };
         });

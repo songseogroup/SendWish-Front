@@ -41,8 +41,8 @@ const GiftDetail = () => {
       image: savedData?.event?.image || "",
       giftmessage: savedData?.gift_message,
       gift: savedData?.gift_amount,
-      email: savedData?.event?.email || "",
-      from: savedData?.event?.from || "",
+      email: savedData?.email || "",
+      from: savedData?.sender || "",
       country: savedData?.event?.country || { name: "", code: "" },
     });
   }, []);
@@ -131,14 +131,14 @@ const GiftDetail = () => {
                   disabled
                 />
                 <div className="flex justify-between">
-                  {/* <FloatInput
+                  <FloatInput
                     id="Email"
                     label="Email"
                     labelclass="!text-[#84818A] !text-[14px]"
                     className="!border-0 !border-primary !border-b !rounded-none"
                     value={eventsData.email}
                     disabled
-                  /> */}
+                  />
                   <FloatInput
                     id="From"
                     label="From"
@@ -150,7 +150,7 @@ const GiftDetail = () => {
                 </div>
               </div>
             </div>
-            <div className="flex mt-8">
+            {/* <div className="flex mt-8">
               <Dropdown
                 value={eventsData.country}
                 options={countries}
@@ -162,7 +162,7 @@ const GiftDetail = () => {
                 className="w-full !border-0 !border-b-[1px] !text-[14px] !rounded-none"
                 disabled
               />
-            </div>
+            </div> */}
           </div>
         </div>
       )}

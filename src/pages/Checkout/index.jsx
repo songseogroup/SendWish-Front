@@ -67,10 +67,12 @@ const StripeCheckoutForm = ({
         gift_message: giftSenderData?.giftmessage,
         gift_amount: Number(giftSenderData?.gift),
         country: giftSenderData.country.code,
-        userId: userData.id,
+        userId: giftSenderData.from,
         eventId: giftSenderData.eid,
+        email:giftSenderData.email,
         paymentIntentId: paymentIntent.data.id,
       };
+      
       console.log(data, "payment_complete");
       PaymentComplete(data)
         .then((res) => {
@@ -242,6 +244,7 @@ const StripeCheckoutForm = ({
 
               <PayButton
                 type="Button"
+                className="google-login-button"
                 onClick={() => {
                   setShowDialog(false);
                   navigate("/dashboard");
