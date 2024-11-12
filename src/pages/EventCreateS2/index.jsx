@@ -268,7 +268,7 @@ const EventCreateS2 = () => {
                </button>
                 <FloatInputTextArea
                   id="Message*"
-                  label="Gift Message"
+                  label="Gift Message*"
                   labelclass="!text-[#84818A] !text-[14px]"
                   className="!border-0 !border-primary !border-b !rounded-none "
                   value={eventsData.giftmessage}
