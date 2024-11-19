@@ -158,7 +158,7 @@ const MyEvents = () => {
             <Column field="event_name" header="Event Name" style={{ minWidth: "6rem" }}></Column>
             <Column body={UrlBodyTemplate} header="URL" style={{ minWidth: "10rem" }}></Column>
             <Column field="date" header="Event Date" style={{ minWidth: "10rem" }}></Column>
-            <Column field="amount_collected" header="Collected Amount" style={{ minWidth: "10rem" }}></Column>
+            <Column field="amount_collected" header="Received ($)" style={{ minWidth: "10rem" }}></Column>
             <Column body={MenuBodyTemplate}></Column>
           </DataTable>
         </div>

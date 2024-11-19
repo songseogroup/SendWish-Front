@@ -36,7 +36,7 @@ export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
     //     detail: `Please Select Relation`,
     //   });
     //  }
-     else if (occasion === ""){
+     else if (activeOccasion === ""){
       toast.current.show({
         severity: "error",
         detail: `Please Select Occassion`,
@@ -45,7 +45,7 @@ export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
      }else {
       const response =await senderAiMessage({
         "recipient":"recipient",
-        "occasion":occasion,
+        "occasion":activeOccasion,
         "relation":"relation",
         "type":"g-creator",
         "date": date.Date
@@ -56,6 +56,12 @@ export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
      onClose()
      }
    }
+   const [activeOccasion, setActiveOccasion] = useState("");
+
+   const handleButtonClick = (occasion) => {
+     setActiveOccasion(occasion);
+     console.log("Selected Occasion:", occasion);
+   };
   return (
     <div className="fixed inset-0 bg-black flex justify-center items-center z-50" onClick={()=>{onClose()}}>
       <Toast ref={toast} />
@@ -86,12 +92,18 @@ export const AiCreator = ({ isOpen, onClose, setNewMessage,date }) => {
         <div className="mb-4">
           <p className="text-gray-700 font-medium mb-2">The occasion is</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-{            <button style={{color:"white"}} onClick={()=>{setOccasion("Farewell")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Farewell</button>}
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Birthday")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Birthday</button>
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Funeral")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Funeral</button>
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Wedding")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Wedding</button>
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Charity")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Charity</button>
-            <button style={{color:"white"}} onClick={()=>{setOccasion("Special Occasion")}} className="bg-primary text-white py-2 px-4 rounded font-poppins hover:bg-light-green">Special Occasion</button>
+          {["Farewell", "Birthday", "Funeral", "Wedding", "Special Occasion", "Charity"].map((occasion) => (
+        <button
+          key={occasion}
+          onClick={() => handleButtonClick(occasion)}
+          className={`py-2 px-4 rounded font-poppins ${
+            activeOccasion === occasion ? "bg-light-green text-white" : "bg-primary text-white"
+          } hover:bg-light-green`}
+          style={{color:"white"}}
+        >
+          {occasion}
+        </button>
+      ))}
           </div>
         </div>
 

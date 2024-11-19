@@ -56,7 +56,7 @@ const MyGift = () => {
                     ${amountDetails?.totalGiftAmount ? amountDetails?.totalGiftAmount : 0}
                   </h1>
                   <h4 className="font-manrope text-[#6B6B6B] font-[600] mt-2 text-[12px] uppercase">
-                    Earned
+                  Received
                   </h4>
                 </div>
               </div>
