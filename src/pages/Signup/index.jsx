@@ -59,7 +59,7 @@ const Signup = () => {
          </div>
          <p className=" text-sm font-medium text-[white] text-center font-poppins mb-16">
          Having troubles?{" "}
-           <Link to="" className="underline">
+           <Link to="/signup-guide" className="underline">
              Get Help
           </Link>
          </p>
@@ -140,6 +140,7 @@ const Signup = () => {
                </div>
              </div>
            </form>
+           <p  className="text-primary" onClick={()=>{navigate('/signup-guide')}}>Guide To Setup Your Account !</p>
            <p className="text-xs font-normal text-gray-400 font-poppins">
              Protected by reCAPTCHA and subject to the{" "}
              <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>SendWish Privacy Policy</span> and{" "}

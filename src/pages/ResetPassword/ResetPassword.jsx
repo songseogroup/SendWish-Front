@@ -48,7 +48,7 @@ const ResetPassword = () => {
         </div>
         <p className=" text-sm font-medium text-[white] text-center font-poppins mb-16">
           Having troubles?{" "}
-          <Link to="" className="underline">
+          <Link to="/signup-guide" className="underline">
             Get Help
           </Link>
         </p>

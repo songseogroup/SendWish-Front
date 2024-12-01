@@ -26,6 +26,7 @@ import MyEventGifts from "./pages/EventGifts/EventGifts";
 import GiftDetail from "./pages/GiftDetail/GiftDetail";
 import UpdatePassword from "./pages/ResetPassword/UpdatePassword";
 import TermsAndConditions from "./pages/Terms/TermsConditions";
+import SendWishRegistrationGuide from "./components/Modal/Guide";
 const stripePromise = loadStripe(
   "pk_test_51MppICJeXAKvhuBVhD94Mp2hOae0MfQGmVkPySYE3DEHURo7eIIasiG4PFcmvESnUYcMDmohziWFunzB4uPUchlA00b1WOe5fA"
 );
@@ -133,16 +134,14 @@ function App() {
             </PrivateLayout>
           }
         />
-        {/* <Route
-          path="/create-event/:event_url/:id"
+        <Route
+          path="/signup-guide"
           element={
-            <PrivateLayout>
-              <DashboardLayout showheading={false}>
-                <EventCreateS2 />
-              </DashboardLayout>
-            </PrivateLayout>
+            <PublicLayout>
+              <SendWishRegistrationGuide/>
+            </PublicLayout>
           }
-        /> */}
+        />
         <Route
           path="/checkout-page"
           element={
