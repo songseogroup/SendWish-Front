@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import logo from "../../assets/images/logo.png";
-import { Link } from "react-router-dom";
-
+import { Link,useNavigate } from "react-router-dom";
 import FloatInput from "../../components/ui/Inputs/FloatInput";
 import PasswordInput from "../../components/ui/Inputs/PasswordInput";
 import { Checkbox } from "primereact/checkbox";
@@ -15,6 +14,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,7 +26,7 @@ const Signup = () => {
       toast.current.show({ severity: "error", detail: `Please Enter Username` });
     }
     else if(checked == false){
-      toast.current.show({ severity: "error", detail: `Please Accept Terms nd Conditions` });
+      toast.current.show({ severity: "error", detail: `Please Accept Terms and Conditions` });
     }
  else   if (
       userdata.email.length > 0 &&
@@ -140,12 +140,12 @@ const Signup = () => {
                </div>
              </div>
            </form>
-           <p  className="text-primary" onClick={()=>{navigate('/signup-guide')}}>Guide To Setup Your Account !</p>
            <p className="text-xs font-normal text-gray-400 font-poppins">
              Protected by reCAPTCHA and subject to the{" "}
              <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>SendWish Privacy Policy</span> and{" "}
              <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>Terms of Service.</span>
            </p>
+           <button  className="text-primary cursor-pointer" onClick={()=>{navigate('/signup-guide')}}>Guide To Setup Your Account !</button>
          </div>
        </div>
     </div>
