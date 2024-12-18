@@ -98,7 +98,7 @@ const Signup = () => {
               <FloatInput
                  value={userdata.email}
                 onChange={(e) =>
-                   setuserdata({ ...userdata, email: e.target.value })
+                   setuserdata({ ...userdata, email:e.target.value.toLowerCase() })
                  }
                 id="email"
                  label="Email address"

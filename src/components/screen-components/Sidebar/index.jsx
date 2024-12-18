@@ -37,15 +37,11 @@ const Sidebar = () => {
         { name: "My Events", link: "/my-events", active: false , img : calend},
         // { name: "Update Bank Account", link: "", active: false },
         { name: "Update Password", link: "/update-password", active: false,img:password },
+        {name:"Logout",active:false,}
       ],
+      
     },
-    // {
-    //   name: "OTHER",
-    //   list: [
-    //     { name: "Settings", link: "", active: false },
-
-    //   ],
-    // },
+   
   ]);
   useEffect(() => {
     function handleResize() {
@@ -102,11 +98,14 @@ const Sidebar = () => {
                           <div className="w-[20px]">
                             <img src={listitem?.img} className="w-[20px]" />
                           </div>
-                          <Link to={listitem?.link} onClick={handleMenuItemClick}>
+                       { listitem.name == "Logout"  ?    <h3 className="font-manrope font-medium text-lg text-[white] cursor-pointer"
+                       onClick={()=>{handleLogout()}}>
+                              {listitem?.name}
+                            </h3> : <Link to={listitem?.link} onClick={handleMenuItemClick}>
                             <h3 className="font-manrope font-medium text-lg text-[white]">
                               {listitem?.name}
                             </h3>
-                          </Link>
+                          </Link>}
                         </div>
                       </div>
                     );
