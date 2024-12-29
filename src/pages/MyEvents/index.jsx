@@ -123,9 +123,10 @@ const MyEvents = () => {
   const UrlBodyTemplate = (rowData) => {
     return (
       <div className="flex items-center gap-2">
-        <a href={rowData.event_url} target="_blank" rel="noopener noreferrer">
+      {/* href={rowData.event_url} target="_blank" rel="noopener noreferrer" */}
+        <p >
           {rowData.event_url}
-        </a>
+        </p>
         <CopyToClipboard text={rowData.event_url} onCopy={() => copyUrlToClipboard(rowData.event_url)}>
           <button className="text-blue-500">
             <FaCopy />

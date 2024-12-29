@@ -33,6 +33,7 @@ const EventCreateS2 = () => {
     image: "",
     giftmessage: "",
     gift: "",
+    gift_fee:"",
     email: userdata?.email,
     from: "",
     country: { name: "", code: "" },
@@ -70,7 +71,9 @@ const EventCreateS2 = () => {
       const giftData = JSON.parse(localStorage.getItem("eventsData"));
       let response = await createPaymentIntent(id, {
         // userId: user.id,
-        gift_amount: parseFloat(giftData.gift + (giftData.gift *0.07)+ 0.5),
+        gift_amount: parseFloat(giftData.gift),
+        gift_fee : parseFloat(((giftData.gift * 0.07)).toFixed(2)),
+
       });
       
       setPaymentIntent(response.data);
