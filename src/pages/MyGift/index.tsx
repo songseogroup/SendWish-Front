@@ -45,7 +45,7 @@ const MyGift = () => {
           Gift Statuses
         </h3>
         <div className="w-full bg-[white]  rounded-xl flex flex-col gap-5 2xl:gap-0 2xl:flex-row xl:!p-5 2xl:p-14 py-0 2xl:py-3 mt-5 justify-between flex-wrap">
-          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2 ">
+          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-full ">
             <div className="flex items-center justify-start w-full gap-5 2xl:justify-center 2xl:gap-10 ">
               <div className="flex items-center gap-5 ">
                 <div >
@@ -79,11 +79,11 @@ const MyGift = () => {
                 </div>
               </div>
 
-              <img src={GreenLine} className="hidden 2xl:block" />
+              {/* <img src={GreenLine} className="hidden 2xl:block" /> */}
             </div>
           </div>
 
-          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2">
+          {/* <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2">
             <div className="flex items-center justify-start w-full gap-5 2xl:justify-center 2xl:gap-10 ">
               <div className="flex items-center gap-5 ">
                 <div >
@@ -119,7 +119,7 @@ const MyGift = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <div className="w-full rounded-xl bg-[white] mt-8 shadow-lg box-border border-b border-b-[#EBF0ED]">

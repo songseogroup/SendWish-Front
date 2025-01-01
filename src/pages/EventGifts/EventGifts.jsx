@@ -20,7 +20,7 @@ const MyEventGifts = () => {
   // const token = JSON.parse(localStorage.getItem("Token"));
  const [eventGifts,setEventGifts] = useState(null)
  const { id } = useParams();
-
+ const [search, setSearch] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,7 +53,7 @@ const MyEventGifts = () => {
           Gift Statuses
         </h3>
         <div className="w-full bg-[white]  rounded-xl flex flex-col gap-5 2xl:gap-0 2xl:flex-row xl:!p-5 2xl:p-14 py-0 2xl:py-3 mt-5 justify-between flex-wrap">
-          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2 ">
+          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-full ">
             <div className="flex items-center justify-start w-full gap-5 2xl:justify-center 2xl:gap-10 ">
               <div className="flex items-center gap-5 ">
                 <div >
@@ -64,7 +64,7 @@ const MyEventGifts = () => {
                     ${amountDetails?.totalGiftAmount ? amountDetails?.totalGiftAmount : 0}
                   </h1>
                   <h4 className="font-manrope text-[#6B6B6B] font-[600] mt-2 text-[12px] uppercase">
-                    Earned
+                    Received
                   </h4>
                 </div>
               </div>
@@ -87,11 +87,11 @@ const MyEventGifts = () => {
                 </div>
               </div>
 
-              <img src={GreenLine} className="hidden 2xl:block" />
+              {/* <img src={GreenLine} className="hidden 2xl:block" /> */}
             </div>
           </div>
 
-          <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2">
+          {/* <div className="flex justify-start p-6 2xl:p-0 2xl:justify-between 2xl:w-1/2">
             <div className="flex items-center justify-start w-full gap-5 2xl:justify-center 2xl:gap-10 ">
               <div className="flex items-center gap-5 ">
                 <div >
@@ -127,7 +127,7 @@ const MyEventGifts = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="w-full rounded-xl bg-[white] mt-8 shadow-lg box-border border-b border-b-[#EBF0ED]">
@@ -135,7 +135,9 @@ const MyEventGifts = () => {
           <div className="w-full">
             <IconField iconPosition="left">
               <InputIcon className="pi pi-search"> </InputIcon>
-              <InputText v-model="value1" placeholder="Search Orders"  />
+              <InputText v-model="value1" placeholder="Search Orders"  onChange={(event)=>{
+                setSearch(event.target.value)
+              }} />
             </IconField>
           </div>
           <div className="flex items-center gap-8">
@@ -192,7 +194,7 @@ const MyEventGifts = () => {
         </div>
 
         <div className="pt-5 mt-5 border-t border-t-[#EBF0ED]">
-          <GiftTable data={eventGifts?.data} />
+          <GiftTable data={eventGifts?.data}  search={search}/>
         </div>
       </div>
     </div>

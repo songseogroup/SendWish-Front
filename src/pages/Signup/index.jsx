@@ -145,7 +145,7 @@ const Signup = () => {
              <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>SendWish Privacy Policy</span> and{" "}
              <span className="text-primary" onClick={()=>{navigate('/terms-and-conditions')}}>Terms of Service.</span>
            </p>
-           <button  className="text-primary cursor-pointer" onClick={()=>{navigate('/signup-guide')}}>Guide To Setup Your Account !</button>
+           <button  className="text-primary cursor-pointer text-[20px] mt-5"  onClick={()=>{navigate('/signup-guide')}}>IMPORTANT : Guide To Setup Your Account </button>
          </div>
        </div>
     </div>

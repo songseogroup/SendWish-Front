@@ -4,8 +4,9 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button'; // Import PrimeReact Button
 import { GiftDetails } from '../../../core/services/gift.service';
 import { useNavigate } from 'react-router-dom';
-const GiftTable = ({data}) => {
+const GiftTable = ({data,search}) => {
     const [products,setproducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [paymentDetail,setPaymentDetail] = useState(null)
     const navigate = useNavigate();
@@ -21,7 +22,23 @@ const GiftTable = ({data}) => {
         console.log(error);
       }
     };
-    
+    useEffect(() => {
+      if (!search) {
+          // If search is empty, show all products
+          setFilteredProducts(products);
+      } else {
+          // Filter products based on the search term (case-insensitive)
+          const filtered = products.filter((product) => {
+              return (
+                  product.pid.toString().toLowerCase().includes(search.toLowerCase()) ||
+                  (product.sender?.toLowerCase().includes(search.toLowerCase()) || '') ||
+                  product.gift_amount.toString().toLowerCase().includes(search.toLowerCase()) ||
+                  new Date(product.created_at).toLocaleDateString('en-GB').includes(search)
+              );
+          });
+          setFilteredProducts(filtered);
+      }
+  }, [search, products]);
     useEffect(() => {
      console.log("events data loading array",data)
      setproducts(data)
@@ -60,9 +77,11 @@ const orderDateTemplate = (rowData) => {
     const [globalFilter, setGlobalFilter] = useState(null);
   return (
     <div className='border rounded-lg m-4 border-[#EBF0ED]'>
-         <DataTable  value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-                        dataKey="pid"  
-                         globalFilter={globalFilter} >
+         <DataTable     value={filteredProducts}
+                selection={selectedProducts}
+                onSelectionChange={(e) => setSelectedProducts(e.value)}
+                dataKey="pid"
+                         >
                          
                     <Column selectionMode="multiple" exportable={false}></Column>
                     <Column field="pid" header="Order ID" sortable style={{ minWidth: '12rem' }}></Column>

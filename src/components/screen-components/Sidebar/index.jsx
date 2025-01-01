@@ -6,6 +6,7 @@ import calendoricon from "../../../assets/images/calendor-icon.png";
 import { Link } from "react-router-dom";
 import calend from "../../../assets/images/calend.png"
 import password from "../../../assets/images/password.png"
+import logoutIcon from "../../../assets/images/logout.png"
 import { SetSideBar } from "../../../core/redux/actions";
 import { usedispatch, useselector } from "../../../core/redux/actions";
 const Sidebar = () => {
@@ -37,7 +38,7 @@ const Sidebar = () => {
         { name: "My Events", link: "/my-events", active: false , img : calend},
         // { name: "Update Bank Account", link: "", active: false },
         { name: "Update Password", link: "/update-password", active: false,img:password },
-        {name:"Logout",active:false,}
+        {name:"Logout",active:false,img:logoutIcon}
       ],
       
     },
@@ -116,12 +117,12 @@ const Sidebar = () => {
           );
         })}
 
-        <h3
+        {/* <h3
           onClick={handleLogout}
           className="font-manrope cursor-pointer absolute bottom-10 left-[6.5rem] text-center font-medium text-lg text-[white]"
         >
           Logout
-        </h3>
+        </h3> */}
       </div>
     </div>
   );

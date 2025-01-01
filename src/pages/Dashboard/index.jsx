@@ -28,7 +28,7 @@ const Dashboard = () => {
         Overview
       </h1>
       <div className="flex flex-col items-center md:flex-row justify-center w-full gap-20 mt-[50px]">
-        <div className="bg-primary flex flex-col justify-center items-center rounded-xl w-full sm:w-[450px] h-[450px]">
+        <div className="bg-primary flex flex-col justify-center items-center rounded-xl w-full sm: h-[450px]">
           <div className="flex flex-col items-center justify-center">
             <h1 className="text-[white] text-[35px] sm:text-[70px] font-manrope font-extrabold">${amountDetails?.totalGiftAmount ? amountDetails?.totalGiftAmount : 0}</h1>
             <h3 className="text-[white] text-[16px] sm:text-[20px] font-manrope font-bold">Received From</h3>
@@ -38,7 +38,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-orange flex flex-col justify-center items-center rounded-xl w-full sm:w-[450px] h-[450px]">
+        {/* <div className="bg-orange flex flex-col justify-center items-center rounded-xl w-full sm:w-[450px] h-[450px]">
         <div className="flex flex-col items-center justify-center">
             <h1 className="text-[white] text-[35px] sm:text-[70px] font-manrope font-extrabold">${amountDetails?.totalSentGiftAmount ? amountDetails?.totalSentGiftAmount : 0}</h1>
             <h3 className="text-[white] text-[16px] sm:text-[20px] font-manrope font-bold">Sent In</h3>
@@ -47,7 +47,7 @@ const Dashboard = () => {
             <h3 className="text-[white] text-[16px] sm:text-[20px] font-manrope mt-7 font-extrabold">Gifts</h3>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
