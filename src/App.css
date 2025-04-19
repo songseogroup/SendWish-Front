@@ -197,3 +197,19 @@ body {
   align-items:center;
 }
 }
+.p-button .p-component .p-fileupload-choose{
+  background-color: #39D2C0 !important;
+  color:white !important;
+}
+.p-button .p-component .p-fileupload-choose:hover{
+  background-color: #39D2C0 !important;
+  color:white !important;
+}
+.p-button{
+  background-color: #39D2C0 !important;
+  color:white !important;
+}
+.p-button:hover{
+  background-color: #39D2d0 !important;
+  color:white !important;
+}

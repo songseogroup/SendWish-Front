@@ -189,7 +189,7 @@ const Signup = () => {
   return (
     <>
       <div className="flex min-h-screen">
-        <div className="hidden lg:flex w-[510px] bg-primary flex-col justify-between min-h-screen">
+        <div className="hidden lg:flex w-[510px]  bg-primary flex-col justify-between min-h-screen">
           <div className="flex flex-col items-center justify-center gap-5 mt-44">
             <img src={logo} alt="img" className="w-[280px]" />
             <p className="font-poppins text-4xl font-medium text-[white] text-center">
@@ -203,7 +203,7 @@ const Signup = () => {
             </Link>
           </p>
         </div>
-        <div className="w-full h-full pb-[0px] md:pb-[50px] overflow-y-auto">
+        <div className="w-full h-screen pb-[0px] md:pb-[50px] overflow-y-auto">
           <Toast ref={toast} />
           <p className="mt-10 mr-10 text-sm font-medium text-right font-poppins">
             Already have an account?{" "}
@@ -211,11 +211,16 @@ const Signup = () => {
               Signin
             </Link>
           </p>
-          <div className="w-full px-5 md:px-0 md:w-[600px] mx-auto mt-10 md:mt-20 flex flex-col justify-between h-full">
+          <div className="w-full  px-5 md:px-0 md:w-[600px] mx-auto mt-10 md:mt-20 flex flex-col justify-between h-full">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <p className="text-2xl font-medium text-center text-black font-poppins md:text-left">
-                Sign up to SendWish
-              </p>
+                <p className="text-2xl font-medium text-center text-black font-poppins md:text-left">
+                Create your SendWish account to start receiving digital cash gifts straight to your bank account.
+                </p>
+<p className="text-sm font-medium text-[black] text-center font-poppins mb-16">
+Sign up in minutes to connect with Stripe and start receiving secure cash gifts and messages for any occasion. Just verify your ID and you're ready to go
+</p>
+
+
               
               <div className="grid grid-cols-2 gap-4">
                 <FloatInput
@@ -261,7 +266,7 @@ const Signup = () => {
                   value={userdata.dateOfBirth}
                   onChange={(e) => setuserdata({ ...userdata, dateOfBirth: e.value })}
                   dateFormat="dd/mm/yy"
-                  showIcon
+                  // showIcon////
                   className="w-full"
                 />
               </div>
