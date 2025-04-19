@@ -217,7 +217,7 @@ const Signup = () => {
                 Create your SendWish account to start receiving digital cash gifts straight to your bank account.
                 </p>
 <p className="text-sm font-medium text-[black] text-center font-poppins mb-16">
-Sign up in minutes to connect with Stripe and start receiving secure cash gifts and messages for any occasion. Just verify your ID and you're ready to go
+Sign up in minutes to connect with Stripe and start receiving secure cash gifts and messages for any occasion. Just verify your ID and you're ready to go.
 </p>
 
 
@@ -326,14 +326,14 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                 value={userdata.iban}
                 onChange={(e) => setuserdata({ ...userdata, iban: e.target.value })}
                 id="iban"
-                label="IBAN"
+                label="IBAN / Bank Account Number"
               />
 
               <FloatInput
                 value={userdata.routingNumber}
                 onChange={(e) => setuserdata({ ...userdata, routingNumber: e.target.value })}
                 id="routingNumber"
-                label="Routing Number"
+                label="Routing Number / BSB Number"
               />
 
               <div className="space-y-4">
