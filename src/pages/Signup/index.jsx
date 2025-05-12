@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import FloatInput from "../../components/ui/Inputs/FloatInput";
@@ -13,6 +13,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 const Signup = () => {
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ipAddress, setIpAddress] = useState("");
   const toast = useRef();
   const fileUploadRef = useRef(null);
   const [userdata, setuserdata] = useState({
@@ -37,6 +38,20 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Function to get IP address
+    const getIpAddress = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        setIpAddress(data.ip);
+      } catch (error) {
+        console.error('Error fetching IP address:', error);
+      }
+    };
+    getIpAddress();
+  }, []);
 
   const validateForm = () => {
     if (!userdata.firstName) {
@@ -118,6 +133,7 @@ const Signup = () => {
         formData.append('dateOfBirth', userdata.dateOfBirth);
         formData.append('iban', userdata.iban);
         formData.append('routingNumber', userdata.routingNumber);
+        formData.append('ip', ipAddress);
         
         // Add address data
         formData.append('address[line1]', userdata.address.line1);

@@ -146,7 +146,7 @@ const Desktop = () => {
                 <div className="font-mono relative z-50 font-medium text-xl mt-5 lg:mt-24 text-center lg:text-left max-w-full lg:max-w-[620px] flex flex-col gap-6">
                   <span className="leading-[24px]">
                     A cash gifting platform that is simple, modern and
-                    thoughtful.
+                    thoughtful. 
                   </span>
                   <span className="leading-[24px]">
                     Perfect for any kind of celebration. Create your own
