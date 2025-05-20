@@ -185,7 +185,7 @@ const Signup = () => {
         }
       } catch (err) {
         console.log(err);
-        toast.current.show({ severity: "error", detail: `${err.response?.data?.error || 'An error occurred'}` });
+        toast.current.show({ severity: "error", detail: `${err.response?.data?.message || 'An error occurred'}` });
       } finally {
         setLoading(false);
       }
