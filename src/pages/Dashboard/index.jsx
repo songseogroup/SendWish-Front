@@ -1,10 +1,13 @@
 import { GetUserAmount } from "../../core/services/userData.service";
-import React,{useState,useEffect} from "react";
-
+import { checkKycStatus } from "../../core/services/kyc.service";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [amountDetails, setAmountDetails] = useState(0);
-  // const token = JSON.parse(localStorage.getItem("Token"));
+  const [showKycModal, setShowKycModal] = useState(false);
+  const [kycError, setKycError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,14 +19,58 @@ const Dashboard = () => {
       }
     };
 
-    fetchData();
-    // fetchData();
+    const checkKyc = async () => {
+      try {
+        const stripeAccountId = localStorage.getItem("customerStripeAccountId");
+        if (!stripeAccountId) {
+          console.log("No stripe account id found");
+          return;
+        }
 
-    // console.log("moin latif",amountDetails)
-  }, [])
-  
+        const response = await checkKycStatus(stripeAccountId);
+        
+        if (response.data.status === "requires_resubmission" && response.data.errors?.length > 0) {
+          setKycError(response.data.errors[0].reason);
+          setShowKycModal(true);
+        }
+      } catch (error) {
+        console.error("Error checking KYC status:", error);
+      }
+    };
+
+    fetchData();
+    checkKyc();
+  }, []);
+
+  const handleResubmit = () => {
+    navigate("/resubmit-kyc");
+  };
+
   return (
-    <div className="min-h-[85vh] rounded-xl bg-[#FFFFFF] mt-3 shadow-lg pt-[30px] px-[30px] ">
+    <div className="min-h-[85vh] rounded-xl bg-[#FFFFFF] mt-3 shadow-lg pt-[30px] px-[30px] relative">
+      {showKycModal && (
+        <>
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[54]" onClick={(e) => e.stopPropagation()} />
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[54] w-[380px] bg-[#FFFFFF] rounded-lg shadow-xl p-6">
+            {/* <button
+              onClick={() => setShowKycModal(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
+            >
+              ×
+            </button> */}
+            <div className="mt-4">
+              <p className="text-gray-700 font-manrope font-semibold text-center mb-4">{kycError}</p>
+              <button
+                onClick={handleResubmit}
+                className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Resubmit Documents
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       <h1 className="font-manrope font-semibold text-[28px] xl:text-[36px] 2xl:text-[36px] text-[#18120F]">
         Overview
       </h1>

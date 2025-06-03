@@ -11,7 +11,7 @@ import { setAuthToken } from "../../core/configs";
 const Signin = () => {
   const navigate = useNavigate();
   const toast = useRef();
-
+// const [count ,setCount] = useState()
   const [userdata, setuserdata] = useState({
     email: "",
     password: "",
@@ -31,10 +31,11 @@ const Signin = () => {
           const { user, message } = response.data;
           toast.current.show({ severity: "success", detail: `${message}` });
 
-          const { accessToken, refreshToken, ...rest } = user;
+          const { accessToken, refreshToken,customerStripeAccountId, ...rest } = user;
           localStorage.setItem("user", JSON.stringify(rest));
           localStorage.setItem("AccessToken", accessToken);
           localStorage.setItem("RefreshToken", refreshToken);
+          localStorage.setItem("customerStripeAccountId", customerStripeAccountId);
           console.log(accessToken, refreshToken);
           setAuthToken(accessToken, refreshToken);
           localStorage.setItem("Token", accessToken);

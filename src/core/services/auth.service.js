@@ -49,7 +49,7 @@ export const UserSignup = async (data) => {
     try {
       let response = await url.post("/auth/update-password", data, {
         headers: {
-          Authorization: ` ${token}`, 
+          Authorization: `Bearer ${token}`, 
         },
       });
       let responsebody={
@@ -66,7 +66,7 @@ export const UserSignup = async (data) => {
     try {
       let response = await url.get("/auth/sign-up/confirm", {
         headers: {
-          Authorization: `${token}`, 
+          Authorization: `Bearer ${token}`, 
         },
       });
       let responsebody={

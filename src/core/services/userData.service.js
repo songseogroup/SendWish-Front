@@ -5,7 +5,7 @@ export const GetUserAmount = async () => {
   try {
       let response = await url.get(`/payment/totalRecievedAmount`, {
       headers: {
-        Authorization: ` ${token}`,  // Sending token as Bearer token
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
       },
     });
     let responsebody = {
@@ -27,7 +27,7 @@ export const  senderAiMessage = async (data) => {
    try {
     let response = await url.post(`/chatgpt/generate-message`,data, {
       headers: {
-        Authorization: ` ${token}`,  // Sending token as Bearer token
+        Authorization: `Bearer ${token}`,  // Sending token as Bearer token
       },
     })
     let responsebody = {

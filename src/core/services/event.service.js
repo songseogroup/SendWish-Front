@@ -6,7 +6,7 @@ export const CreateEvent = async (data) => {
   try {
     let response = await url.post("/events", data, {
       headers: {
-        Authorization: ` ${token}`, 
+        Authorization: `Bearer ${token}`, 
       },
     });
     let responsebody = {
@@ -28,7 +28,7 @@ export const UpdateEvent = async (data,id) => {
   try {
     let response = await url.patch(`/events/${id}`, data, {
       headers: {
-        Authorization: ` ${token}`, 
+        Authorization: `Bearer ${token}`, 
       },
     });
     let responsebody = {
@@ -50,7 +50,7 @@ export const GetUserEvent = async () => {
   try {
     let response = await url.get("/events/myevents", {
       headers: {
-        Authorization: ` ${token}`,  // Sending token as  token
+        Authorization: `Bearer ${token}`,  // Sending token as  token
       },
     });
     let responsebody = {
@@ -72,7 +72,7 @@ export const GetEventById = async (id) => {
   try {
     let response = await url.get(`/events/${id}`, {
       headers: {
-        Authorization: ` ${token}`,  // Sending token as  token
+        Authorization: `Bearer ${token}`,  // Sending token as  token
       },
     });
    
@@ -95,7 +95,7 @@ export const DeleteEvent = async (id) => {
   try {
     let response = await url.delete(`/events/${id}`, {
       headers: {
-        Authorization: `${token}`,  // Sending token as  token
+          Authorization: `Bearer ${token}`,  // Sending token as  token
       },
     });
     let responsebody = {
@@ -116,7 +116,7 @@ export const createPaymentIntent = async (id,data) => {
   try {
     let response = await url.put(`/events/createPaymentIntent/${id}`, data, {
       headers: {
-        Authorization: ` ${token}`, 
+        Authorization: `Bearer ${token}`, 
       },
     });
     let responsebody = {
@@ -139,7 +139,7 @@ export const PaymentComplete = async (data) => {
   try {
     let response = await url.post("/payment", data, {
       headers: {
-        Authorization: ` ${token}`, 
+        Authorization: `Bearer ${token}`, 
       },
     });
     let responsebody = {

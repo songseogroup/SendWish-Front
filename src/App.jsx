@@ -27,6 +27,7 @@ import GiftDetail from "./pages/GiftDetail/GiftDetail";
 import UpdatePassword from "./pages/ResetPassword/UpdatePassword";
 import TermsAndConditions from "./pages/Terms/TermsConditions";
 import SendWishRegistrationGuide from "./components/Modal/Guide";
+import ResubmitKyc from "./pages/resubmitkyc";
 const stripePromise = loadStripe(
   "pk_test_51MppICJeXAKvhuBVhD94Mp2hOae0MfQGmVkPySYE3DEHURo7eIIasiG4PFcmvESnUYcMDmohziWFunzB4uPUchlA00b1WOe5fA"
 );
@@ -190,6 +191,16 @@ function App() {
             <PublicLayout>
               <TermsAndConditions />
             </PublicLayout>
+          }
+        />
+        <Route
+          path="/resubmit-kyc"
+          element={
+            <PrivateLayout>
+              <DashboardLayout>
+                <ResubmitKyc />
+              </DashboardLayout>
+            </PrivateLayout>
           }
         />
       </Routes>

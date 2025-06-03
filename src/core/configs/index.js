@@ -46,10 +46,10 @@ instance.interceptors.response.use(
     ) {
       const token = localStorage.getItem("Token");
 
-      if (token) {
-        localStorage.clear();
-        window.location.href = "/signin";
-      }
+      // if (token) {
+      //   localStorage.clear();
+      //   window.location.href = "/signin";
+      // }
     }
     return Promise.reject(error);
   }
