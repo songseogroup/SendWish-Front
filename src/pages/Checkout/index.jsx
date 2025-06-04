@@ -66,7 +66,7 @@ const StripeCheckoutForm = ({
       const data = {
         gift_message: giftSenderData?.giftmessage,
         gift_amount: Number(giftSenderData?.gift) ,
-        gift_fee :Number((parseFloat(giftSenderData?.gift) * 0.07 + 50).toFixed(4)),
+        gift_fee :Number((parseFloat(giftSenderData?.gift) * 0.07).toFixed(4)),
         country: giftSenderData.country.code,
         userId: giftSenderData.from,
         eventId: giftSenderData.eid,

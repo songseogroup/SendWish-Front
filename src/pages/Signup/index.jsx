@@ -193,6 +193,7 @@ const Signup = () => {
   };
 
   const handleFileUpload = (e, type) => {
+    console.log(e.files);
     const file = e.files[0];
     if (file) {
       setuserdata(prev => ({
