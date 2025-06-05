@@ -35,85 +35,56 @@ const StripeCheckoutForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     setloading(true);
-    const cardElement = elements.getElement(CardNumberElement);
-    //   console.log("pi_3Ppx9uJeXAKvhuBV0K16BRil_secret_tCMwZO6FT7KnJ7JXti7muN1oy")
-    const payment_card = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-    console.log(payment_card, "payment_Card");
-
-    console.log(paymentIntent, "payment_intent");
-    //  const paymentAttach = await stripe.a(payment_card.paymentMethod.id, {
-    //     customer: paymentIntent.customer
-    //  })
-    //  console.log(paymentAttach,"gaming");
-    const confirm_payment = await stripe.confirmCardPayment(
-      paymentIntent?.data?.client_secret,
-      {
-        payment_method: payment_card?.paymentMethod?.id,
+    
+    try {
+      const cardElement = elements.getElement(CardNumberElement);
+      
+      // Create a payment method without attaching it to a customer
+      const paymentMethod = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+      });
+      
+      if (!paymentMethod || !paymentMethod.paymentMethod) {
+        throw new Error("Failed to create payment method");
       }
-    );
-    console.log(confirm_payment, "confirm_payment");
-    // "gift_message": "string",
-    // "gift_amount": 0,
-    // "country": "string",
-    // "userId": 0,
-    // "eventId": 0,
-    // "paymentIntentId": "string"
-
-    const paymentComplete = () => {
+      
+      // Confirm the payment with the payment method
+      const confirmPayment = await stripe.confirmCardPayment(
+        paymentIntent?.data?.client_secret,
+        {
+          payment_method: paymentMethod.paymentMethod.id,
+        }
+      );
+      
+      if (confirmPayment.error) {
+        throw new Error(confirmPayment.error.message);
+      }
+      
+      // If payment is successful, complete the payment process
       const data = {
         gift_message: giftSenderData?.giftmessage,
-        gift_amount: Number(giftSenderData?.gift) ,
-        gift_fee :Number((parseFloat(giftSenderData?.gift) * 0.07).toFixed(4)),
+        gift_amount: Number(giftSenderData?.gift),
+        gift_fee: Number((parseFloat(giftSenderData?.gift) * 0.07).toFixed(4)),
         country: giftSenderData.country.code,
         userId: giftSenderData.from,
         eventId: giftSenderData.eid,
-        email:giftSenderData.email,
+        email: giftSenderData.email,
         paymentIntentId: paymentIntent.data.id,
       };
       
-      console.log(data, "payment_complete");
-      PaymentComplete(data)
-        .then((res) => {
-          console.log(res, "successResponse");
-          setShowDialog(true);
-          setloading(false);
-        })
-        .catch((err) => {
-          console.log(err, "error");
-          setloading(false);
-          toast.current.show({
-            severity: "error",
-            detail: `${err?.data?.error}`,
-          });
-        });
-    };
-    paymentComplete();
-    //     return new Promise((resolve, reject) => {
-    //         stripe.createPaymentMethod({
-    //             type: 'card',
-    //             card: cardElement
-    //         }).then(paymentMethod => {
-    //             console.log(paymentMethod)
-    //             const data = {
-    //                 clientSecret: "pi_3PpcNsJeXAKvhuBV1WEVbFF8_secret_Od4kp0Su2qYeIdU9eXURtiyRM",
-    //                 paymentMethodId: paymentMethod.paymentMethod.id
-    //             }
-    //             resolve(data)
-    //         }).catch(err => reject(err))
-    //     }).then(res => {
-    //     console.log(res)
-    //     return stripe.confirmCardPayment(res.clientSecret, {
-    //         payment_method: res.paymentMethodId
-    //     })
-    // }).then(res => {
-    //     console.log(res)
-
-    // }).catch(err => {
-    //     console.log(err)
-    // })
+      const response = await PaymentComplete(data);
+      console.log(response, "successResponse");
+      setShowDialog(true);
+      setloading(false);
+    } catch (err) {
+      console.error(err, "error");
+      setloading(false);
+      toast.current.show({
+        severity: "error",
+        detail: err?.message || err?.data?.error || "Payment failed. Please try again.",
+      });
+    }
   };
   const closeDialog = () => {
     setShowDialog(false);
