@@ -29,7 +29,7 @@ import TermsAndConditions from "./pages/Terms/TermsConditions";
 import SendWishRegistrationGuide from "./components/Modal/Guide";
 import ResubmitKyc from "./pages/resubmitkyc";
 const stripePromise = loadStripe(
-  process.env.VITE_APP_STRIPE_TEST_KEY);
+  import.meta.env.VITE_APP_STRIPE_TEST_KEY);  
 
 function App() {
   return (
