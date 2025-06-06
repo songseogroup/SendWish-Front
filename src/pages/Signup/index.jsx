@@ -362,7 +362,7 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                     mode="basic"
                     name="front"
                     accept="image/*"
-                    maxFileSize={1000000}
+                   
                     chooseLabel="Upload Front of ID"
                     onSelect={(e) => handleFileUpload(e, 'front')}
                     auto
@@ -374,7 +374,6 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                     mode="basic"
                     name="back"
                     accept="image/*"
-                    maxFileSize={1000000}
                     chooseLabel="Upload Back of ID"
                     onSelect={(e) => handleFileUpload(e, 'back')}
                     auto
