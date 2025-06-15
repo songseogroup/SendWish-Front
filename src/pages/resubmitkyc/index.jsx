@@ -49,7 +49,7 @@ const ResubmitKyc = () => {
     const formData = new FormData();
     formData.append('file', file);
     const response = await axios.post(
-      `${import.meta.env.VITE_APP_BASE_URL}/stripe/upload-to-stripe`,
+      `${import.meta.env.VITE_APP_BASE_URL}stripe/upload-to-stripe`,
       formData,
       {
         headers: {
@@ -94,7 +94,7 @@ const ResubmitKyc = () => {
         };
 
         // Send to backend
-        const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/stripe/resubmit-kyc`, payload, {
+        const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}stripe/resubmit-kyc`, payload, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem("AccessToken")}`
           }
