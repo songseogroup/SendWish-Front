@@ -83,6 +83,9 @@ body {
   font-family: "Poppins" !important;
   border-radius: 12px !important;
 }
+.border-red-500{
+  border:1px solid red !important;
+}
 .p-inputnumber-input {
   border: none !important;
 }

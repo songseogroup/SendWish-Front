@@ -14,6 +14,7 @@ const Signup = () => {
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [ipAddress, setIpAddress] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const toast = useRef();
   const fileUploadRef = useRef(null);
   const [userdata, setuserdata] = useState({
@@ -54,67 +55,99 @@ const Signup = () => {
   }, []);
 
   const validateForm = () => {
+    const errors = {};
+    let isValid = true;
+    const emptyFields = [];
+
+    // Reset all errors first
+    setFieldErrors({});
+
     if (!userdata.firstName) {
-      toast.current.show({ severity: "error", detail: "Please enter your first name" });
-      return false;
+      errors.firstName = true;
+      emptyFields.push("First Name");
+      isValid = false;
     }
     if (!userdata.lastName) {
-      toast.current.show({ severity: "error", detail: "Please enter your last name" });
-      return false;
+      errors.lastName = true;
+      emptyFields.push("Last Name");
+      isValid = false;
     }
     if (!userdata.email) {
-      toast.current.show({ severity: "error", detail: "Please enter your email" });
-      return false;
+      errors.email = true;
+      emptyFields.push("Email");
+      isValid = false;
     }
     if (!userdata.password) {
-      toast.current.show({ severity: "error", detail: "Please enter your password" });
-      return false;
+      errors.password = true;
+      emptyFields.push("Password");
+      isValid = false;
     }
     if (!userdata.phoneNumber) {
-      toast.current.show({ severity: "error", detail: "Please enter your phone number" });
-      return false;
+      errors.phoneNumber = true;
+      emptyFields.push("Phone Number");
+      isValid = false;
     }
     if (!userdata.dateOfBirth) {
-      toast.current.show({ severity: "error", detail: "Please select your date of birth" });
-      return false;
+      errors.dateOfBirth = true;
+      emptyFields.push("Date of Birth");
+      isValid = false;
     }
     if (!userdata.address.line1) {
-      toast.current.show({ severity: "error", detail: "Please enter your address" });
-      return false;
+      errors.addressLine1 = true;
+      emptyFields.push("Address");
+      isValid = false;
     }
     if (!userdata.address.city) {
-      toast.current.show({ severity: "error", detail: "Please enter your city" });
-      return false;
+      errors.addressCity = true;
+      emptyFields.push("City");
+      isValid = false;
     }
     if (!userdata.address.state) {
-      toast.current.show({ severity: "error", detail: "Please enter your state" });
-      return false;
+      errors.addressState = true;
+      emptyFields.push("State");
+      isValid = false;
     }
     if (!userdata.address.postalCode) {
-      toast.current.show({ severity: "error", detail: "Please enter your postal code" });
-      return false;
+      errors.addressPostalCode = true;
+      emptyFields.push("Postal Code");
+      isValid = false;
     }
     if (!userdata.iban) {
-      toast.current.show({ severity: "error", detail: "Please enter your IBAN" });
-      return false;
+      errors.iban = true;
+      emptyFields.push("IBAN");
+      isValid = false;
     }
     if (!userdata.routingNumber) {
-      toast.current.show({ severity: "error", detail: "Please enter your routing number" });
-      return false;
+      errors.routingNumber = true;
+      emptyFields.push("Routing Number");
+      isValid = false;
     }
     if (!userdata.front) {
-      toast.current.show({ severity: "error", detail: "Please upload front of ID document" });
-      return false;
+      errors.front = true;
+      emptyFields.push("Front ID Document");
+      isValid = false;
     }
     if (!userdata.back) {
-      toast.current.show({ severity: "error", detail: "Please upload back of ID document" });
-      return false;
+      errors.back = true;
+      emptyFields.push("Back ID Document");
+      isValid = false;
     }
     if (!checked) {
-      toast.current.show({ severity: "error", detail: "Please accept Terms and Conditions" });
-      return false;
+      errors.terms = true;
+      emptyFields.push("Terms and Conditions");
+      isValid = false;
     }
-    return true;
+
+    if (!isValid) {
+      toast.current.show({ 
+        severity: "error", 
+        detail: `Please fill in the following required fields: ${emptyFields.join(", ")}`,
+        life: 5000
+      });
+    }
+
+    setFieldErrors(errors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
@@ -182,10 +215,62 @@ const Signup = () => {
             additional: null
           });
           setChecked(false);
+          setFieldErrors({});
         }
       } catch (err) {
         console.log(err);
-        toast.current.show({ severity: "error", detail: `${err.response?.data?.message || 'An error occurred'}` });
+        const errorMessage = err.response?.data?.message || 'An error occurred';
+        toast.current.show({ severity: "error", detail: errorMessage });
+        
+        // Handle field-specific API errors
+        if (err.response?.data?.message) {
+          const message = err.response.data.message.toLowerCase();
+          const errors = { ...fieldErrors };
+          
+          // Check for specific field errors in the message
+          if (message.includes('phone number')) {
+            errors.phoneNumber = true;
+          }
+          if (message.includes('email')) {
+            errors.email = true;
+          }
+          if (message.includes('iban')) {
+            errors.iban = true;
+          }
+          if (message.includes('routing number')) {
+            errors.routingNumber = true;
+          }
+          if (message.includes('postal code')) {
+            errors.addressPostalCode = true;
+          }
+          if (message.includes('state')) {
+            errors.addressState = true;
+          }
+          if (message.includes('city')) {
+            errors.addressCity = true;
+          }
+          if (message.includes('address')) {
+            errors.addressLine1 = true;
+          }
+          if (message.includes('first name')) {
+            errors.firstName = true;
+          }
+          if (message.includes('last name')) {
+            errors.lastName = true;
+          }
+          if (message.includes('password')) {
+            errors.password = true;
+          }
+          if (message.includes('date of birth')) {
+            errors.dateOfBirth = true;
+          }
+          if (message.includes('id document')) {
+            errors.front = true;
+            errors.back = true;
+          }
+          
+          setFieldErrors(errors);
+        }
       } finally {
         setLoading(false);
       }
@@ -193,12 +278,29 @@ const Signup = () => {
   };
 
   const handleFileUpload = (e, type) => {
-    console.log(e.files);
     const file = e.files[0];
     if (file) {
+      // Check file size (5MB = 5 * 1024 * 1024 bytes)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.current.show({ 
+          severity: "error", 
+          detail: "File size must be less than 5MB" 
+        });
+        setFieldErrors(prev => ({
+          ...prev,
+          [type]: true
+        }));
+        return;
+      }
+      
       setuserdata(prev => ({
         ...prev,
         [type]: file
+      }));
+      // Clear error for this field if file is valid
+      setFieldErrors(prev => ({
+        ...prev,
+        [type]: false
       }));
     }
   };
@@ -242,49 +344,71 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
               <div className="grid grid-cols-2 gap-4">
                 <FloatInput
                   value={userdata.firstName}
-                  onChange={(e) => setuserdata({ ...userdata, firstName: e.target.value })}
+                  onChange={(e) => {
+                    setuserdata({ ...userdata, firstName: e.target.value });
+                    setFieldErrors(prev => ({ ...prev, firstName: false }));
+                  }}
                   id="firstName"
                   label="First Name"
+                  className={fieldErrors.firstName ? "border-red-500" : ""}
                 />
                 <FloatInput
                   value={userdata.lastName}
-                  onChange={(e) => setuserdata({ ...userdata, lastName: e.target.value })}
+                  onChange={(e) => {
+                    setuserdata({ ...userdata, lastName: e.target.value });
+                    setFieldErrors(prev => ({ ...prev, lastName: false }));
+                  }}
                   id="lastName"
                   label="Last Name"
+                  className={fieldErrors.lastName ? "border-red-500" : ""}
                 />
               </div>
 
               <FloatInput
                 value={userdata.email}
-                onChange={(e) => setuserdata({ ...userdata, email: e.target.value.toLowerCase() })}
+                onChange={(e) => {
+                  setuserdata({ ...userdata, email: e.target.value.toLowerCase() });
+                  setFieldErrors(prev => ({ ...prev, email: false }));
+                }}
                 id="email"
                 label="Email address"
                 type="email"
+                className={fieldErrors.email ? "border-red-500" : ""}
               />
 
               <PasswordInput
                 value={userdata.password}
-                onChange={(e) => setuserdata({ ...userdata, password: e.target.value })}
+                onChange={(e) => {
+                  setuserdata({ ...userdata, password: e.target.value });
+                  setFieldErrors(prev => ({ ...prev, password: false }));
+                }}
                 id="password"
                 label="Password"
+                className={fieldErrors.password ? "border-red-500" : ""}
               />
 
               <FloatInput
                 value={userdata.phoneNumber}
-                onChange={(e) => setuserdata({ ...userdata, phoneNumber: e.target.value })}
+                onChange={(e) => {
+                  setuserdata({ ...userdata, phoneNumber: e.target.value });
+                  setFieldErrors(prev => ({ ...prev, phoneNumber: false }));
+                }}
                 id="phoneNumber"
                 label="Phone Number"
                 type="tel"
+                className={fieldErrors.phoneNumber ? "border-red-500" : ""}
               />
 
               <div className="flex flex-col">
                 <label className="mb-2">Date of Birth</label>
                 <Calendar
                   value={userdata.dateOfBirth}
-                  onChange={(e) => setuserdata({ ...userdata, dateOfBirth: e.value })}
+                  onChange={(e) => {
+                    setuserdata({ ...userdata, dateOfBirth: e.value });
+                    setFieldErrors(prev => ({ ...prev, dateOfBirth: false }));
+                  }}
                   dateFormat="dd/mm/yy"
-                  // showIcon////
-                  className="w-full"
+                  className={`w-full ${fieldErrors.dateOfBirth ? "border-red-500" : ""}`}
                 />
               </div>
 
@@ -292,12 +416,16 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                 <p className="font-medium">Address</p>
                 <FloatInput
                   value={userdata.address.line1}
-                  onChange={(e) => setuserdata({
-                    ...userdata,
-                    address: { ...userdata.address, line1: e.target.value }
-                  })}
+                  onChange={(e) => {
+                    setuserdata({
+                      ...userdata,
+                      address: { ...userdata.address, line1: e.target.value }
+                    });
+                    setFieldErrors(prev => ({ ...prev, addressLine1: false }));
+                  }}
                   id="addressLine1"
                   label="Address Line 1"
+                  className={fieldErrors.addressLine1 ? "border-red-500" : ""}
                 />
                 <FloatInput
                   value={userdata.address.line2}
@@ -311,46 +439,66 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                 <div className="grid grid-cols-2 gap-4">
                   <FloatInput
                     value={userdata.address.city}
-                    onChange={(e) => setuserdata({
-                      ...userdata,
-                      address: { ...userdata.address, city: e.target.value }
-                    })}
+                    onChange={(e) => {
+                      setuserdata({
+                        ...userdata,
+                        address: { ...userdata.address, city: e.target.value }
+                      });
+                      setFieldErrors(prev => ({ ...prev, addressCity: false }));
+                    }}
                     id="city"
                     label="City"
+                    className={fieldErrors.addressCity ? "border-red-500" : ""}
                   />
                   <FloatInput
                     value={userdata.address.state}
-                    onChange={(e) => setuserdata({
-                      ...userdata,
-                      address: { ...userdata.address, state: e.target.value }
-                    })}
+                    onChange={(e) => {
+                      setuserdata({
+                        ...userdata,
+                        address: { ...userdata.address, state: e.target.value }
+                      });
+                      setFieldErrors(prev => ({ ...prev, addressState: false }));
+                    }}
                     id="state"
                     label="State"
+                    className={fieldErrors.addressState ? "border-red-500" : ""}
                   />
                 </div>
                 <FloatInput
                   value={userdata.address.postalCode}
-                  onChange={(e) => setuserdata({
-                    ...userdata,
-                    address: { ...userdata.address, postalCode: e.target.value }
-                  })}
+                  onChange={(e) => {
+                    setuserdata({
+                      ...userdata,
+                      address: { ...userdata.address, postalCode: e.target.value }
+                    });
+                    setFieldErrors(prev => ({ ...prev, addressPostalCode: false }));
+                  }}
                   id="postalCode"
                   label="Postal Code"
+                  className={fieldErrors.addressPostalCode ? "border-red-500" : ""}
                 />
               </div>
 
               <FloatInput
                 value={userdata.iban}
-                onChange={(e) => setuserdata({ ...userdata, iban: e.target.value })}
+                onChange={(e) => {
+                  setuserdata({ ...userdata, iban: e.target.value });
+                  setFieldErrors(prev => ({ ...prev, iban: false }));
+                }}
                 id="iban"
                 label="IBAN / Bank Account Number"
+                className={fieldErrors.iban ? "border-red-500" : ""}
               />
 
               <FloatInput
                 value={userdata.routingNumber}
-                onChange={(e) => setuserdata({ ...userdata, routingNumber: e.target.value })}
+                onChange={(e) => {
+                  setuserdata({ ...userdata, routingNumber: e.target.value });
+                  setFieldErrors(prev => ({ ...prev, routingNumber: false }));
+                }}
                 id="routingNumber"
                 label="Routing Number / BSB Number"
+                className={fieldErrors.routingNumber ? "border-red-500" : ""}
               />
 
               <div className="space-y-4">
@@ -362,10 +510,10 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                     mode="basic"
                     name="front"
                     accept="image/*"
-                   
                     chooseLabel="Upload Front of ID"
                     onSelect={(e) => handleFileUpload(e, 'front')}
                     auto
+                    className={fieldErrors.front ? "border-red-500" : ""}
                   />
                 </div>
                 <div className="space-y-2">
@@ -377,14 +525,19 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                     chooseLabel="Upload Back of ID"
                     onSelect={(e) => handleFileUpload(e, 'back')}
                     auto
+                    className={fieldErrors.back ? "border-red-500" : ""}
                   />
                 </div>
               </div>
 
               <div className="flex gap-5 mt-8">
                 <Checkbox
-                  onChange={(e) => setChecked(e.checked)}
+                  onChange={(e) => {
+                    setChecked(e.checked);
+                    setFieldErrors(prev => ({ ...prev, terms: false }));
+                  }}
                   checked={checked}
+                  className={fieldErrors.terms ? "border-red-500" : ""}
                 ></Checkbox>
                 <p className="text-xs font-normal text-gray-400 font-poppins">
                   By clicking Create account I agree that I have read and
