@@ -86,6 +86,10 @@ const Signup = () => {
       errors.phoneNumber = true;
       emptyFields.push("Phone Number");
       isValid = false;
+    } else if (!userdata.phoneNumber.startsWith('+61')) {
+      errors.phoneNumber = true;
+      emptyFields.push("Phone Number (must start with +61)");
+      isValid = false;
     }
     if (!userdata.dateOfBirth) {
       errors.dateOfBirth = true;
