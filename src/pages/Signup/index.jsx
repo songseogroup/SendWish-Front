@@ -398,7 +398,7 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
                   setFieldErrors(prev => ({ ...prev, phoneNumber: false }));
                 }}
                 id="phoneNumber"
-                label="Phone Number"
+                label="Phone Number (Add + country code, eg. +61)"
                 type="tel"
                 className={fieldErrors.phoneNumber ? "border-red-500" : ""}
               />
