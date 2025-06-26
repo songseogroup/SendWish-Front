@@ -102,7 +102,7 @@ const ResubmitKyc = () => {
 
         toast.current.show({
           severity: "success",
-          detail: "KYC information submitted successfully",
+          detail: "Identification information submitted successfully",
           life: 5000
         });
 
@@ -119,7 +119,7 @@ const ResubmitKyc = () => {
         console.error(err);
         toast.current.show({ 
           severity: "error", 
-          detail: err.response?.data?.message || "An error occurred while submitting KYC information" 
+          detail: err.response?.data?.message || "An error occurred while submitting Identification information" 
         });
       } finally {
         setLoading(false);
@@ -149,7 +149,7 @@ const ResubmitKyc = () => {
       <Toast ref={toast} />
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
         <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
-          Resubmit KYC Information
+          Resubmit Identification Information
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -219,7 +219,7 @@ const ResubmitKyc = () => {
             {loading ? (
               <ProgressSpinner style={{ width: '20px', height: '20px' }} />
             ) : (
-              'Submit KYC Information'
+              'Submit Identification Information'
             )}
           </button>
         </form>

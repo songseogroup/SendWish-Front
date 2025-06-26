@@ -183,7 +183,7 @@ const EventCreate = () => {
                 seteventData({ ...eventData, URL: e.target.value })
               }
               id="URL"
-              label="Event Url"
+              label="Event Url e.g (Jane and John Wedding)"
               labelclass="!text-[#84818A] !text-[14px]"
               className="!border-0 !border-primary !border-b !rounded-none !pb-0 !pl-0 !text-[14px] "
             />
@@ -204,7 +204,7 @@ const EventCreate = () => {
 
          
           <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
-                   Generate message
+          Let AI Generate message
                </button>
                <p className="text-[#202020] font-poppins font-[500] text-center text-[14px] ">
                <span className="text-center">or</span>

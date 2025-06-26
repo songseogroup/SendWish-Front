@@ -141,7 +141,7 @@ export const AiModal = ({ isOpen, onClose, setNewMessage }) => {
             className="bg-primary  text-white py-2 px-4 rounded hover:bg-light-green"
             onClick={() => { handleSubmit()}}
           >
-            {loading ?"Generating": "Generate message"}
+            {loading ?"Generating": "Let AI Generate message"}
           </button>
         </div>
 
