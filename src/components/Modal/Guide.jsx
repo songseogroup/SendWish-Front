@@ -51,21 +51,22 @@ const SendWishRegistrationGuide = () => {
       <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 2: Enter Personal Information</h2>
       <ul>
         <li>Provide your <strong>Full Name</strong> (First Name and Last Name).</li>
+        <li>User name should be same as per your Bank account name</li>
         <li>Enter a valid <strong>Email Address</strong>.</li>
         <li>Add your <strong>Phone Number</strong> (optional but recommended for verification).</li>
       </ul>
     </div>
 
-    <div style={{ marginBottom: "20px" }}>
+    {/* <div style={{ marginBottom: "20px" }}>
       <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 3: Choose the Account Type</h2>
       <p>
         When asked for account type, select <strong>“Individual or Sole Proprietor”</strong>.
         {/* Skip any sections asking for business information, as they are not required for individuals. */}
-      </p>
-    </div>
+      {/* </p> */}
+    {/* </div> */}
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 4: Add Your Address</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 3: Add Your Address</h2>
       <p>Provide your <strong>Residential Address</strong> (not a business address):</p>
       <ul>
         <li>Include street name, city, state, postal code, and country.</li>
@@ -74,7 +75,7 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 5: Verify Your Identity</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 4: Verify Your Identity</h2>
       <ul>
         <li>
           Upload a scanned copy or photo of a valid <strong>Government-Issued ID</strong>:
@@ -87,12 +88,13 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 6: Set Up Bank Details for Payments (Optional at Signup)</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 5: Set Up Bank Details for Payments (Optional at Signup)</h2>
       <p>
         If you want to receive payouts immediately, provide your <strong>Personal Bank Account Details</strong>:
       </p>
       <ul>
         <li>Bank Name</li>
+        <li>User name should be same as per your Bank account name</li>
         <li>Account Number (Savings or Checking)</li>
         <li>Routing Number or IBAN (depending on your country)</li>
       </ul>
@@ -102,7 +104,7 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 7: Review and Submit</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 6: Review and Submit</h2>
       <ul>
         <li>Carefully review all the details entered to ensure accuracy.</li>
         <li>Agree to SendWish’s Terms and Conditions.</li>
@@ -111,7 +113,7 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 8: Wait for Verification</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 7: Wait for Verification</h2>
       <p>
         SendWish will process your application and may ask for additional details if required.
         {/* You will receive an email confirmation once your account is verified. */}
@@ -119,7 +121,7 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 9: Access Your Dashboard</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 8: Access Your Dashboard</h2>
       <p>
         Once approved, log in to your SendWish Dashboard to manage payouts, track transactions, 
         and update any personal or banking information as needed.
