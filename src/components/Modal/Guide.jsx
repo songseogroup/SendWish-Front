@@ -60,7 +60,8 @@ const SendWishRegistrationGuide = () => {
     {/* <div style={{ marginBottom: "20px" }}>
       <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 3: Choose the Account Type</h2>
       <p>
-        When asked for account type, select <strong>“Individual or Sole Proprietor”</strong>.
+        When asked for account 
+        <li>User name should be same as per your Bank account name</li>, select <strong>“Individual or Sole Proprietor”</strong>.
         {/* Skip any sections asking for business information, as they are not required for individuals. */}
       {/* </p> */}
     {/* </div> */}
@@ -88,7 +89,7 @@ const SendWishRegistrationGuide = () => {
     </div>
 
     <div style={{ marginBottom: "20px" }}>
-      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 5: Set Up Bank Details for Payments (Optional at Signup)</h2>
+      <h2 style={{ color: "#39D2C0", fontWeight: "bold" }}>Step 5: Set Up Bank Details for Payments </h2>
       <p>
         If you want to receive payouts immediately, provide your <strong>Personal Bank Account Details</strong>:
       </p>
