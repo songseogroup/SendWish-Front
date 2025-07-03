@@ -75,7 +75,7 @@ const EventCreateS2 = () => {
         gift_fee : parseFloat(((giftData.gift * 0.07)).toFixed(2)),
 
       });
-      
+      console.log(response,"helaluya")
       setPaymentIntent(response.data);
       console.log("Payment Intent:", response);
       if(response.data.status == 400){
