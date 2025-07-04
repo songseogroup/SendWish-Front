@@ -205,7 +205,7 @@ const EventUpdate = () => {
                       <img
                         src={file.preview}
                         alt={file.name}
-                        className="max-w-xs max-h-40"
+                        className="max-w-xs rounded-full max-h-40"
                       />
                       <p className="text-center font-poppins text-[12px]">
                         {file.name}
