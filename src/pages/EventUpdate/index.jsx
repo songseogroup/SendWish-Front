@@ -23,7 +23,16 @@ const EventUpdate = () => {
     Description: "",
   });
   const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+    // Check for rejected files (wrong type)
+    if (rejectedFiles && rejectedFiles.length > 0) {
+      toast.current.show({
+        severity: "error",
+        detail: "Please upload only JPEG, PNG, or JPG image files",
+      });
+      return;
+    }
+
     setFiles(
       acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -60,7 +69,14 @@ const EventUpdate = () => {
     }
   };
   
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+    onDrop,
+    accept: {
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/png': ['.png']
+    },
+    maxFiles: 1
+  });
   const GetEventsData = async () => {
     try {
       setloading(true);
