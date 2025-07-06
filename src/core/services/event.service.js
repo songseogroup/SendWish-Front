@@ -24,11 +24,12 @@ export const CreateEvent = async (data) => {
 };
 export const UpdateEvent = async (data,id) => {
   const token = localStorage.getItem("Token");
-  console.log("moieeen",data)
+  console.log("UpdateEvent data:", data)
   try {
     let response = await url.patch(`/events/${id}`, data, {
       headers: {
         Authorization: `Bearer ${token}`, 
+        // Don't set Content-Type for FormData - let browser set it automatically
       },
     });
     let responsebody = {

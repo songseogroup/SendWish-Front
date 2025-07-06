@@ -23,6 +23,7 @@ const EventUpdate = () => {
     Description: "",
   });
   const [files, setFiles] = useState([]);
+  const [hasNewFile, setHasNewFile] = useState(false);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // Check for rejected files (wrong type)
     if (rejectedFiles && rejectedFiles.length > 0) {
@@ -40,21 +41,34 @@ const EventUpdate = () => {
         })
       )
     );
+    setHasNewFile(true); // Mark that a new file has been selected
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
    
     try {
       const eventurl = eventData.URL.replace(" ", "_");  // Ensure correct URL format
-      let body = {
-        // date: eventData.Date,
-        event_name: eventData.EventName,
-        image: files[0]?.preview || "",  // Using file preview
-        event_description: eventData.Description,
-        event_url: eventurl,
-      };
-      console.log(body); // Logging the body to check
-      let response = await UpdateEvent(body,id );  // Make sure id and body are passed correctly
+      
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append("event_name", eventData.EventName);
+      formData.append("event_description", eventData.Description);
+      formData.append("event_url", eventurl);
+      
+      // Only append image if a new file is selected
+      if (hasNewFile && files[0] && files[0].size) { // Check if it's a new file (has size property)
+        formData.append("image", files[0]);
+        console.log("Including new image file:", files[0].name);
+      } else {
+        console.log("No new image file to upload, preserving existing image");
+      }
+      
+      console.log("FormData contents:");
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      
+      let response = await UpdateEvent(formData, id);  // Pass FormData instead of body object
       if (response.status === 200 || response.status === 201) {
         console.log(response);
         toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
@@ -99,6 +113,7 @@ const EventUpdate = () => {
               name: "Image.png",
             },
           ]);
+          setHasNewFile(false); // Reset to false when loading existing data
         }
       } else {
         setloading(false);
@@ -205,7 +220,7 @@ const EventUpdate = () => {
                       <img
                         src={file.preview}
                         alt={file.name}
-                        className="max-w-xs rounded-full max-h-40"
+                        className="max-w-xs rounded-[10px] max-h-40"
                       />
                       <p className="text-center font-poppins text-[12px]">
                         {file.name}
