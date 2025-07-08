@@ -214,17 +214,26 @@ const EventUpdate = () => {
             <div {...getRootProps()} className="mt-5">
               <input {...getInputProps()} />
               {files?.length > 0 ? (
-                <div className="flex items-start justify-center mt-4">
+                <div className="flex items-center flex-col justify-center mt-4">
+                <div className="w-full flex items-end justify-end">
+                <button
+  className="w-[160px] h-[42px] text-[#39d2c0] border border-[#39d2c0] font-poppins font-[600] text-[14px] bg-white rounded-3xl"
+>
+  Upload New Image
+</button>
+
+                </div>
+              
                   {files.map((file) => (
                     <div key={file.name} className="my-2">
                       <img
                         src={file.preview}
                         alt={file.name}
-                        className="max-w-xs rounded-[10px] max-h-40"
+                        className="max-w-xs rounded-[10px] h-[250px]"
                       />
-                      <p className="text-center font-poppins text-[12px]">
+                      {/* <p className="text-center font-poppins text-[12px]">
                         {file.name}
-                      </p>
+                      </p> */}
                     </div>
                   ))}
                 </div>
