@@ -263,7 +263,8 @@ const EventCreateS2 = () => {
                 {eventsData?.event_description}
               </p>
               <div className="flex items-center justify-center">
-                <img src={eventsData.image} alt="image" />
+                <img src={eventsData.image} alt="image" className="rounded-[10px] h-[400px]"
+                />
               </div>
               <div className="flex flex-col gap-10 mt-2">
                <button style={{color:"white"}}  className="text-white bg-primary rounded-xl  font-poppins py-2" onClick={()=>{setShowModal(true)}}>
