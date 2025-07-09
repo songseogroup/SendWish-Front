@@ -24,6 +24,7 @@ const EventUpdate = () => {
   });
   const [files, setFiles] = useState([]);
   const [hasNewFile, setHasNewFile] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // Check for rejected files (wrong type)
     if (rejectedFiles && rejectedFiles.length > 0) {
@@ -71,6 +72,8 @@ const EventUpdate = () => {
       let response = await UpdateEvent(formData, id);  // Pass FormData instead of body object
       if (response.status === 200 || response.status === 201) {
         console.log(response);
+        setIsUpdated(true); // Set updated state
+        setTimeout(() => setIsUpdated(false), 2000); // Revert after 2s
         toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
       } else {
         toast.current.show({ severity: "error", detail: `Something Went Wrong` });
@@ -248,13 +251,46 @@ const EventUpdate = () => {
             </div>
             <button
               onClick={handleSubmit}
-              className="w-full h-[52px] text-[white] font-poppins font-[600] text-[16px] mt-6 bg-primary rounded-xl"
+              className={`w-full h-[52px] text-[white] font-poppins font-[600] text-[16px] mt-6 bg-primary rounded-xl flex items-center justify-center gap-2 relative overflow-hidden`}
+              disabled={isUpdated}
             >
-              Update
+              {isUpdated ? (
+                <>
+                  <span className="flex items-center gap-2">
+                    <span className="animate-fade-in">Updated</span>
+                    <svg className="tick-animate" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 13L9 17L19 7" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                </>
+              ) : (
+                'Update'
+              )}
             </button>
           </div>
         </div>
       )}
+      <style>
+{`
+  .tick-animate {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: dash 0.6s ease forwards;
+  }
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.5s;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+`}
+</style>
     </>
   );
 };
