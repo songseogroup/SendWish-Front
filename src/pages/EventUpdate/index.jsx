@@ -74,7 +74,7 @@ const EventUpdate = () => {
         console.log(response);
         setIsUpdated(true); // Set updated state
         setTimeout(() => setIsUpdated(false), 2000); // Revert after 2s
-        toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
+        // toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
       } else {
         toast.current.show({ severity: "error", detail: `Something Went Wrong` });
       }
