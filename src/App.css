@@ -216,3 +216,15 @@ body {
   background-color: #39D2d0 !important;
   color:white !important;
 }
+.text-center {
+  text-align: center !important;
+}
+.p-column-header-content{
+  justify-content: center !important;
+  display: flex !important;
+}
+.p-column-header-content{
+  justify-content: center !important;
+  display: flex !important;
+}
+

@@ -10,7 +10,7 @@ import { DeleteEvent } from "../../core/services/event.service";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast"; // Import toast for notifications
 import { CopyToClipboard } from "react-copy-to-clipboard"; // Import CopyToClipboard component
-import { FaCopy } from "react-icons/fa"; // Copy icon
+import { FaCopy, FaEdit, FaTrash } from "react-icons/fa"; // Copy, Edit, Delete icons
 
 const MyEvents = () => {
   const [products, setProducts] = useState([]);
@@ -58,59 +58,38 @@ const MyEvents = () => {
     navigate(`/event-gifts/${id}`);
   };
 
-  const MenuBodyTemplate = (rowData) => {
-    const MenuTemplate = ({ menuRef, id }) => {
-      const items = [
-        {
-          label: "Show Gifts",
-          template: () => (
-            <div
-              className="flex gap-1 items-center justify-center text-[13px] font-[400] text-[#21212]"
-              onClick={() => ShowGifts(rowData.eid)}
-            >
-              All Gifts
-            </div>
-          ),
-        },
-        {
-          label: "Edit Event",
-          template: () => (
-            <div
-              className="flex gap-1 items-center justify-center text-[13px] font-[400] text-[#21212]"
-              onClick={() => EditEvent(rowData.eid)}
-            >
-              Edit
-            </div>
-          ),
-        },
-      ];
-
-      return (
-        <CustomMenu
-          popupAlignment="left"
-          height={"80px"}
-          model={items}
-          popup
-          ref={menuRef}
-          id="popup_menu_left"
-        />
-      );
-    };
-
-    const menuLeftRef = useRef(null);
-    const handleClick = (event) => {
-      event.preventDefault();
-      menuLeftRef.current?.toggle(event);
-    };
-
+  // Remove MenuBodyTemplate and related menu code, replace with action buttons
+  const ActionBodyTemplate = (rowData) => {
     return (
-      <div className="px-[14px] py-[4px] relative flex justify-center items-center rounded-[5px] text-[12px]">
-        <div onClick={handleClick} className="flex items-center gap-2 cursor-pointer">
-          <div className="w-[5px] h-[5px] rounded-[50%] bg-primary"></div>
-          <div className="w-[5px] h-[5px] rounded-[50%] bg-primary"></div>
-          <div className="w-[5px] h-[5px] rounded-[50%] bg-primary"></div>
-        </div>
-        <MenuTemplate id={rowData.eid} menuRef={menuLeftRef} />
+      <div className="flex gap-2 items-center justify-center">
+        <button
+          className="flex items-center gap-1 px-2 py-1 rounded border-2 border-blue-400 bg-blue-50 text-blue-700 font-semibold transition text-xs
+          hover:bg-blue-500 hover:border-blue-700 hover:text-white focus:outline-none
+          !bg-blue-50 !border-blue-400 !text-blue-700 hover:!bg-blue-500 hover:!border-blue-700 hover:!text-white"
+          onClick={() => EditEvent(rowData.eid)}
+          title="Edit Event"
+        >
+          <FaEdit /> Edit
+        </button>
+        <button
+          className="flex items-center gap-1 px-2 py-1 rounded border-2 border-red-400 bg-red-50 text-red-700 font-semibold transition text-xs
+          hover:bg-red-500 hover:border-red-700 hover:text-white focus:outline-none
+          !bg-red-50 !border-red-400 !text-red-700 hover:!bg-red-500 hover:!border-red-700 hover:!text-white"
+          onClick={() => deleteEvent(rowData.eid)}
+          title="Delete Event"
+        >
+          <FaTrash /> Delete
+        </button>
+        <CopyToClipboard text={rowData.event_url} onCopy={() => copyUrlToClipboard(rowData.event_url)}>
+          <button
+            className="flex items-center gap-1 px-2 py-1 rounded border-2 border-green-400 bg-green-50 text-green-700 font-semibold transition text-xs
+            hover:bg-green-500 hover:border-green-700 hover:text-white focus:outline-none
+            !bg-green-50 !border-green-400 !text-green-700 hover:!bg-green-500 hover:!border-green-700 hover:!text-white"
+            title="Copy Link"
+          >
+            <FaCopy /> Copy
+          </button>
+        </CopyToClipboard>
       </div>
     );
   };
@@ -123,17 +102,14 @@ const MyEvents = () => {
   const UrlBodyTemplate = (rowData) => {
     return (
       <div className="flex items-center gap-2">
-      {/* href={rowData.event_url} target="_blank" rel="noopener noreferrer" */}
-        <p >
-          {rowData.event_url}
-        </p>
-        <CopyToClipboard text={rowData.event_url} onCopy={() => copyUrlToClipboard(rowData.event_url)}>
-          <button className="text-blue-500">
-            <FaCopy />
-          </button>
-        </CopyToClipboard>
+        <p>{rowData.event_url}</p>
       </div>
     );
+  };
+
+  // Function to show amount_collected or 0 if empty
+  const AmountCollectedBodyTemplate = (rowData) => {
+    return <span>{rowData.amount_collected ? rowData.amount_collected : 0}</span>;
   };
 
   useEffect(() => {
@@ -155,12 +131,12 @@ const MyEvents = () => {
       ) : (
         <div className="border rounded-lg mt-20 border-[#EBF0ED] ">
           <DataTable value={products} dataKey="eid" className="w-full">
-            <Column field="eid" header="Event ID" style={{ minWidth: "5rem" }}></Column>
-            <Column field="event_name" header="Event Name" style={{ minWidth: "6rem" }}></Column>
-            <Column body={UrlBodyTemplate} header="URL" style={{ minWidth: "10rem" }}></Column>
-            <Column field="date" header="Event Date" style={{ minWidth: "10rem" }}></Column>
-            <Column field="amount_collected" header="Received ($)" style={{ minWidth: "10rem" }}></Column>
-            <Column body={MenuBodyTemplate}></Column>
+            <Column field="eid" header="Event ID" style={{ minWidth: "5rem" }} bodyClassName="text-center" headerClassName="text-center" />
+            <Column field="event_name" header="Event Name" style={{ minWidth: "6rem" }} bodyClassName="text-center" headerClassName="text-center" />
+            <Column body={UrlBodyTemplate} header="URL" style={{ minWidth: "10rem" }} bodyClassName="text-center" headerClassName="text-center" />
+            <Column field="date" header="Event Date" style={{ minWidth: "10rem" }} bodyClassName="text-center" headerClassName="text-center" />
+            <Column body={AmountCollectedBodyTemplate} header="Received ($)" style={{ minWidth: "10rem" }} bodyClassName="text-center" headerClassName="text-center" />
+            <Column body={ActionBodyTemplate} header="Actions" style={{ minWidth: "12rem" }} bodyClassName="text-center" headerClassName="text-center" />
           </DataTable>
         </div>
       )}
