@@ -10,7 +10,7 @@ import { DeleteEvent } from "../../core/services/event.service";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast"; // Import toast for notifications
 import { CopyToClipboard } from "react-copy-to-clipboard"; // Import CopyToClipboard component
-import { FaCopy, FaEdit, FaTrash } from "react-icons/fa"; // Copy, Edit, Delete icons
+import { FaCopy, FaEdit, FaGift } from "react-icons/fa"; // Copy, Edit, Delete icons
 
 const MyEvents = () => {
   const [products, setProducts] = useState([]);
