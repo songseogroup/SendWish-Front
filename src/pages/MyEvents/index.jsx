@@ -75,10 +75,10 @@ const MyEvents = () => {
           className="flex items-center gap-1 px-2 py-1 rounded border-2 border-red-400 bg-red-50 text-red-700 font-semibold transition text-xs
           hover:bg-red-500 hover:border-red-700 hover:text-white focus:outline-none
           !bg-red-50 !border-red-400 !text-red-700 hover:!bg-red-500 hover:!border-red-700 hover:!text-white"
-          onClick={() => deleteEvent(rowData.eid)}
-          title="Delete Event"
+          onClick={() => ShowGifts(rowData.eid)}
+          title="Show Gifts"
         >
-          <FaTrash /> Delete
+          <FaGift /> Show Gifts
         </button>
         <CopyToClipboard text={rowData.event_url} onCopy={() => copyUrlToClipboard(rowData.event_url)}>
           <button
