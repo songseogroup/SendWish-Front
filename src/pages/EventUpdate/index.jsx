@@ -73,7 +73,9 @@ const EventUpdate = () => {
       if (response.status === 200 || response.status === 201) {
         console.log(response);
         setIsUpdated(true); // Set updated state
-        setTimeout(() => setIsUpdated(false), 2000); // Revert after 2s
+        setTimeout(() => {setIsUpdated(false)
+          navigate(`/my-events`)
+        }, 2000); // Revert after 2s
         // toast.current.show({ severity: "success", detail: `Event Updated Successfully` });
       } else {
         toast.current.show({ severity: "error", detail: `Something Went Wrong` });
