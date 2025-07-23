@@ -169,7 +169,7 @@ const ResubmitKyc = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+            <label className="block text-sm font-medium text-gray-700">Select your Date of Birth</label>
             <Calendar
               value={formData.dateOfBirth}
               onChange={(e) => setFormData({ ...formData, dateOfBirth: e.value })}

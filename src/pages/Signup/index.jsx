@@ -404,7 +404,7 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
               />
 
               <div className="flex flex-col">
-                <label className="mb-2">Date of Birth</label>
+                <label className="mb-2">Select your Date of Birth</label>
                 <Calendar
                   value={userdata.dateOfBirth}
                   onChange={(e) => {
@@ -506,7 +506,8 @@ Sign up in minutes to connect with Stripe and start receiving secure cash gifts 
               />
 
               <div className="space-y-4">
-                <p className="font-medium">Verification Documents</p>
+                <p className="font-medium">Verification Documents  </p>
+                <p className="text-xs font-normal text-gray-400 font-poppins">We verify IDs with Stripe to prevent fraud and keep things secure.</p>
                 <div className="space-y-2">
                   <label>Front of ID</label>
                   <FileUpload
