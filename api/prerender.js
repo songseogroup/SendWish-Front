@@ -8,7 +8,7 @@ export default async (req, res) => {
 
   if (isBot) {
     try {
-      const prerenderToken = import.meta.env.VITE_APP_PRERENDER_TOKEN; // Replace with your Prerender.io token
+      const prerenderToken = process.env.VITE_APP_PRERENDER_TOKEN; // Replace with your Prerender.io token
       const prerenderUrl = `https://service.prerender.io/${req.url}`;
       const response = await fetch(prerenderUrl, {
         headers: { 'X-Prerender-Token': prerenderToken }
