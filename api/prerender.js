@@ -1,5 +1,4 @@
-import { readFile } from "fs/promises";
-import path from "path";
+import fetch from "node-fetch";
 
 export default async (req, res) => {
   const userAgent = req.headers["user-agent"] || "";
@@ -7,7 +6,7 @@ export default async (req, res) => {
 
   if (isBot) {
     try {
-      const prerenderToken = process.env.VITE_APP_PRERENDER_TOKEN; // Use process.env instead of import.meta.env
+      const prerenderToken = process.env.VITE_APP_PRERENDER_TOKEN;
       const prerenderUrl = `https://service.prerender.io/${req.url}`;
       const response = await fetch(prerenderUrl, {
         headers: { "X-Prerender-Token": prerenderToken },
@@ -17,17 +16,10 @@ export default async (req, res) => {
       return res.status(response.status).send(html);
     } catch (err) {
       console.error("Prerender fetch failed:", err);
+      return res.status(500).send("Prerender failed");
     }
   }
 
-  // Serve your SPA for non-bots
-  try {
-    const indexPath = path.join(process.cwd(), "public", "index.html");
-    const html = await readFile(indexPath, "utf8");
-    res.setHeader("Content-Type", "text/html");
-    return res.send(html);
-  } catch (err) {
-    console.error("Failed to read index.html:", err);
-    res.status(500).send("Internal Server Error");
-  }
+  // Normal users → redirect to SPA
+  return res.redirect("/");
 };

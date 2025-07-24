@@ -1,10 +1,8 @@
-
 {
- 
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/api/prerender.js"
+      "source": "/(.*)",
+      "destination": "/api/prerender"
     }
   ]
 }
