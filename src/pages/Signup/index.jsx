@@ -198,40 +198,183 @@ const Signup = () => {
       <div className="flex min-h-screen">
 
         {/* ── Sidebar ── */}
-        <div className="hidden lg:flex w-[510px] bg-primary flex-col justify-between min-h-screen">
-          <div className="flex flex-col items-center justify-center gap-5 mt-44">
-            <img src={logo} alt="img" className="w-[280px]" />
-            <p className="font-poppins text-4xl font-medium text-white text-center">Gifting Made Easy</p>
-            <p className="font-poppins text-base text-white/80 text-center px-10 leading-relaxed">
+        <style>{`
+          @keyframes sidebarFadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes pulseRing {
+            0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+            70%  { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+          }
+          @keyframes checkPop {
+            0%   { transform: scale(0) rotate(-45deg); opacity: 0; }
+            60%  { transform: scale(1.25) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+          }
+          @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+          }
+          @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-6px); }
+          }
+          @keyframes connectorFill {
+            from { height: 0%; }
+            to   { height: 100%; }
+          }
+          .step-active-ring { animation: pulseRing 1.8s ease-out infinite; }
+          .check-pop        { animation: checkPop 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+          .float-icon       { animation: floatIcon 3s ease-in-out infinite; }
+          .shimmer-text {
+            background: linear-gradient(90deg, #ffffff 25%, #a0f0e8 50%, #ffffff 75%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+          }
+          .step-slide-in {
+            opacity: 0;
+            animation: sidebarFadeIn 0.5s ease forwards;
+          }
+        `}</style>
+
+        <div className="hidden lg:flex w-[510px] flex-col justify-between min-h-screen relative overflow-hidden"
+          style={{ background: "linear-gradient(160deg, #0dcdb5 0%, #0ab8a2 50%, #089e8c 100%)" }}>
+
+          {/* Background decorative circles */}
+          <div className="absolute top-[-80px] right-[-80px] w-[300px] h-[300px] rounded-full opacity-10"
+            style={{ background: "radial-gradient(circle, white 0%, transparent 70%)" }} />
+          <div className="absolute bottom-[120px] left-[-60px] w-[200px] h-[200px] rounded-full opacity-10"
+            style={{ background: "radial-gradient(circle, white 0%, transparent 70%)" }} />
+
+          {/* Top brand section */}
+          <div className="flex flex-col items-center justify-center gap-4 mt-16 px-10 z-10">
+            <div className="float-icon">
+              <img src={logo} alt="img" className="w-[200px] drop-shadow-lg" />
+            </div>
+            <p className="shimmer-text font-poppins text-3xl font-bold text-center leading-tight mt-2">
+              Gifting Made Easy
+            </p>
+            <p className="font-poppins text-sm text-white/75 text-center leading-relaxed">
               Sign up in minutes to connect with Stripe and start receiving secure cash gifts for any occasion.
             </p>
           </div>
 
-          <div className="px-10 mb-20 space-y-3">
-            {STEPS.map(step => {
-              const isCompleted = currentStep > step.id;
-              const isActive    = currentStep === step.id;
-              return (
-                <div key={step.id} className={`flex items-center gap-4 p-3 rounded-xl transition-all duration-300 ${isActive ? "bg-white/20" : ""}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300
-                    ${isCompleted || isActive ? "bg-white text-primary" : "bg-white/20 text-white"}`}>
-                    {isCompleted
-                      ? <i className="pi pi-check text-xs font-bold" />
-                      : <i className={`pi ${step.icon} text-xs`} />}
-                  </div>
-                  <div>
-                    <p className={`text-sm font-poppins font-medium ${isActive || isCompleted ? "text-white" : "text-white/50"}`}>Step {step.id}</p>
-                    <p className={`text-xs font-poppins ${isActive ? "text-white" : "text-white/50"}`}>{step.label}</p>
-                  </div>
-                  {isCompleted && <i className="pi pi-check-circle text-white ml-auto text-sm" />}
-                </div>
-              );
-            })}
+          {/* Steps section */}
+          <div className="px-8 mb-16 z-10">
+            <p className="text-white/50 text-xs font-poppins uppercase tracking-widest mb-5 pl-1">Your Progress</p>
+
+            <div className="relative">
+              {/* Vertical track line */}
+              <div className="absolute left-[19px] top-5 bottom-5 w-[2px] bg-white/15 rounded-full" />
+              {/* Filled portion */}
+              <div
+                className="absolute left-[19px] top-5 w-[2px] bg-white/70 rounded-full transition-all duration-700 ease-in-out"
+                style={{ height: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%` }}
+              />
+
+              <div className="space-y-2">
+                {STEPS.map((step, idx) => {
+                  const isCompleted = currentStep > step.id;
+                  const isActive    = currentStep === step.id;
+                  return (
+                    <div
+                      key={step.id}
+                      className="step-slide-in flex items-center gap-4 relative"
+                      style={{ animationDelay: `${idx * 0.1}s` }}
+                    >
+                      {/* Icon bubble */}
+                      <div className="relative flex-shrink-0 z-10">
+                        {/* Pulse ring on active */}
+                        {isActive && (
+                          <div className="step-active-ring absolute inset-0 rounded-full" />
+                        )}
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-400"
+                          style={{
+                            background: isCompleted
+                              ? "rgba(255,255,255,1)"
+                              : isActive
+                              ? "rgba(255,255,255,1)"
+                              : "rgba(255,255,255,0.12)",
+                            boxShadow: isActive
+                              ? "0 4px 20px rgba(0,0,0,0.15)"
+                              : isCompleted
+                              ? "0 2px 10px rgba(0,0,0,0.1)"
+                              : "none",
+                            transform: isActive ? "scale(1.1)" : "scale(1)",
+                          }}
+                        >
+                          {isCompleted ? (
+                            <i className="pi pi-check check-pop text-sm font-bold" style={{ color: "#0dcdb5" }} />
+                          ) : (
+                            <i
+                              className={`pi ${step.icon} text-sm`}
+                              style={{ color: isActive ? "#0dcdb5" : "rgba(255,255,255,0.5)" }}
+                            />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Label + pill */}
+                      <div
+                        className="flex-1 flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-400"
+                        style={{
+                          background: isActive
+                            ? "rgba(255,255,255,0.18)"
+                            : "transparent",
+                          backdropFilter: isActive ? "blur(8px)" : "none",
+                          border: isActive
+                            ? "1px solid rgba(255,255,255,0.3)"
+                            : "1px solid transparent",
+                        }}
+                      >
+                        <div>
+                          <p
+                            className="text-xs font-poppins font-semibold uppercase tracking-wider transition-all duration-300"
+                            style={{ color: isActive || isCompleted ? "white" : "rgba(255,255,255,0.4)" }}
+                          >
+                            {step.label}
+                          </p>
+                          <p
+                            className="text-xs font-poppins mt-0.5 transition-all duration-300"
+                            style={{ color: isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.3)" }}
+                          >
+                            {isCompleted ? "Completed ✓" : isActive ? "In progress..." : `Step ${step.id}`}
+                          </p>
+                        </div>
+
+                        {/* Status badge */}
+                        {isActive && (
+                          <span
+                            className="text-xs font-poppins font-semibold px-2.5 py-1 rounded-full"
+                            style={{ background: "rgba(255,255,255,0.25)", color: "white", fontSize: "10px" }}
+                          >
+                            Active
+                          </span>
+                        )}
+                        {isCompleted && (
+                          <span
+                            className="text-xs font-poppins font-semibold px-2.5 py-1 rounded-full"
+                            style={{ background: "rgba(255,255,255,0.2)", color: "white", fontSize: "10px" }}
+                          >
+                            Done
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          <p className="text-sm font-medium text-white text-center font-poppins mb-6">
+          <p className="text-sm font-medium text-white/70 text-center font-poppins mb-8 z-10">
             Having troubles?{" "}
-            <Link to="/signup-guide" className="underline">Get Help</Link>
+            <Link to="/signup-guide" className="underline text-white hover:text-white/90 transition-colors">Get Help</Link>
           </p>
         </div>
 
