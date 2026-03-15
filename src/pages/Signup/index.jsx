@@ -11,10 +11,10 @@ import { FileUpload } from 'primereact/fileupload';
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 const STEPS = [
-  { id: 1, label: "Personal Info",   icon: "pi-user"       },
-  { id: 2, label: "Address",          icon: "pi-map-marker" },
-  { id: 3, label: "Banking",          icon: "pi-credit-card"},
-  { id: 4, label: "Verification",     icon: "pi-shield"     },
+  { id: 1, label: "Personal Info",  icon: "pi-user"        },
+  { id: 2, label: "Address",        icon: "pi-map-marker"  },
+  { id: 3, label: "Banking",        icon: "pi-credit-card" },
+  { id: 4, label: "Verification",   icon: "pi-shield"      },
 ];
 
 const Signup = () => {
@@ -32,18 +32,12 @@ const Signup = () => {
     password: "",
     phoneNumber: "",
     dateOfBirth: null,
-    address: {
-      line1: "",
-      line2: "",
-      city: "",
-      state: "",
-      postalCode: ""
-    },
+    address: { line1: "", line2: "", city: "", state: "", postalCode: "" },
     iban: "",
     routingNumber: "",
     front: null,
     back: null,
-    additional: null
+    additional: null,
   });
 
   const navigate = useNavigate();
@@ -61,7 +55,6 @@ const Signup = () => {
     getIpAddress();
   }, []);
 
-  // Per-step validation
   const validateStep = (step) => {
     const errors = {};
     const emptyFields = [];
@@ -82,10 +75,10 @@ const Signup = () => {
     }
 
     if (step === 2) {
-      if (!userdata.address.line1)       { errors.addressLine1      = true; emptyFields.push("Address Line 1"); }
-      if (!userdata.address.city)        { errors.addressCity       = true; emptyFields.push("City"); }
-      if (!userdata.address.state)       { errors.addressState      = true; emptyFields.push("State"); }
-      if (!userdata.address.postalCode)  { errors.addressPostalCode = true; emptyFields.push("Postal Code"); }
+      if (!userdata.address.line1)      { errors.addressLine1      = true; emptyFields.push("Address Line 1"); }
+      if (!userdata.address.city)       { errors.addressCity       = true; emptyFields.push("City"); }
+      if (!userdata.address.state)      { errors.addressState      = true; emptyFields.push("State"); }
+      if (!userdata.address.postalCode) { errors.addressPostalCode = true; emptyFields.push("Postal Code"); }
     }
 
     if (step === 3) {
@@ -103,7 +96,7 @@ const Signup = () => {
       toast.current.show({
         severity: "error",
         detail: `Please fill in: ${emptyFields.join(", ")}`,
-        life: 5000
+        life: 5000,
       });
     }
 
@@ -112,9 +105,7 @@ const Signup = () => {
   };
 
   const handleNext = () => {
-    if (validateStep(currentStep)) {
-      setCurrentStep(prev => prev + 1);
-    }
+    if (validateStep(currentStep)) setCurrentStep(prev => prev + 1);
   };
 
   const handleBack = () => {
@@ -129,15 +120,15 @@ const Signup = () => {
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append('firstName',    userdata.firstName);
-      formData.append('lastName',     userdata.lastName);
-      formData.append('email',        userdata.email);
-      formData.append('password',     userdata.password);
-      formData.append('phoneNumber',  userdata.phoneNumber);
-      formData.append('dateOfBirth',  userdata.dateOfBirth);
-      formData.append('iban',         userdata.iban);
-      formData.append('routingNumber',userdata.routingNumber);
-      formData.append('ip',           ipAddress);
+      formData.append('firstName',           userdata.firstName);
+      formData.append('lastName',            userdata.lastName);
+      formData.append('email',               userdata.email);
+      formData.append('password',            userdata.password);
+      formData.append('phoneNumber',         userdata.phoneNumber);
+      formData.append('dateOfBirth',         userdata.dateOfBirth);
+      formData.append('iban',                userdata.iban);
+      formData.append('routingNumber',       userdata.routingNumber);
+      formData.append('ip',                  ipAddress);
       formData.append('address[line1]',      userdata.address.line1);
       formData.append('address[line2]',      userdata.address.line2);
       formData.append('address[city]',       userdata.address.city);
@@ -147,44 +138,42 @@ const Signup = () => {
       if (userdata.back)       formData.append('back',       userdata.back);
       if (userdata.additional) formData.append('additional', userdata.additional);
 
-      let response = await UserSignup(formData);
+      const response = await UserSignup(formData);
       if (response.status === 200 || response.status === 201) {
         toast.current.show({
           severity: "success",
-          detail: `${response?.data?.message || 'Account created successfully!'}`,
-          life: 5000
+          detail: response?.data?.message || 'Account created successfully!',
+          life: 5000,
         });
         setuserdata({
           firstName: "", lastName: "", email: "", password: "",
           phoneNumber: "", dateOfBirth: null,
           address: { line1: "", line2: "", city: "", state: "", postalCode: "" },
-          iban: "", routingNumber: "", front: null, back: null, additional: null
+          iban: "", routingNumber: "", front: null, back: null, additional: null,
         });
         setChecked(false);
         setFieldErrors({});
         setCurrentStep(1);
       }
     } catch (err) {
-      console.log(err);
       const errorMessage = err.response?.data?.message || 'An error occurred';
       toast.current.show({ severity: "error", detail: errorMessage });
-
       if (err.response?.data?.message) {
-        const message = err.response.data.message.toLowerCase();
-        const errors = { ...fieldErrors };
-        if (message.includes('phone number'))   errors.phoneNumber      = true;
-        if (message.includes('email'))          errors.email            = true;
-        if (message.includes('iban'))           errors.iban             = true;
-        if (message.includes('routing number')) errors.routingNumber    = true;
-        if (message.includes('postal code'))    errors.addressPostalCode= true;
-        if (message.includes('state'))          errors.addressState     = true;
-        if (message.includes('city'))           errors.addressCity      = true;
-        if (message.includes('address'))        errors.addressLine1     = true;
-        if (message.includes('first name'))     errors.firstName        = true;
-        if (message.includes('last name'))      errors.lastName         = true;
-        if (message.includes('password'))       errors.password         = true;
-        if (message.includes('date of birth'))  errors.dateOfBirth      = true;
-        if (message.includes('id document'))  { errors.front = true; errors.back = true; }
+        const msg = err.response.data.message.toLowerCase();
+        const errors = {};
+        if (msg.includes('phone number'))   errors.phoneNumber      = true;
+        if (msg.includes('email'))          errors.email            = true;
+        if (msg.includes('iban'))           errors.iban             = true;
+        if (msg.includes('routing number')) errors.routingNumber    = true;
+        if (msg.includes('postal code'))    errors.addressPostalCode= true;
+        if (msg.includes('state'))          errors.addressState     = true;
+        if (msg.includes('city'))           errors.addressCity      = true;
+        if (msg.includes('address'))        errors.addressLine1     = true;
+        if (msg.includes('first name'))     errors.firstName        = true;
+        if (msg.includes('last name'))      errors.lastName         = true;
+        if (msg.includes('password'))       errors.password         = true;
+        if (msg.includes('date of birth'))  errors.dateOfBirth      = true;
+        if (msg.includes('id document'))  { errors.front = true; errors.back = true; }
         setFieldErrors(errors);
       }
     } finally {
@@ -194,295 +183,45 @@ const Signup = () => {
 
   const handleFileUpload = (e, type) => {
     const file = e.files[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        toast.current.show({ severity: "error", detail: "File size must be less than 5MB" });
-        setFieldErrors(prev => ({ ...prev, [type]: true }));
-        return;
-      }
-      setuserdata(prev => ({ ...prev, [type]: file }));
-      setFieldErrors(prev => ({ ...prev, [type]: false }));
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast.current.show({ severity: "error", detail: "File size must be less than 5MB" });
+      setFieldErrors(prev => ({ ...prev, [type]: true }));
+      return;
     }
+    setuserdata(prev => ({ ...prev, [type]: file }));
+    setFieldErrors(prev => ({ ...prev, [type]: false }));
   };
-
-  // ── Stepper header ──────────────────────────────────────────────────────────
-  const StepperHeader = () => (
-    <div className="flex items-center w-full mb-8">
-      {STEPS.map((step, index) => {
-        const isCompleted = currentStep > step.id;
-        const isActive    = currentStep === step.id;
-        return (
-          <React.Fragment key={step.id}>
-            {/* Step circle */}
-            <div className="flex flex-col items-center flex-shrink-0">
-              <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border-2
-                  ${isCompleted
-                    ? "bg-primary border-primary text-white"
-                    : isActive
-                    ? "bg-white border-primary text-primary"
-                    : "bg-white border-gray-300 text-gray-400"
-                  }`}
-              >
-                {isCompleted
-                  ? <i className="pi pi-check text-sm font-bold" />
-                  : <i className={`pi ${step.icon} text-sm`} />
-                }
-              </div>
-              <span
-                className={`mt-1 text-xs font-medium font-poppins whitespace-nowrap transition-colors duration-300
-                  ${isActive ? "text-primary" : isCompleted ? "text-primary" : "text-gray-400"}`}
-              >
-                {step.label}
-              </span>
-            </div>
-
-            {/* Connector line */}
-            {index < STEPS.length - 1 && (
-              <div className={`flex-1 h-0.5 mx-2 mb-4 transition-all duration-300
-                ${currentStep > step.id ? "bg-primary" : "bg-gray-200"}`}
-              />
-            )}
-          </React.Fragment>
-        );
-      })}
-    </div>
-  );
-
-  // ── Step panels ─────────────────────────────────────────────────────────────
-  const Step1 = () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-xl font-semibold font-poppins text-gray-800">Personal Information</p>
-        <p className="text-sm text-gray-400 font-poppins mt-1">Tell us a bit about yourself</p>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <FloatInput
-          value={userdata.firstName}
-          onChange={(e) => { setuserdata({ ...userdata, firstName: e.target.value }); setFieldErrors(prev => ({ ...prev, firstName: false })); }}
-          id="firstName" label="First Name"
-          className={fieldErrors.firstName ? "border-red-500" : ""}
-        />
-        <FloatInput
-          value={userdata.lastName}
-          onChange={(e) => { setuserdata({ ...userdata, lastName: e.target.value }); setFieldErrors(prev => ({ ...prev, lastName: false })); }}
-          id="lastName" label="Last Name"
-          className={fieldErrors.lastName ? "border-red-500" : ""}
-        />
-      </div>
-      <FloatInput
-        value={userdata.email}
-        onChange={(e) => { setuserdata({ ...userdata, email: e.target.value.toLowerCase() }); setFieldErrors(prev => ({ ...prev, email: false })); }}
-        id="email" label="Email address" type="email"
-        className={fieldErrors.email ? "border-red-500" : ""}
-      />
-      <PasswordInput
-        value={userdata.password}
-        onChange={(e) => { setuserdata({ ...userdata, password: e.target.value }); setFieldErrors(prev => ({ ...prev, password: false })); }}
-        id="password" label="Password"
-        className={fieldErrors.password ? "border-red-500" : ""}
-      />
-      <FloatInput
-        value={userdata.phoneNumber}
-        onChange={(e) => { setuserdata({ ...userdata, phoneNumber: e.target.value }); setFieldErrors(prev => ({ ...prev, phoneNumber: false })); }}
-        id="phoneNumber" label="Phone Number (e.g. +61...)" type="tel"
-        className={fieldErrors.phoneNumber ? "border-red-500" : ""}
-      />
-      <div className="flex flex-col">
-        <label className="mb-2 text-sm font-poppins text-gray-600">Date of Birth</label>
-        <Calendar
-          value={userdata.dateOfBirth}
-          onChange={(e) => { setuserdata({ ...userdata, dateOfBirth: e.value }); setFieldErrors(prev => ({ ...prev, dateOfBirth: false })); }}
-          dateFormat="dd/mm/yy"
-          className={`w-full ${fieldErrors.dateOfBirth ? "border-red-500" : ""}`}
-          placeholder="DD/MM/YYYY"
-        />
-      </div>
-    </div>
-  );
-
-  const Step2 = () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-xl font-semibold font-poppins text-gray-800">Your Address</p>
-        <p className="text-sm text-gray-400 font-poppins mt-1">We need your residential address</p>
-      </div>
-      <FloatInput
-        value={userdata.address.line1}
-        onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, line1: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressLine1: false })); }}
-        id="addressLine1" label="Address Line 1"
-        className={fieldErrors.addressLine1 ? "border-red-500" : ""}
-      />
-      <FloatInput
-        value={userdata.address.line2}
-        onChange={(e) => setuserdata({ ...userdata, address: { ...userdata.address, line2: e.target.value } })}
-        id="addressLine2" label="Address Line 2 (Optional)"
-      />
-      <div className="grid grid-cols-2 gap-4">
-        <FloatInput
-          value={userdata.address.city}
-          onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, city: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressCity: false })); }}
-          id="city" label="City"
-          className={fieldErrors.addressCity ? "border-red-500" : ""}
-        />
-        <FloatInput
-          value={userdata.address.state}
-          onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, state: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressState: false })); }}
-          id="state" label="State"
-          className={fieldErrors.addressState ? "border-red-500" : ""}
-        />
-      </div>
-      <FloatInput
-        value={userdata.address.postalCode}
-        onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, postalCode: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressPostalCode: false })); }}
-        id="postalCode" label="Postal Code"
-        className={fieldErrors.addressPostalCode ? "border-red-500" : ""}
-      />
-    </div>
-  );
-
-  const Step3 = () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-xl font-semibold font-poppins text-gray-800">Banking Details</p>
-        <p className="text-sm text-gray-400 font-poppins mt-1">Your bank account where gifts will be deposited</p>
-      </div>
-      <FloatInput
-        value={userdata.iban}
-        onChange={(e) => { setuserdata({ ...userdata, iban: e.target.value }); setFieldErrors(prev => ({ ...prev, iban: false })); }}
-        id="iban" label="IBAN / Bank Account Number"
-        className={fieldErrors.iban ? "border-red-500" : ""}
-      />
-      <FloatInput
-        value={userdata.routingNumber}
-        onChange={(e) => { setuserdata({ ...userdata, routingNumber: e.target.value }); setFieldErrors(prev => ({ ...prev, routingNumber: false })); }}
-        id="routingNumber" label="Routing Number / BSB Number"
-        className={fieldErrors.routingNumber ? "border-red-500" : ""}
-      />
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-        <div className="flex items-start gap-3">
-          <i className="pi pi-info-circle text-blue-400 mt-0.5" />
-          <p className="text-xs text-blue-600 font-poppins leading-relaxed">
-            Your banking details are encrypted and processed securely through Stripe. We never store your full account credentials.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-
-  const Step4 = () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-xl font-semibold font-poppins text-gray-800">Verify Your Identity</p>
-        <p className="text-sm text-gray-400 font-poppins mt-1">Upload a government-issued photo ID</p>
-      </div>
-
-      <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
-        <div className="flex items-start gap-3">
-          <i className="pi pi-shield text-amber-500 mt-0.5" />
-          <p className="text-xs text-amber-700 font-poppins leading-relaxed">
-            We verify IDs with Stripe to prevent fraud and keep things secure. Max file size: 5MB per image.
-          </p>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <div className={`border-2 rounded-xl p-4 transition-colors ${fieldErrors.front ? "border-red-400 bg-red-50" : userdata.front ? "border-green-400 bg-green-50" : "border-gray-200"}`}>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <i className={`pi ${userdata.front ? "pi-check-circle text-green-500" : "pi-id-card text-gray-400"}`} />
-              <span className="text-sm font-medium font-poppins text-gray-700">Front of ID</span>
-              <span className="text-xs text-red-400">*</span>
-            </div>
-            {userdata.front && <span className="text-xs text-green-600 font-poppins">{userdata.front.name}</span>}
-          </div>
-          <FileUpload
-            ref={fileUploadRef}
-            mode="basic"
-            name="front"
-            accept="image/*"
-            chooseLabel="Choose File"
-            onSelect={(e) => handleFileUpload(e, 'front')}
-            auto
-            className="w-full"
-          />
-        </div>
-
-        <div className={`border-2 rounded-xl p-4 transition-colors ${fieldErrors.back ? "border-red-400 bg-red-50" : userdata.back ? "border-green-400 bg-green-50" : "border-gray-200"}`}>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <i className={`pi ${userdata.back ? "pi-check-circle text-green-500" : "pi-id-card text-gray-400"}`} />
-              <span className="text-sm font-medium font-poppins text-gray-700">Back of ID</span>
-              <span className="text-xs text-red-400">*</span>
-            </div>
-            {userdata.back && <span className="text-xs text-green-600 font-poppins">{userdata.back.name}</span>}
-          </div>
-          <FileUpload
-            mode="basic"
-            name="back"
-            accept="image/*"
-            chooseLabel="Choose File"
-            onSelect={(e) => handleFileUpload(e, 'back')}
-            auto
-            className="w-full"
-          />
-        </div>
-      </div>
-
-      <div className={`flex gap-4 p-4 rounded-xl border-2 transition-colors ${fieldErrors.terms ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
-        <Checkbox
-          onChange={(e) => { setChecked(e.checked); setFieldErrors(prev => ({ ...prev, terms: false })); }}
-          checked={checked}
-          className={fieldErrors.terms ? "border-red-500" : ""}
-        />
-        <p className="text-xs font-normal text-gray-500 font-poppins leading-relaxed">
-          By clicking Create Account I agree that I have read and accepted the{" "}
-          <span className="text-primary cursor-pointer underline" onClick={() => navigate('/terms-and-conditions')}>Terms of Use</span>
-          {" "}and{" "}
-          <span className="text-primary cursor-pointer underline" onClick={() => navigate('/terms-and-conditions')}>Privacy Policy</span>
-        </p>
-      </div>
-    </div>
-  );
-
-  const stepComponents = { 1: Step1, 2: Step2, 3: Step3, 4: Step4 };
-  const ActiveStep = stepComponents[currentStep];
 
   return (
     <>
       <div className="flex min-h-screen">
-        {/* Sidebar */}
+
+        {/* ── Sidebar ── */}
         <div className="hidden lg:flex w-[510px] bg-primary flex-col justify-between min-h-screen">
           <div className="flex flex-col items-center justify-center gap-5 mt-44">
             <img src={logo} alt="img" className="w-[280px]" />
-            <p className="font-poppins text-4xl font-medium text-white text-center">
-              Gifting Made Easy
-            </p>
+            <p className="font-poppins text-4xl font-medium text-white text-center">Gifting Made Easy</p>
             <p className="font-poppins text-base text-white/80 text-center px-10 leading-relaxed">
               Sign up in minutes to connect with Stripe and start receiving secure cash gifts for any occasion.
             </p>
           </div>
 
-          {/* Sidebar step indicators */}
           <div className="px-10 mb-20 space-y-3">
             {STEPS.map(step => {
               const isCompleted = currentStep > step.id;
               const isActive    = currentStep === step.id;
               return (
                 <div key={step.id} className={`flex items-center gap-4 p-3 rounded-xl transition-all duration-300 ${isActive ? "bg-white/20" : ""}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${isCompleted ? "bg-white text-primary" : isActive ? "bg-white text-primary" : "bg-white/20 text-white"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300
+                    ${isCompleted || isActive ? "bg-white text-primary" : "bg-white/20 text-white"}`}>
                     {isCompleted
                       ? <i className="pi pi-check text-xs font-bold" />
-                      : <i className={`pi ${step.icon} text-xs`} />
-                    }
+                      : <i className={`pi ${step.icon} text-xs`} />}
                   </div>
                   <div>
-                    <p className={`text-sm font-poppins font-medium transition-colors ${isActive || isCompleted ? "text-white" : "text-white/50"}`}>
-                      Step {step.id}
-                    </p>
-                    <p className={`text-xs font-poppins transition-colors ${isActive ? "text-white" : "text-white/50"}`}>
-                      {step.label}
-                    </p>
+                    <p className={`text-sm font-poppins font-medium ${isActive || isCompleted ? "text-white" : "text-white/50"}`}>Step {step.id}</p>
+                    <p className={`text-xs font-poppins ${isActive ? "text-white" : "text-white/50"}`}>{step.label}</p>
                   </div>
                   {isCompleted && <i className="pi pi-check-circle text-white ml-auto text-sm" />}
                 </div>
@@ -496,7 +235,7 @@ const Signup = () => {
           </p>
         </div>
 
-        {/* Main content */}
+        {/* ── Main content ── */}
         <div className="w-full h-screen pb-[50px] overflow-y-auto">
           <Toast ref={toast} />
           <p className="mt-10 mr-10 text-sm font-medium text-right font-poppins">
@@ -505,23 +244,243 @@ const Signup = () => {
           </p>
 
           <div className="w-full px-5 md:px-0 md:w-[580px] mx-auto mt-10 md:mt-12">
+
             {/* Progress bar */}
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs text-gray-400 font-poppins">Step {currentStep} of {STEPS.length}</span>
               <span className="text-xs text-gray-400 font-poppins">{Math.round((currentStep / STEPS.length) * 100)}% complete</span>
             </div>
             <div className="w-full h-1.5 bg-gray-100 rounded-full mb-8 overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full transition-all duration-500"
-                style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
-              />
+              <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${(currentStep / STEPS.length) * 100}%` }} />
             </div>
 
-            <StepperHeader />
+            {/* Stepper header — inlined, NOT a component */}
+            <div className="flex items-center w-full mb-8">
+              {STEPS.map((step, index) => {
+                const isCompleted = currentStep > step.id;
+                const isActive    = currentStep === step.id;
+                return (
+                  <React.Fragment key={step.id}>
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border-2
+                        ${isCompleted ? "bg-primary border-primary text-white"
+                          : isActive  ? "bg-white border-primary text-primary"
+                          :             "bg-white border-gray-300 text-gray-400"}`}>
+                        {isCompleted
+                          ? <i className="pi pi-check text-sm font-bold" />
+                          : <i className={`pi ${step.icon} text-sm`} />}
+                      </div>
+                      <span className={`mt-1 text-xs font-medium font-poppins whitespace-nowrap transition-colors duration-300
+                        ${isActive || isCompleted ? "text-primary" : "text-gray-400"}`}>
+                        {step.label}
+                      </span>
+                    </div>
+                    {index < STEPS.length - 1 && (
+                      <div className={`flex-1 h-0.5 mx-2 mb-4 transition-all duration-300 ${currentStep > step.id ? "bg-primary" : "bg-gray-200"}`} />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
 
             <form onSubmit={handleSubmit} className="pb-10">
-              <div className="min-h-[340px]">
-                <ActiveStep />
+              <div className="min-h-[340px] space-y-6">
+
+                {/* ── Step 1: Personal Info ── */}
+                {currentStep === 1 && (
+                  <>
+                    <div>
+                      <p className="text-xl font-semibold font-poppins text-gray-800">Personal Information</p>
+                      <p className="text-sm text-gray-400 font-poppins mt-1">Tell us a bit about yourself</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <FloatInput
+                        value={userdata.firstName}
+                        onChange={(e) => { setuserdata({ ...userdata, firstName: e.target.value }); setFieldErrors(prev => ({ ...prev, firstName: false })); }}
+                        id="firstName" label="First Name"
+                        className={fieldErrors.firstName ? "border-red-500" : ""}
+                      />
+                      <FloatInput
+                        value={userdata.lastName}
+                        onChange={(e) => { setuserdata({ ...userdata, lastName: e.target.value }); setFieldErrors(prev => ({ ...prev, lastName: false })); }}
+                        id="lastName" label="Last Name"
+                        className={fieldErrors.lastName ? "border-red-500" : ""}
+                      />
+                    </div>
+                    <FloatInput
+                      value={userdata.email}
+                      onChange={(e) => { setuserdata({ ...userdata, email: e.target.value.toLowerCase() }); setFieldErrors(prev => ({ ...prev, email: false })); }}
+                      id="email" label="Email address" type="email"
+                      className={fieldErrors.email ? "border-red-500" : ""}
+                    />
+                    <PasswordInput
+                      value={userdata.password}
+                      onChange={(e) => { setuserdata({ ...userdata, password: e.target.value }); setFieldErrors(prev => ({ ...prev, password: false })); }}
+                      id="password" label="Password"
+                      className={fieldErrors.password ? "border-red-500" : ""}
+                    />
+                    <FloatInput
+                      value={userdata.phoneNumber}
+                      onChange={(e) => { setuserdata({ ...userdata, phoneNumber: e.target.value }); setFieldErrors(prev => ({ ...prev, phoneNumber: false })); }}
+                      id="phoneNumber" label="Phone Number (e.g. +61...)" type="tel"
+                      className={fieldErrors.phoneNumber ? "border-red-500" : ""}
+                    />
+                    <div className="flex flex-col">
+                      <label className="mb-2 text-sm font-poppins text-gray-600">Date of Birth</label>
+                      <Calendar
+                        value={userdata.dateOfBirth}
+                        onChange={(e) => { setuserdata({ ...userdata, dateOfBirth: e.value }); setFieldErrors(prev => ({ ...prev, dateOfBirth: false })); }}
+                        dateFormat="dd/mm/yy"
+                        placeholder="DD/MM/YYYY"
+                        className={`w-full ${fieldErrors.dateOfBirth ? "border-red-500" : ""}`}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {/* ── Step 2: Address ── */}
+                {currentStep === 2 && (
+                  <>
+                    <div>
+                      <p className="text-xl font-semibold font-poppins text-gray-800">Your Address</p>
+                      <p className="text-sm text-gray-400 font-poppins mt-1">We need your residential address</p>
+                    </div>
+                    <FloatInput
+                      value={userdata.address.line1}
+                      onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, line1: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressLine1: false })); }}
+                      id="addressLine1" label="Address Line 1"
+                      className={fieldErrors.addressLine1 ? "border-red-500" : ""}
+                    />
+                    <FloatInput
+                      value={userdata.address.line2}
+                      onChange={(e) => setuserdata({ ...userdata, address: { ...userdata.address, line2: e.target.value } })}
+                      id="addressLine2" label="Address Line 2 (Optional)"
+                    />
+                    <div className="grid grid-cols-2 gap-4">
+                      <FloatInput
+                        value={userdata.address.city}
+                        onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, city: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressCity: false })); }}
+                        id="city" label="City"
+                        className={fieldErrors.addressCity ? "border-red-500" : ""}
+                      />
+                      <FloatInput
+                        value={userdata.address.state}
+                        onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, state: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressState: false })); }}
+                        id="state" label="State"
+                        className={fieldErrors.addressState ? "border-red-500" : ""}
+                      />
+                    </div>
+                    <FloatInput
+                      value={userdata.address.postalCode}
+                      onChange={(e) => { setuserdata({ ...userdata, address: { ...userdata.address, postalCode: e.target.value } }); setFieldErrors(prev => ({ ...prev, addressPostalCode: false })); }}
+                      id="postalCode" label="Postal Code"
+                      className={fieldErrors.addressPostalCode ? "border-red-500" : ""}
+                    />
+                  </>
+                )}
+
+                {/* ── Step 3: Banking ── */}
+                {currentStep === 3 && (
+                  <>
+                    <div>
+                      <p className="text-xl font-semibold font-poppins text-gray-800">Banking Details</p>
+                      <p className="text-sm text-gray-400 font-poppins mt-1">Your bank account where gifts will be deposited</p>
+                    </div>
+                    <FloatInput
+                      value={userdata.iban}
+                      onChange={(e) => { setuserdata({ ...userdata, iban: e.target.value }); setFieldErrors(prev => ({ ...prev, iban: false })); }}
+                      id="iban" label="IBAN / Bank Account Number"
+                      className={fieldErrors.iban ? "border-red-500" : ""}
+                    />
+                    <FloatInput
+                      value={userdata.routingNumber}
+                      onChange={(e) => { setuserdata({ ...userdata, routingNumber: e.target.value }); setFieldErrors(prev => ({ ...prev, routingNumber: false })); }}
+                      id="routingNumber" label="Routing Number / BSB Number"
+                      className={fieldErrors.routingNumber ? "border-red-500" : ""}
+                    />
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+                      <div className="flex items-start gap-3">
+                        <i className="pi pi-info-circle text-blue-400 mt-0.5" />
+                        <p className="text-xs text-blue-600 font-poppins leading-relaxed">
+                          Your banking details are encrypted and processed securely through Stripe. We never store your full account credentials.
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* ── Step 4: Verification ── */}
+                {currentStep === 4 && (
+                  <>
+                    <div>
+                      <p className="text-xl font-semibold font-poppins text-gray-800">Verify Your Identity</p>
+                      <p className="text-sm text-gray-400 font-poppins mt-1">Upload a government-issued photo ID</p>
+                    </div>
+                    <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
+                      <div className="flex items-start gap-3">
+                        <i className="pi pi-shield text-amber-500 mt-0.5" />
+                        <p className="text-xs text-amber-700 font-poppins leading-relaxed">
+                          We verify IDs with Stripe to prevent fraud and keep things secure. Max file size: 5MB per image.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className={`border-2 rounded-xl p-4 transition-colors ${fieldErrors.front ? "border-red-400 bg-red-50" : userdata.front ? "border-green-400 bg-green-50" : "border-gray-200"}`}>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <i className={`pi ${userdata.front ? "pi-check-circle text-green-500" : "pi-id-card text-gray-400"}`} />
+                            <span className="text-sm font-medium font-poppins text-gray-700">Front of ID</span>
+                            <span className="text-xs text-red-400">*</span>
+                          </div>
+                          {userdata.front && <span className="text-xs text-green-600 font-poppins">{userdata.front.name}</span>}
+                        </div>
+                        <FileUpload
+                          ref={fileUploadRef}
+                          mode="basic"
+                          name="front"
+                          accept="image/*"
+                          chooseLabel="Choose File"
+                          onSelect={(e) => handleFileUpload(e, 'front')}
+                          auto
+                          className="w-full"
+                        />
+                      </div>
+                      <div className={`border-2 rounded-xl p-4 transition-colors ${fieldErrors.back ? "border-red-400 bg-red-50" : userdata.back ? "border-green-400 bg-green-50" : "border-gray-200"}`}>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <i className={`pi ${userdata.back ? "pi-check-circle text-green-500" : "pi-id-card text-gray-400"}`} />
+                            <span className="text-sm font-medium font-poppins text-gray-700">Back of ID</span>
+                            <span className="text-xs text-red-400">*</span>
+                          </div>
+                          {userdata.back && <span className="text-xs text-green-600 font-poppins">{userdata.back.name}</span>}
+                        </div>
+                        <FileUpload
+                          mode="basic"
+                          name="back"
+                          accept="image/*"
+                          chooseLabel="Choose File"
+                          onSelect={(e) => handleFileUpload(e, 'back')}
+                          auto
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                    <div className={`flex gap-4 p-4 rounded-xl border-2 transition-colors ${fieldErrors.terms ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
+                      <Checkbox
+                        onChange={(e) => { setChecked(e.checked); setFieldErrors(prev => ({ ...prev, terms: false })); }}
+                        checked={checked}
+                        className={fieldErrors.terms ? "border-red-500" : ""}
+                      />
+                      <p className="text-xs font-normal text-gray-500 font-poppins leading-relaxed">
+                        By clicking Create Account I agree that I have read and accepted the{" "}
+                        <span className="text-primary cursor-pointer underline" onClick={() => navigate('/terms-and-conditions')}>Terms of Use</span>
+                        {" "}and{" "}
+                        <span className="text-primary cursor-pointer underline" onClick={() => navigate('/terms-and-conditions')}>Privacy Policy</span>
+                      </p>
+                    </div>
+                  </>
+                )}
+
               </div>
 
               {/* Navigation buttons */}
@@ -536,7 +495,6 @@ const Signup = () => {
                     Back
                   </button>
                 )}
-
                 {currentStep < STEPS.length ? (
                   <button
                     type="button"
@@ -549,8 +507,8 @@ const Signup = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="flex items-center gap-2 px-8 h-[48px] bg-primary text-white font-poppins text-sm rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
                     disabled={loading}
+                    className="flex items-center gap-2 px-8 h-[48px] bg-primary text-white font-poppins text-sm rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
                   >
                     {loading ? (
                       <>
