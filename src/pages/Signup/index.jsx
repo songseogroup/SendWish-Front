@@ -229,7 +229,7 @@ const Signup = () => {
           .check-pop        { animation: checkPop 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
           .float-icon       { animation: floatIcon 3s ease-in-out infinite; }
           .shimmer-text {
-            background: linear-gradient(90deg, #ffffff 25%, #a0f0e8 50%, #ffffff 75%);
+            background: linear-gradient(90deg, #111111 25%, #0dcdb5 50%, #111111 75%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -258,22 +258,22 @@ const Signup = () => {
             <p className="shimmer-text font-poppins text-3xl font-bold text-center leading-tight mt-2">
               Gifting Made Easy
             </p>
-            <p className="font-poppins text-sm text-white/75 text-center leading-relaxed">
+            <p className="font-poppins text-sm text-center leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>
               Sign up in minutes to connect with Stripe and start receiving secure cash gifts for any occasion.
             </p>
           </div>
 
           {/* Steps section */}
           <div className="px-8 mb-16 z-10">
-            <p className="text-white/50 text-xs font-poppins uppercase tracking-widest mb-5 pl-1">Your Progress</p>
+            <p className="text-xs font-poppins uppercase tracking-widest mb-5 pl-1" style={{ color: "rgba(0,0,0,0.4)" }}>Your Progress</p>
 
             <div className="relative">
               {/* Vertical track line */}
-              <div className="absolute left-[19px] top-5 bottom-5 w-[2px] bg-white/15 rounded-full" />
+              <div className="absolute left-[19px] top-5 bottom-5 w-[2px] rounded-full" style={{ background: "rgba(0,0,0,0.1)" }} />
               {/* Filled portion */}
               <div
-                className="absolute left-[19px] top-5 w-[2px] bg-white/70 rounded-full transition-all duration-700 ease-in-out"
-                style={{ height: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%` }}
+                className="absolute left-[19px] top-5 w-[2px] rounded-full transition-all duration-700 ease-in-out"
+                style={{ height: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%`, background: "rgba(0,0,0,0.45)" }}
               />
 
               <div className="space-y-2">
@@ -324,24 +324,24 @@ const Signup = () => {
                         className="flex-1 flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-400"
                         style={{
                           background: isActive
-                            ? "rgba(255,255,255,0.18)"
+                            ? "rgba(255,255,255,0.28)"
                             : "transparent",
                           backdropFilter: isActive ? "blur(8px)" : "none",
                           border: isActive
-                            ? "1px solid rgba(255,255,255,0.3)"
+                            ? "1px solid rgba(255,255,255,0.5)"
                             : "1px solid transparent",
                         }}
                       >
                         <div>
                           <p
                             className="text-xs font-poppins font-semibold uppercase tracking-wider transition-all duration-300"
-                            style={{ color: isActive || isCompleted ? "white" : "rgba(255,255,255,0.4)" }}
+                            style={{ color: isActive || isCompleted ? "#111111" : "rgba(0,0,0,0.35)" }}
                           >
                             {step.label}
                           </p>
                           <p
                             className="text-xs font-poppins mt-0.5 transition-all duration-300"
-                            style={{ color: isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.3)" }}
+                            style={{ color: isActive ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.3)" }}
                           >
                             {isCompleted ? "Completed ✓" : isActive ? "In progress..." : `Step ${step.id}`}
                           </p>
@@ -351,7 +351,7 @@ const Signup = () => {
                         {isActive && (
                           <span
                             className="text-xs font-poppins font-semibold px-2.5 py-1 rounded-full"
-                            style={{ background: "rgba(255,255,255,0.25)", color: "white", fontSize: "10px" }}
+                            style={{ background: "rgba(0,0,0,0.12)", color: "#111111", fontSize: "10px" }}
                           >
                             Active
                           </span>
@@ -359,7 +359,7 @@ const Signup = () => {
                         {isCompleted && (
                           <span
                             className="text-xs font-poppins font-semibold px-2.5 py-1 rounded-full"
-                            style={{ background: "rgba(255,255,255,0.2)", color: "white", fontSize: "10px" }}
+                            style={{ background: "rgba(0,0,0,0.1)", color: "#111111", fontSize: "10px" }}
                           >
                             Done
                           </span>
@@ -372,9 +372,9 @@ const Signup = () => {
             </div>
           </div>
 
-          <p className="text-sm font-medium text-white/70 text-center font-poppins mb-8 z-10">
+          <p className="text-sm font-medium text-center font-poppins mb-8 z-10" style={{ color: "rgba(0,0,0,0.5)" }}>
             Having troubles?{" "}
-            <Link to="/signup-guide" className="underline text-white hover:text-white/90 transition-colors">Get Help</Link>
+            <Link to="/signup-guide" className="underline transition-colors" style={{ color: "rgba(0,0,0,0.75)" }}>Get Help</Link>
           </p>
         </div>
 
