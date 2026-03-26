@@ -55,6 +55,17 @@ const Signup = () => {
     getIpAddress();
   }, []);
 
+  const normalizePhoneNumber = (input = "") => {
+    const trimmed = input.trim();
+    if (!trimmed) return "";
+
+    const cleaned = trimmed.replace(/[^\d+]/g, "");
+    if (cleaned.startsWith("+")) return cleaned;
+    if (cleaned.startsWith("0")) return `+61${cleaned.slice(1)}`;
+    if (cleaned.startsWith("61")) return `+${cleaned}`;
+    return `+61${cleaned}`;
+  };
+
   const validateStep = (step) => {
     const errors = {};
     const emptyFields = [];
@@ -67,9 +78,9 @@ const Signup = () => {
       if (!userdata.phoneNumber) {
         errors.phoneNumber = true;
         emptyFields.push("Phone Number");
-      } else if (!userdata.phoneNumber.startsWith('+61')) {
+      } else if (!normalizePhoneNumber(userdata.phoneNumber).startsWith('+61')) {
         errors.phoneNumber = true;
-        emptyFields.push("Phone Number (must start with +61)");
+        emptyFields.push("Phone Number");
       }
       if (!userdata.dateOfBirth) { errors.dateOfBirth = true; emptyFields.push("Date of Birth"); }
     }
@@ -95,7 +106,7 @@ const Signup = () => {
     if (emptyFields.length > 0) {
       toast.current.show({
         severity: "error",
-        detail: `Please fill in: ${emptyFields.join(", ")}`,
+        detail: "Please check the highlighted fields and try again.",
         life: 5000,
       });
     }
@@ -124,7 +135,7 @@ const Signup = () => {
       formData.append('lastName',            userdata.lastName);
       formData.append('email',               userdata.email);
       formData.append('password',            userdata.password);
-      formData.append('phoneNumber',         userdata.phoneNumber);
+      formData.append('phoneNumber',         normalizePhoneNumber(userdata.phoneNumber));
       formData.append('dateOfBirth',         userdata.dateOfBirth);
       formData.append('iban',                userdata.iban);
       formData.append('routingNumber',       userdata.routingNumber);
@@ -238,6 +249,18 @@ const Signup = () => {
           .step-slide-in {
             opacity: 0;
             animation: sidebarFadeIn 0.5s ease forwards;
+          }
+          .p-fileupload .p-button {
+            border-color: #0e7a68 !important;
+            background: #26c9b7 !important;
+            color: #ffffff !important;
+          }
+          .p-fileupload .p-button:hover {
+            background: #1fb4a4 !important;
+            border-color: #0c6a5a !important;
+          }
+          .p-fileupload .p-button:focus {
+            box-shadow: 0 0 0 0.2rem rgba(14, 122, 104, 0.28) !important;
           }
         `}</style>
 
@@ -465,9 +488,14 @@ const Signup = () => {
                     <FloatInput
                       value={userdata.phoneNumber}
                       onChange={(e) => { setuserdata({ ...userdata, phoneNumber: e.target.value }); setFieldErrors(prev => ({ ...prev, phoneNumber: false })); }}
-                      id="phoneNumber" label="Phone Number (e.g. +61...)" type="tel"
+                      id="phoneNumber" label="Phone Number" type="tel"
                       className={fieldErrors.phoneNumber ? "border-red-500" : ""}
                     />
+                    {fieldErrors.phoneNumber && (
+                      <p className="text-xs text-red-500 font-poppins -mt-4">
+                        Please enter a valid Australian mobile number. We will add +61 automatically.
+                      </p>
+                    )}
                     <div className="flex flex-col">
                       <label className="mb-2 text-sm font-poppins text-gray-600">Date of Birth</label>
                       <Calendar
@@ -621,6 +649,13 @@ const Signup = () => {
                         <span className="text-primary cursor-pointer underline" onClick={() => navigate('/terms-and-conditions')}>Privacy Policy</span>
                       </p>
                     </div>
+                    {(fieldErrors.front || fieldErrors.back || fieldErrors.terms) && (
+                      <div className="rounded-xl border border-red-300 bg-red-50 p-3">
+                        <p className="text-sm text-red-700 font-poppins">
+                          Please complete all required verification fields before creating your account.
+                        </p>
+                      </div>
+                    )}
                   </>
                 )}
 
