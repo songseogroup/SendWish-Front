@@ -152,7 +152,7 @@ const EventCreate = () => {
         <h1 className="font-poppins font-medium text-[24px] md: mb-10 text-center">
          Create Your Event
         </h1>
-        <div className="flex flex-col gap-5 mt-8">
+        <div className="flex flex-col gap-2 mt-8">
           <div className="flex flex-col gap-2">
             <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
              Event Date *
