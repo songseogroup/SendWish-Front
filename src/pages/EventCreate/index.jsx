@@ -185,7 +185,7 @@ const EventCreate = () => {
               id="URL"
               label="Event Url e.g (Jane and John Wedding)"
               labelclass="!text-[#84818A] !text-[14px]"
-              className="!border-0 !border-primary !border-b !rounded-none !pb-0 !pl-0 !text-[14px] "
+              className="!border-0 !border-primary !border-b !rounded-none !pl-0 !pt-4 !pb-2 !text-[14px]"
             />
           </div>
           <p className="text-[#202020] font-poppins font-[500] text-[14px] ">
