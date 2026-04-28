@@ -17,7 +17,7 @@ const FloatInput = ({labelclass='',label="",id,...props}) => {
       {...props}
       className={twMerge(props.className, hasValue ? "p-filled" : "")}
     />
-    {/* <label 
+   <label 
         htmlFor={id} 
         className={twMerge(
           'font-poppins label-base', 
@@ -25,7 +25,7 @@ const FloatInput = ({labelclass='',label="",id,...props}) => {
         )}
       >
         {label}
-      </label> */}
+      </label> 
   </FloatLabel>
   
   )
