@@ -183,7 +183,8 @@ const EventCreate = () => {
                 seteventData({ ...eventData, URL: e.target.value })
               }
               id="URL"
-              label="Event Url e.g (Jane and John Wedding)"
+              label=""
+              placeholder="Event Url e.g (Jane and John Wedding)"
               labelclass="!text-[#84818A] !text-[14px]"
               className="!border-0 !border-primary !border-b !rounded-none !pl-0 !pt-4 !pb-2 !text-[14px]"
             />
